@@ -3,9 +3,9 @@ class CreateUsersHomeworksTasksComments < ActiveRecord::Migration
     create_table :users do |t|
       t.string :name
       t.string :username
-      t.string :password
-      t.string :role
-      t.reference :teacher, index: true
+      t.string :password_digest
+      t.string :role, limit: 1
+      t.references :teacher, index: true
     end
 
     create_table :homeworks do |t|
