@@ -14,7 +14,12 @@ get '/teacher' do
   erb :'teacher/index'
 end
 
-get '/teacher/homework' do
+get '/teacher/new_student' do
+  # @student = Student.new
+  erb :'teacher/new_student'
+end
+
+get '/teacher/homework/:id' do
   erb :'teacher/homework'
 end
 
@@ -23,24 +28,25 @@ get '/teacher/new_homework' do
   erb :'teacher/new_homework'
 end
 
-get '/teacher/new_student' do
-  # @student = Student.new
-  erb :'teacher/new_student'
-end
-
 get '/teacher/:id' do
   # @student = User.find params[:id]
-  erb :'teacher/show'
+  erb :'teacher/homework_show'
 end
 
 #gets for student
 
 get '/student' do
   # @homework = Home.all
-  erb :'teacher/index'
+  erb :'student/index'
 end
 
 get '/student/:id' do
   # @homework = Homework.find params[:id]
-  erb :'teacher/show'
+  erb :'student/show'
+end
+
+helpers do
+  def current_user
+    User.find(session[:current_user])
+  end
 end
