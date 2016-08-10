@@ -11,6 +11,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20160810203953) do
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "feedback"
+    t.string   "url"
+    t.integer  "homework_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+  end
+
+  create_table "homeworks", force: :cascade do |t|
+    t.string   "title"
+    t.string   "note"
+    t.integer  "user_id"
+    t.datetime "created_at"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string  "item"
+    t.string  "url"
+    t.integer "homework_id"
+    t.boolean "complete"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string  "name"
+    t.string  "username"
+    t.string  "password_digest"
+    t.string  "role",            limit: 1
+    t.integer "teacher_id"
+  end
+
+  add_index "users", ["teacher_id"], name: "index_users_on_teacher_id"
 
 end
