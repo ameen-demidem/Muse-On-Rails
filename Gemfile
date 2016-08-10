@@ -1,6 +1,7 @@
 # A sample Gemfile
 source "https://rubygems.org"
 
+gem 'faker'
 gem 'rake'
 gem 'activesupport'
 
