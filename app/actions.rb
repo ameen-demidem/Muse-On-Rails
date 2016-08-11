@@ -41,6 +41,11 @@ end
 
 #gets for student
 
+before '/student*' do
+  redirect '/login' if !current_user
+  redirect '/teacher/students' if current_user.role == 'T'
+end
+
 get '/student' do
   # @homework = Home.all
   erb :'student/index'
