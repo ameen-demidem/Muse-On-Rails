@@ -10,6 +10,7 @@ end
 
 #gets for teacher
 
+
 before '/teacher*' do
   redirect '/login' if !current_user
   redirect '/student' if current_user.role == 'S'
@@ -24,13 +25,16 @@ get '/teacher/students/new' do
   erb :'teacher/new_student'
 end
 
-get '/teacher/students/:id' do
-  erb :'teacher/homework'
+get '/teacher/students/:id/homework/new' do
+  @homework = Homework.new
+  @student = User.find params[:id]
+  erb :'teacher/new_homework'
 end
 
-get '/teacher/students/:id/homework/new' do
-  # @homework = Homework.new
-  erb :'teacher/new_homework'
+get '/teacher/student/:id' do
+  @teacher = User.find(1)
+  @student = User.find params[:id]
+  erb :'teacher/homework'
 end
 
 get '/teacher/students/:id/homework/:id' do
@@ -55,7 +59,13 @@ get '/student/homework/:id' do
   erb :'student/show'
 end
 
-# posts for teachers
+get '/student/:id/new_homework' do
+  # @homework = Homework.find params[:id]
+  @student = User.find params[:id]
+  erb :'student/show'
+end
+
+# ----------- posts
 
 post '/login' do
   username, password = params[:username], params[:password]
@@ -84,6 +94,20 @@ post '/teacher/students' do
     else
       erb :'/teacher/new_student'
     end
+end
+
+post '/homework/new' do
+  @homework= Homework.new(
+  title: params[:title],
+  note: params[:note],
+  user_id: params[:user_id],
+  )
+
+  if @homework.save
+    redirect '/homework'
+  else
+    erb :'homework_new'
+  end
 end
 
 helpers do

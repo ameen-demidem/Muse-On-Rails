@@ -1,8 +1,9 @@
 <h1>where teachers will create new homework</h1>
-<form class="" action="index.html" method="post">
+<form class="" action="/homework/new" method="post">
   <label>Title</label>
   <input type="text" name="title" value="">
   <label>Notes</label>
   <input type="text" name="note" value="">
-  <input type="button" value="submit">
+  <input type="hidden" name="user_id" value="<%= @student.id %>">
+  <input type="submit" value="submit">
 </form>
