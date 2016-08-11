@@ -16,12 +16,11 @@ before '/teacher*' do
 end
 
 get '/teacher/students' do
-  # @users = User.all
   erb :'teacher/index'
 end
 
 get '/teacher/students/new' do
-  # @student = Student.new
+  @student = User.new
   erb :'teacher/new_student'
 end
 
@@ -70,6 +69,21 @@ post '/login' do
     session[:error] = "Wrong username or password!"
     redirect '/login'
   end
+end
+
+post '/teacher/students' do
+  @student = User.new(
+    name: params[:name],
+    username: params[:username],
+    password: params[:password],
+    role: "S",
+    teacher_id: current_user.id
+    )
+    if @student.save
+      redirect '/teacher/students'
+    else
+      erb :'/teacher/new_student'
+    end
 end
 
 helpers do

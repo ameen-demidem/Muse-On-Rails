@@ -1,1 +1,7 @@
-<h1>where a teacher will see all of their students</h1>
+<h1>I am logged in as a Teacher. These are all my Students.</h1>
+
+<h2><a href="/teacher/students/new">Add New Student</a></h2>
+
+<% current_user.students.each do | student | %>
+  <h3><a href="/teacher/students/<%= student.id %>"><%= student.name %></a></h3>
+<% end %>
