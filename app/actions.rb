@@ -1,14 +1,21 @@
-# Homepage (Root path)
+# Homepage (root path)
 get '/' do
   erb :index
 end
+
+# gets for login/logout
 
 # posts to /login
 get '/login' do
   erb :login
 end
 
-#gets for teacher
+get '/logout' do
+  session[:current_user] = nil
+  redirect '/'
+end
+
+# gets for teacher
 
 before '/teacher*' do
   redirect '/login' if !current_user
@@ -38,7 +45,7 @@ get '/teacher/students/:id/homework/:id' do
   erb :'teacher/homework_show'
 end
 
-#gets for student
+# gets for student
 
 before '/student*' do
   redirect '/login' if !current_user
@@ -51,7 +58,7 @@ get '/student' do
 end
 
 get '/student/homework/:id' do
-  # @homework = Homework.find params[:id]
+  @homework = Homework.find params[:id]
   erb :'student/show'
 end
 
@@ -78,12 +85,12 @@ post '/teacher/students' do
     password: params[:password],
     role: "S",
     teacher_id: current_user.id
-    )
-    if @student.save
-      redirect '/teacher/students'
-    else
-      erb :'/teacher/new_student'
-    end
+  )
+  if @student.save
+    redirect '/teacher/students'
+  else
+    erb :'/teacher/new_student'
+  end
 end
 
 helpers do
