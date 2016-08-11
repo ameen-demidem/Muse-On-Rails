@@ -10,6 +10,11 @@ end
 
 #gets for teacher
 
+before '/teacher*' do
+  redirect '/login' if !current_user
+  redirect '/student' if current_user.role == 'S'
+end
+
 get '/teacher/students' do
   erb :'teacher/index'
 end
@@ -34,6 +39,11 @@ get '/teacher/students/:id/homework/:id' do
 end
 
 #gets for student
+
+before '/student*' do
+  redirect '/login' if !current_user
+  redirect '/teacher/students' if current_user.role == 'T'
+end
 
 get '/student' do
   # @homework = Home.all
