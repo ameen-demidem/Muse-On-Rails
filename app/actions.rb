@@ -117,7 +117,6 @@ post '/homework/:id/task' do
     )
   if @task.save
     redirect "/teacher/students/#{params[:user_id]}/homework/new?homework=#{@task.homework_id}"
-    redirect '/teacher'
   else
     erb :'homework_new'
   end
