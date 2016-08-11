@@ -31,14 +31,14 @@ get '/teacher/students/:id/homework/new' do
 end
 
 get '/teacher/students/:id' do
-  @teacher = User.find session[:current_user]
   @student = User.find params[:id]
   erb :'teacher/homework'
 end
 
-get '/teacher/students/:id/homework/:id' do
+get '/teacher/students/:id/homework/:homework' do
   @student = User.find params[:id]
-  @homework = Homework.find params[:id]
+  @homework = Homework.find params[:homework]
+  @task = @homework.tasks
   erb :'teacher/student_homework'
 end
 

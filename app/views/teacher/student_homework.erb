@@ -3,5 +3,8 @@
 <ul>
   <%= @homework.title %>
   <%= @homework.note %>
-  <%= @homework.tasks %>
 </ul>
+
+<% @task.each do |task| %>
+    <li><%= task.item %></li>
+<% end %>
