@@ -1,1 +1,7 @@
 <h1>This is where a teacher can see all of a students homework</h1>
+<a href="/teacher/students/<%= @student.id %>/homework/new">give them more work!</a>
+<ul>
+  <% @student.homeworks.map do |homework| %>
+    <li><a href="/teacher/students/<%= @student.id %>/homework/<%= homework.id %>"><%= homework.title %></a></li>
+  <% end %>
+</ul>

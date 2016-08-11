@@ -1,0 +1,10 @@
+<h1>See all homework details</h1>
+
+<ul>
+  <%= @homework.title %>
+  <%= @homework.note %>
+</ul>
+
+<% @task.each do |task| %>
+    <li><%= task.item %></li>
+<% end %>
