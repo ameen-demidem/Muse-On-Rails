@@ -10,7 +10,6 @@ end
 
 #gets for teacher
 
-
 before '/teacher*' do
   redirect '/login' if !current_user
   redirect '/student' if current_user.role == 'S'
@@ -98,9 +97,9 @@ end
 
 post '/homework/new' do
   @homework= Homework.new(
-  title: params[:title],
-  note: params[:note],
-  user_id: params[:user_id],
+    title: params[:title],
+    note: params[:note],
+    user_id: params[:user_id],
   )
 
   if @homework.save
@@ -108,6 +107,15 @@ post '/homework/new' do
   else
     erb :'homework_new'
   end
+end
+
+post '/homework/:id/task' do
+  @task = Task.new(
+    item: params[:item],
+    url: params[:url]
+    )
+  @task.save
+  redirect '/teacher/students'
 end
 
 helpers do

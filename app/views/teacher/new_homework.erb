@@ -7,3 +7,11 @@
   <input type="hidden" name="user_id" value="<%= @student.id %>">
   <input type="submit" value="submit">
 </form>
+<br>
+<form class="" action="/homework/<%= Homework.find(1).id %>/task" method="post">
+  <label>New task</label>
+  <input type="text" name="item" value="">
+  <label>Link</label>
+  <input type="text" name="url" value="">
+  <input type="submit" value="submit">
+</form>
