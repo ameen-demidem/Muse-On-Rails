@@ -3,6 +3,7 @@ get '/' do
   erb :index
 end
 
+# posts to /login
 get '/login' do
   erb :login
 end
@@ -43,6 +44,22 @@ end
 get '/student/:id' do
   # @homework = Homework.find params[:id]
   erb :'student/show'
+end
+
+# posts for teachers
+
+post '/login' do
+  username, password = params[:username], params[:password]
+  user = User.find_by(username: username).try(:authenticate, password)
+  if user
+    session.delete(:error)
+    session[:current_user] = user.id
+    user.role == 'T' ? redirect('/teacher'): redirect('/student')
+  else
+    session.delete(:current_user)
+    session[:error] = "Wrong username or password!"
+    redirect '/login'
+  end
 end
 
 helpers do

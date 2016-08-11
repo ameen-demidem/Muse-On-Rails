@@ -1,1 +1,14 @@
 <h1>Where someone can login</h1>
+
+<% if session["error"] %>
+  <div>
+    <strong>We couldn't authenticate you!</strong>
+    <p><%= session["error"] %></p>
+  </div>
+<% end %>
+
+<form method="post" action="/login">
+  <input type="text" name="username">
+  <input type="password" name="password">
+  <input type="submit" value="Submit">
+</form>
