@@ -10,6 +10,11 @@ end
 
 #gets for teacher
 
+before '/teacher*' do
+  redirect '/login' if !current_user
+  redirect '/student' if current_user.role == 'S'
+end
+
 get '/teacher/students' do
   # @users = User.all
   erb :'teacher/index'
@@ -54,7 +59,7 @@ post '/login' do
   if user
     session.delete(:error)
     session[:current_user] = user.id
-    user.role == 'T' ? redirect('/teacher'): redirect('/student')
+    user.role == 'T' ? redirect('/teacher/students'): redirect('/student')
   else
     session.delete(:current_user)
     session[:error] = "Wrong username or password!"
