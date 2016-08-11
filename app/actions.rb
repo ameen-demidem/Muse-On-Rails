@@ -10,26 +10,26 @@ end
 
 #gets for teacher
 
-get '/teacher' do
+get '/teacher/students' do
   # @users = User.all
   erb :'teacher/index'
 end
 
-get '/teacher/new_student' do
+get '/teacher/students/new' do
   # @student = Student.new
   erb :'teacher/new_student'
 end
 
-get '/teacher/homework/:id' do
+get '/teacher/students/:id' do
   erb :'teacher/homework'
 end
 
-get '/teacher/new_homework' do
+get '/teacher/students/:id/homework/new' do
   # @homework = Homework.new
   erb :'teacher/new_homework'
 end
 
-get '/teacher/:id' do
+get '/teacher/students/:id/homework/:id' do
   # @student = User.find params[:id]
   erb :'teacher/homework_show'
 end
@@ -41,7 +41,7 @@ get '/student' do
   erb :'student/index'
 end
 
-get '/student/:id' do
+get '/student/homework/:id' do
   # @homework = Homework.find params[:id]
   erb :'student/show'
 end
