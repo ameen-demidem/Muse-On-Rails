@@ -56,7 +56,7 @@ get '/student' do
 end
 
 get '/student/homework/:id' do
-  # @homework = Homework.find params[:id]
+  @homework = Homework.find params[:id]
   erb :'student/show'
 end
 
@@ -83,12 +83,12 @@ post '/teacher/students' do
     password: params[:password],
     role: "S",
     teacher_id: current_user.id
-    )
-    if @student.save
-      redirect '/teacher/students'
-    else
-      erb :'/teacher/new_student'
-    end
+  )
+  if @student.save
+    redirect '/teacher/students'
+  else
+    erb :'/teacher/new_student'
+  end
 end
 
 helpers do
