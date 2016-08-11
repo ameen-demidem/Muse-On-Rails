@@ -1,14 +1,19 @@
-# Homepage (Root path)
+# Homepage (root path)
 get '/' do
   erb :index
 end
 
-# posts to /login
+# gets for login/logout
 get '/login' do
   erb :login
 end
 
-#gets for teacher
+get '/logout' do
+  session[:current_user] = nil
+  redirect '/'
+end
+
+# gets for teacher
 
 before '/teacher*' do
   redirect '/login' if !current_user
@@ -39,7 +44,7 @@ get '/teacher/students/:id/homework/:id' do
   erb :'teacher/homework_show'
 end
 
-#gets for student
+# gets for student
 
 before '/student*' do
   redirect '/login' if !current_user
