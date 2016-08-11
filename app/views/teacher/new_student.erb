@@ -4,8 +4,8 @@
   <div>
     <strong>Some issues with your entry, please fix them:</strong>
     <ul>
-      <% @student.errors.full_messages.each do |student| %>
-        <li><%= student %></li>
+      <% @student.errors.full_messages.each do |error| %>
+        <li><%= error %></li>
       <% end %>
     </ul>
   </div>
