@@ -4,6 +4,8 @@ get '/' do
 end
 
 # gets for login/logout
+
+# posts to /login
 get '/login' do
   erb :login
 end
