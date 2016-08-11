@@ -43,9 +43,14 @@ get '/teacher/students/:id' do
 end
 
 get '/teacher/students/:id/homework/:homework' do
-  @student = User.find params[:id]
-  @homework = Homework.find params[:homework]
-  @task = @homework.tasks
+  @student = User.includes(:homeworks).where(id: params[:id]).first
+  redirect "/teacher/students" if !@student
+
+  @homework = Homework.includes(:tasks, :comments).where(id: params[:homework]).first
+  redirect "teacher/students/#{params[:id]}" if !@homework
+
+  redirect "teacher/students/#{params[:id]}" if !@student.homeworks.include? @homework
+
   erb :'teacher/student_homework'
 end
 
@@ -127,6 +132,14 @@ post '/homework/:id/task' do
   else
     erb :'homework_new'
   end
+end
+
+post '/teacher/students/homework/new_comment' do
+  Comment.create(
+    feedback: params[:feedback], url: params[:url],
+    homework_id: params[:homework_id], user_id: session[:current_user]
+  )
+  redirect "/teacher/students/#{params[:student_id]}/homework/#{params[:homework_id]}"
 end
 
 helpers do

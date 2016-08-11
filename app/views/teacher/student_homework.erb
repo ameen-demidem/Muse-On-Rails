@@ -1,10 +1,29 @@
-<h1>See all homework details</h1>
+<h1><%= @homework.title %></h1>
+
+<h2>Notes from lesson</h2>
+
+<p><%= @homework.note %></p>
+
+<h2>Tasks for the homework</h2>
 
 <ul>
-  <%= @homework.title %>
-  <%= @homework.note %>
+  <% @homework.tasks.each do |task| %>
+    <li>
+      <p><%= task.item %></p>
+      <a href="<%= task.url %>">[click for more]</a>
+    </li>
+  <% end %>
 </ul>
 
-<% @task.each do |task| %>
-    <li><%= task.item %></li>
+<% @homework.comments.each do |comment| %>
+  <h3><%= comment.user.name %> says:</h3>
+  <p><%= comment.feedback %><p>
 <% end %>
+
+<form method="post" action="/teacher/students/homework/new_comment">
+  <input type="hidden" name="homework_id" value="<%= @homework.id %>">
+  <input type="hidden" name="student_id" value="<%= @student.id %>">
+  <input type="text" name="feedback">
+  <input type="text" name=url>
+  <input type="submit" value="Submit">
+</form>
