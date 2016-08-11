@@ -25,20 +25,21 @@ get '/teacher/students/new' do
 end
 
 get '/teacher/students/:id/homework/new' do
-  @homework = Homework.new
+  @homework = (params[:homework] ? Homework.find(params[:homework]) : Homework.new)
   @student = User.find params[:id]
   erb :'teacher/new_homework'
 end
 
-get '/teacher/student/:id' do
-  @teacher = User.find(1)
+get '/teacher/students/:id' do
+  @teacher = User.find session[:current_user]
   @student = User.find params[:id]
   erb :'teacher/homework'
 end
 
 get '/teacher/students/:id/homework/:id' do
-  # @student = User.find params[:id]
-  erb :'teacher/homework_show'
+  @student = User.find params[:id]
+  @homework = Homework.find params[:id]
+  erb :'teacher/student_homework'
 end
 
 #gets for student
@@ -59,7 +60,6 @@ get '/student/homework/:id' do
 end
 
 get '/student/:id/new_homework' do
-  # @homework = Homework.find params[:id]
   @student = User.find params[:id]
   erb :'student/show'
 end
@@ -103,7 +103,7 @@ post '/homework/new' do
   )
 
   if @homework.save
-    redirect '/homework'
+    redirect "/teacher/students/#{params[:user_id]}/homework/new?homework=#{@homework.id}"
   else
     erb :'homework_new'
   end
@@ -112,10 +112,16 @@ end
 post '/homework/:id/task' do
   @task = Task.new(
     item: params[:item],
-    url: params[:url]
+    url: params[:url],
+    homework_id: params[:id]
     )
   @task.save
-  redirect '/teacher/students'
+  if @task.save
+    redirect "/teacher/students/#{params[:user_id]}/homework/new?homework=#{@task.homework_id}"
+    redirect '/teacher'
+  else
+    erb :'homework_new'
+  end
 end
 
 helpers do
