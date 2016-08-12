@@ -79,11 +79,6 @@ get '/student/homework/:id' do
   erb :'student/show_homework'
 end
 
-#get '/student/:id/new_homework' do
-#  @student = User.find params[:id]
-#  erb :'student/show'
-#end
-
 # ----------- posts
 
 post '/login' do
