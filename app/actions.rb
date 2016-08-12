@@ -133,4 +133,12 @@ helpers do
   def current_user
     User.find(session[:current_user])
   end
+
+  def teacher?
+    current_user.teacher_id.nil?
+  end
+
+  def not_logged_in
+    session[:current_user].nil?
+  end
 end
