@@ -181,13 +181,17 @@ helpers do
   end
 
   def youtube?(url)
-    true
+    url =~ /(youtube|youtu.be)/
   end
 
   def youtubify(url)
-    "<iframe width='400' height='300' " +
-      "src='https://www.youtube.com/watch?v=56ucT_Hw4bg' " +
-      "frameborder='0' allowfullscreen>" +
-    "</iframe>"
+    if youtube?(url)
+      "<iframe width='400' height='300' " +
+        "src='#{url.sub(/watch\?v=/, "embed/")}' " +
+        "frameborder='0' allowfullscreen>" +
+      "</iframe>"
+    else
+      "<a href='#{url}'>Resources ...</a>"
+    end
   end
 end
