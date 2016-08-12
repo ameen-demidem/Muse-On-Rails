@@ -67,15 +67,20 @@ get '/student' do
   erb :'student/index'
 end
 
+# posts to "/student/homework/new_comment"
 get '/student/homework/:id' do
-  @homework = Homework.find params[:id]
-  erb :'student/show'
+  @homework = Homework.where(id: params[:id]).first
+  redirect "/student" if !@homework
+
+  redirect "/student" if !current_user.homeworks.include? @homework
+
+  erb :'student/show_homework'
 end
 
-get '/student/:id/new_homework' do
-  @student = User.find params[:id]
-  erb :'student/show'
-end
+#get '/student/:id/new_homework' do
+#  @student = User.find params[:id]
+#  erb :'student/show'
+#end
 
 # ----------- posts
 
@@ -141,6 +146,15 @@ post '/teacher/students/homework/new_comment' do
     homework_id: params[:homework_id], user_id: session[:current_user]
   )
   redirect "/teacher/students/#{params[:student_id]}/homework/#{params[:homework_id]}"
+end
+
+# came here from '/student/homework/:id'
+post "/student/homework/new_comment" do
+  Comment.create(
+    feedback: params[:feedback], url: params[:url],
+    homework_id: params[:homework_id], user_id: session[:current_user]
+  )
+  redirect "/student/homework/#{params[:homework_id]}"
 end
 
 helpers do
