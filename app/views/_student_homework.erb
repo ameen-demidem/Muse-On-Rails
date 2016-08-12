@@ -1,0 +1,24 @@
+<h1><%= homework.title %></h1>
+
+<h2>Notes from lesson</h2>
+
+<p><%= homework.note %></p>
+
+<h2>Tasks for the homework</h2>
+
+<ul>
+  <% homework.tasks.each do |task| %>
+    <li>
+      <p><%= task.item %></p>
+      <a href="<%= task.url %>">[click for more]</a>
+    </li>
+  <% end %>
+</ul>
+
+<% homework.comments.each do |comment| %>
+  <h3><%= comment.user.name %> says:</h3>
+  <p><%= comment.feedback %><p>
+  <% if comment.url and comment.url != "" %>
+    <a href="<%= comment.url %>">check this out</a>
+  <% end %>
+<% end %>
