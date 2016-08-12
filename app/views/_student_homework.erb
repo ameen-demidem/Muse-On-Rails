@@ -1,39 +1,42 @@
-<h3><a href="/teacher/students/<%= homework.user.id %>">Go back </a></h3>
-
-<h1><%= homework.title %></h1>
-
-<h2>Notes from lesson</h2>
-
+<a href="/teacher/students/<%= homework.user.id %>">Go back </a>
+<h3><%= homework.title %></h3>
+<h5 class="button-spacing"><strong>Notes from lesson</strong></h5>
 <p><%= homework.note %></p>
+<h5 class="button-spacing"><strong>Tasks for the homework</strong></h5>
+<div class="button-spacing">
+  <ul class="collection">
+    <% homework.tasks.each do |task| %>
+      <li class="collection-item">
+        <% if current_user.role == 'S' %>
+          <input class="toggle-task-status"
+                 type="checkbox"
+                 name="<%= task.id %>"
+                 id="<%= task.id %>"
+                 <%= if task.complete then "checked" end %> >
+          <label for="<%= task.id %>"></label>
+        <% elsif task.complete %>
+           <i class="material-icons right done-icon">done_all</i>
+        <% end %>
+        <p class="">
+          <%= task.item %> <br>
+          <%= youtubify(task.url) %>
+        </p>
+      </li>
+    <% end %>
+  </ul>
+</div>
 
-<h2>Tasks for the homework</h2>
-
-<ul>
-  <% homework.tasks.each do |task| %>
-    <li>
-      <% if current_user.role == 'S' %>
-        <input class="toggle-task-status"
-               type="checkbox"
-               name="<%= task.id %>"
-               id="<%= task.id %>"
-               <%= if task.complete then "checked" end %> >
-        <label for="<%= task.id %>"></label>
-      <% elsif task.complete %>
-         <h4><strong>DONE!</strong></h4>
+<div class="row">
+  <div class="col s8 offset-s2">
+    <% homework.comments.each do |comment| %>
+      <h5><%= comment.feedback %></h5>
+      <p class="comment-name">---<%= comment.user.name %></p>
+      <% if comment.url and comment.url != "" %>
+      <%= youtubify(comment.url) %>
       <% end %>
-      <p><%= task.item %></p>
-      <a href="<%= task.url %>">[click for more]</a>
-    </li>
-  <% end %>
-</ul>
-
-<% homework.comments.each do |comment| %>
-  <h3><%= comment.user.name %> says:</h3>
-  <p><%= comment.feedback %></p>
-  <% if comment.url and comment.url != "" %>
-    <a href="<%= comment.url %>">check this out</a>
-  <% end %>
-<% end %>
+    <% end %>
+  </div>
+</div>
 
 <script>
   $(".toggle-task-status").on(
