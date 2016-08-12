@@ -19,3 +19,7 @@ main {
   margin-left: 10px;
   text-transform: uppercase;
 }
+
+.link-text {
+  color: #ffab40;
+}
