@@ -1,9 +1,23 @@
 <%= erb :_student_homework, locals: {homework: @homework} %>
 
-<form method="post" action="/teacher/students/homework/new_comment">
-  <input type="hidden" name="homework_id" value="<%= @homework.id %>">
-  <input type="hidden" name="student_id" value="<%= @student.id %>">
-  <input type="text" name="feedback">
-  <input type="text" name=url>
-  <input type="submit" value="Submit">
-</form>
+<div class="row button-spacing">
+  <form class="col s8 offset-s2"  method="post" action="/teacher/students/homework/new_comment">
+    <input type="hidden" name="homework_id" value="<%= @homework.id %>">
+    <input type="hidden" name="student_id" value="<%= @student.id %>">
+    <div class="row">
+      <div class="input-field col s6">
+        <input type="text" name="feedback" placeholder="Leave a comment">
+        <label class="active" for="first_name">Feedback</label>
+      </div>
+      <div class="input-field col s6">
+        <input type="text" name=url placeholder="attach a link">
+        <label class="active" for="last_name">Link</label>
+      </div>
+      <div class="center">
+        <button class="btn waves-effect waves-light button-spacing green" type="submit" name="action" value="submit">Submit
+          <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

@@ -23,3 +23,7 @@ main {
 .link-text {
   color: #ffab40;
 }
+
+.button-spacing {
+  margin-top: 2rem;
+}

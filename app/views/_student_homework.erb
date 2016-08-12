@@ -1,16 +1,11 @@
-<h3><a href="/teacher/students/<%= homework.user.id %>">Go back </a></h3>
-
-<h1><%= homework.title %></h1>
-
-<h2>Notes from lesson</h2>
-
+<a href="/teacher/students/<%= homework.user.id %>">Go back </a>
+<h3><%= homework.title %></h3>
+<h5 class="button-spacing"><strong>Notes from lesson</strong></h5>
 <p><%= homework.note %></p>
-
-<h2>Tasks for the homework</h2>
-
-<ul>
+<h5><strong>Tasks for the homework</strong></h5>
+<ul class="collection">
   <% homework.tasks.each do |task| %>
-    <li>
+    <li class="collection-item">
       <% if current_user.role == 'S' %>
         <input class="toggle-task-status"
                type="checkbox"
@@ -21,8 +16,10 @@
       <% elsif task.complete %>
          <h4><strong>DONE!</strong></h4>
       <% end %>
-      <p><%= task.item %></p>
-      <a href="<%= task.url %>">[click for more]</a>
+      <p>
+        <%= task.item %>
+        <a class="right" href="<%= task.url %>">[click for more]</a>
+      </p>
     </li>
   <% end %>
 </ul>
