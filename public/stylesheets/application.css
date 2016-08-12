@@ -12,3 +12,10 @@ main {
   margin-left: 2rem;
   font-size: small;
 }
+
+.button-text {
+  font-size: x-small;
+  vertical-align: middle;
+  margin-left: 10px;
+  text-transform: uppercase;
+}
