@@ -17,6 +17,11 @@ get '/logout' do
   redirect '/'
 end
 
+get '/signup' do
+  @teacher = User.new
+  erb :signup
+end
+
 # gets for teacher
 
 before '/teacher*' do
@@ -92,6 +97,20 @@ post '/login' do
     session.delete(:current_user)
     session[:error] = "Wrong username or password!"
     redirect '/login'
+  end
+end
+
+post '/signup' do
+  @teacher = User.new(
+    name: params[:name],
+    username: params[:username],
+    password: params[:password],
+    role: "T",
+  )
+  if @teacher.save
+    redirect '/login'
+  else
+    erb :'/signup'
   end
 end
 
