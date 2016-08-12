@@ -1,3 +1,5 @@
+require 'json'
+
 # Homepage (root path)
 get '/' do
   erb :index
@@ -155,6 +157,19 @@ post "/student/homework/new_comment" do
     homework_id: params[:homework_id], user_id: session[:current_user]
   )
   redirect "/student/homework/#{params[:homework_id]}"
+end
+
+post '/student/homework/task_update' do
+  homework = Homework.where(id: params[:homework]).first
+  return if !homework
+
+  task = Task.where(id: params[:task]).first
+  return if !task
+
+  return unless homework.tasks.include? task
+
+  task.complete = params[:done]
+  task.save
 end
 
 helpers do
