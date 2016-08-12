@@ -3,8 +3,8 @@
 <head>
   <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="/stylesheets/normalize.css">
+  <link rel="stylesheet" href="/stylesheets/application.css">
   <link type="text/css" rel="stylesheet" href="/stylesheets/materialize.css"  media="screen,projection"/>
-  <!-- <link rel="stylesheet" href="/stylesheets/application.css"> -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -13,7 +13,7 @@
 
   <title></title>
 </head>
-<body>
+<main>
   <div class="navbar-fixed">
     <nav class="blue lighten-2">
       <div class="container">
@@ -25,10 +25,13 @@
             <% else %>
               <% if teacher? %>
                 <li><a href="/teacher/students">STUDENTS</a></li>
+                <li><a href="/teacher/students/new">ADD STUDENT</a></li>
                 <li class="blue darken-2"><a href="/logout">LOGOUT</a></li>
+                <li class="nav-username"><%= current_user.name %></li>
               <% else %>
                 <li><a href="/student">HOMEWORK</a></li>
                 <li class="blue darken-2"><a href="/logout">LOGOUT</a></li>
+                <li class="nav-username"><%= current_user.name %></li>
               <% end %>
             <% end %>
           </ul>
@@ -39,26 +42,26 @@
   <div class="container">
     <%= yield %>
   </div>
-  <footer class="page-footer blue-grey darken-3">
+</main>
+<footer class="page-footer blue-grey darken-3">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">Why this site!</h5>
+        <p class="grey-text text-lighten-4">This is a great tool for you to learn to KILL it on your instrument</p>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <h5 class="white-text">Links</h5>
+        <ul>
+          <li><a class="grey-text text-lighten-3" href="/logout">Logout</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright blue-grey darken-4">
     <div class="container">
-      <div class="row">
-        <div class="col l6 s12">
-          <h5 class="white-text">Why this site!</h5>
-          <p class="grey-text text-lighten-4">This is a great tool for you to learn to KILL it on your instrument</p>
-        </div>
-        <div class="col l4 offset-l2 s12">
-          <h5 class="white-text">Links</h5>
-          <ul>
-            <li><a class="grey-text text-lighten-3" href="/logout">Logout</a></li>
-          </ul>
-        </div>
-      </div>
+    © 2016 Muse Corp
     </div>
-    <div class="footer-copyright blue-grey darken-4">
-      <div class="container">
-      © 2016 Muse Corp
-      </div>
-    </div>
-  </footer>
-</body>
+  </div>
+</footer>
 </html>
