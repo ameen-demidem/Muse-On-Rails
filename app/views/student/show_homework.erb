@@ -1,0 +1,8 @@
+<%= erb :_student_homework, locals: {homework: @homework} %>
+
+<form method="post" action="/student/homework/new_comment">
+  <input type="hidden" name="homework_id" value="<%= @homework.id %>">
+  <input type="text" name="feedback">
+  <input type="text" name=url>
+  <input type="submit" value="Submit">
+</form>
