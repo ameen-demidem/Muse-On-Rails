@@ -179,4 +179,15 @@ helpers do
   def not_logged_in
     session[:current_user].nil?
   end
+
+  def youtube?(url)
+    true
+  end
+
+  def youtubify(url)
+    "<iframe width='400' height='300' " +
+      "src='https://www.youtube.com/watch?v=56ucT_Hw4bg' " +
+      "frameborder='0' allowfullscreen>" +
+    "</iframe>"
+  end
 end
