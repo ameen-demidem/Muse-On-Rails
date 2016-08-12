@@ -19,20 +19,24 @@
         <% end %>
         <p class="">
           <%= task.item %> <br>
-          <a class="" href="<%= task.url %>"><%= youtubify %></a>
+          <%= youtubify(task.url) %>
         </p>
       </li>
     <% end %>
   </ul>
 </div>
 
-<% homework.comments.each do |comment| %>
-  <h3><%= comment.user.name %> says:</h3>
-  <p><%= comment.feedback %></p>
-  <% if comment.url and comment.url != "" %>
-    <a href="<%= comment.url %>">check this out</a>
-  <% end %>
-<% end %>
+<div class="row">
+  <div class="col s8 offset-s2">
+    <% homework.comments.each do |comment| %>
+      <h5><%= comment.feedback %></h5>
+      <p class="comment-name">---<%= comment.user.name %></p>
+      <% if comment.url and comment.url != "" %>
+      <%= youtubify(comment.url) %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
 
 <script>
   $(".toggle-task-status").on(

@@ -31,3 +31,7 @@ main {
 .done-icon  {
   margin-top: 13px;
 }
+
+.comment-name {
+  font-style: italic;
+}
