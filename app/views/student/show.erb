@@ -1,7 +1,10 @@
 <h1>This is where a student will see the details of a specific weeks homeowork</h1>
 
 <ul>
-  <%= @homework.title %>
-  <%= @homework.note %>
-  <%= @homework.tasks %>
+  <li><%= @homework.title %></li>
+  <li><%= @homework.note %></li>
+  <hr/>
+  <% @homework.tasks.each do |task| %>
+    <li><%= task.item %></li>
+  <% end %>
 </ul>
