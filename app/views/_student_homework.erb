@@ -11,6 +11,16 @@
 <ul>
   <% homework.tasks.each do |task| %>
     <li>
+      <% if current_user.role == 'S' %>
+        <input class="toggle-task-status"
+               type="checkbox"
+               name="<%= task.id %>"
+               id="<%= task.id %>"
+               <%= if task.complete then "checked" end %> >
+        <label for="<%= task.id %>"></label>
+      <% elsif task.complete %>
+         <h4><strong>DONE!</strong></h4>
+      <% end %>
       <p><%= task.item %></p>
       <a href="<%= task.url %>">[click for more]</a>
     </li>
@@ -19,8 +29,23 @@
 
 <% homework.comments.each do |comment| %>
   <h3><%= comment.user.name %> says:</h3>
-  <p><%= comment.feedback %><p>
+  <p><%= comment.feedback %></p>
   <% if comment.url and comment.url != "" %>
     <a href="<%= comment.url %>">check this out</a>
   <% end %>
 <% end %>
+
+<script>
+  $(".toggle-task-status").on(
+    'click',
+    function() {
+//      console.log("status is: "+ this.checked)
+      task_update = {
+        homework: "<%= homework.id %>",
+        task: $(this).attr("name"),
+        done: this.checked ? true : false
+      };
+      $.post('/student/homework/task_update', task_update);
+    }
+  );
+</script>
