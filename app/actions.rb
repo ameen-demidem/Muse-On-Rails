@@ -43,10 +43,10 @@ get '/teacher/students/:id' do
 end
 
 get '/teacher/students/:id/homework/:homework' do
-  @student = User.includes(:homeworks).where(id: params[:id]).first
+  @student = User.where(id: params[:id]).first
   redirect "/teacher/students" if !@student
 
-  @homework = Homework.includes(:tasks, :comments).where(id: params[:homework]).first
+  @homework = Homework.where(id: params[:homework]).first
   redirect "teacher/students/#{params[:id]}" if !@homework
 
   redirect "teacher/students/#{params[:id]}" if !@student.homeworks.include? @homework
