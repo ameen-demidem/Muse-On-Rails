@@ -2,7 +2,7 @@
 <h3><%= homework.title %></h3>
 <h5 class="button-spacing"><strong>Notes from lesson</strong></h5>
 <p><%= homework.note %></p>
-<h5><strong>Tasks for the homework</strong></h5>
+<h5 class="button-spacing"><strong>Tasks for the homework</strong></h5>
 <ul class="collection">
   <% homework.tasks.each do |task| %>
     <li class="collection-item">
@@ -14,11 +14,11 @@
                <%= if task.complete then "checked" end %> >
         <label for="<%= task.id %>"></label>
       <% elsif task.complete %>
-         <h4><strong>DONE!</strong></h4>
+         <i class="material-icons right done-icon">done_all</i>
       <% end %>
       <p>
-        <%= task.item %>
-        <a class="right" href="<%= task.url %>">[click for more]</a>
+        <%= task.item %> <br>
+        <a class="" href="<%= task.url %>">somthing</a>
       </p>
     </li>
   <% end %>
