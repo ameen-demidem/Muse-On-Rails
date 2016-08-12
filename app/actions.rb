@@ -42,6 +42,7 @@ get '/teacher/students/:id' do
   erb :'teacher/homework'
 end
 
+# posts to "/teacher/students/homework/new_comment"
 get '/teacher/students/:id/homework/:homework' do
   @student = User.where(id: params[:id]).first
   redirect "/teacher/students" if !@student
