@@ -1,27 +1,77 @@
-<h1>where teachers will create new homework</h1>
+<h3 class="center button-spacing">New Homework For <%= @student.name %></h3>
 <% if params[:homework].nil? %>
-  <form class="" action="/homework/new" method="post">
+  <!-- <form class="" >
     <label>Title</label>
     <input type="text" name="title" value="">
     <label>Notes</label>
     <input type="text" name="note" value="">
     <input type="hidden" name="user_id" value="<%= @student.id %>">
     <input type="submit" value="submit">
-  </form>
+  </form> -->
+  <div class="row button-spacing">
+    <form class="col s8 offset-s2" action="/homework/new" method="post">
+      <div class="row">
+        <div class="input-field col s12">
+          <input placeholder="E.g. 'week of july 15th: Circle of 5ths'" id="homework_title" type="text" class="validate" name="title">
+          <label class="active" for="homework_title">This weeks homework is called:</label>
+        </div>
+        <div class="input-field col s12">
+          <input placeholder="This week I want to to spend time understanding..." id="lesson_notes" type="text" class="validate" name="note">
+          <label class="active" for="lesson_notes">Important notes</label>
+        </div>
+        <input type="hidden" name="user_id" value="<%= @student.id %>">
+      </div>
+      <div class="center">
+        <button class="btn waves-effect waves-light button-spacing green" type="submit" name="action" value="submit">
+          Assign!
+        </button>
+      </div>
+    </form>
+  </div>
   <% else %>
-  <h4><%= @homework.title %></h4>
+  <h5 class="button-spacing"><%= @homework.title %></h5>
+  <p><%= @homework.note %></p>
   <% end %>
 <br>
-<%  unless params[:homework].nil? %>
-  <% @homework.tasks.map do |task| %>
-    <li><%= task.item %></li>
-  <% end %>
-  <form class="" action="/homework/<%= @homework.id %>/task?user_id=<%= @student.id %>" method="post">
+<h5>This weeks tasks:</h5>
+<div class="row">
+  <ul class="collection col s8">
+  <%  unless params[:homework].nil? %>
+    <% @homework.tasks.map do |task| %>
+     <li class="collection-item"><%= task.item %>
+       <% unless task.url == "" || nil %>
+        <a class="right" href="<%= task.url %>">Resource</a>
+       <% end %>
+     </li>
+    <% end %>
+  </ul>
+</div>
+  <!-- <form class="" action="/homework/<%= @homework.id %>/task?user_id=<%= @student.id %>" method="post">
     <label>New task</label>
     <input type="text" name="item" value="">
     <label>Link</label>
     <input type="text" name="url" value="">
     <input type="submit" value="submit">
-  </form>
-  <a href="/teacher/students">FINISHED</a>
+  </form> -->
+  <div class="row button-spacing">
+    <form class="col s10" action="/homework/<%= @homework.id %>/task?user_id=<%= @student.id %>" method="post">
+      <div class="row">
+        <div class="input-field col s4">
+          <input placeholder="task name" id="task_title" input type="text" name="item" class="validate">
+          <label class="active" for="task_title">Task for them:</label>
+        </div>
+        <div class="input-field col s4">
+          <input placeholder="youtube.com..." id="task_link" type="text" name="url" class="validate">
+          <label class="active" for="task_link">Link</label>
+        </div>
+        <input type="hidden" name="user_id" value="<%= @student.id %>">
+        <div class="input-field col s2">
+          <button class="waves-effect waves-teal btn-flat" type="submit" name="action" value="submit">
+            add
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <a class="waves-effect waves-light btn green" href="/teacher/students">Finished</a>
 <% end %>
