@@ -10,12 +10,14 @@
 <div class="card-panel white hoverable">
 
   <% if current_user.role == "T" %>
-    <button type="button" onclick="editHomeworkNote(<%= @student.id %>,<%= homework.id %>)">edit</button>
+    <button type="button" onclick="editHomeworkNote(<%= @student.id %>,<%= homework.id %>)">Edit the homework</button>
   <% end %>
 
   <h5 class="button-spacing"><strong>Notes from lesson</strong></h5>
   <p><%= homework.note %></p>
+
   <h5 class="button-spacing"><strong>Tasks for the homework</strong></h5>
+
   <div class="button-spacing">
     <ul class="collection">
       <% homework.tasks.each do |task| %>
@@ -41,6 +43,11 @@
         </li>
       <% end %>
     </ul>
+
+    <% if current_user.role == "T" %>
+      <button type="button" onclick="addTask(<%= @student.id %>,<%= homework.id %>)">Add a task</button>
+    <% end %>
+
   </div>
 </div>
 <div class="row">
@@ -74,5 +81,10 @@
   function editHomeworkNote(student, homework) {
     window.location = "/teacher/homework/edit_homework?student=" + student + "&homework=" + homework
     console.log("editing " + homework + " of " + student);
+  }
+
+  function addTask(student, homework) {
+//    console.log("redirecting to : /teacher/students/" + student + "/homework/new?homework=" + homework)
+    window.location = "/teacher/students/" + student + "/homework/new?homework=" + homework;
   }
 </script>
