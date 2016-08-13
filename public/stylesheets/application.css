@@ -35,3 +35,25 @@ main {
 .comment-name {
   font-style: italic;
 }
+
+.card-padding {
+  margin: 5rem;
+}
+
+.comment-padding {
+  padding: 2rem;
+}
+
+.h-3-spacing {
+   margin-top: 75px;
+   margin-bottom: 45px;
+}
+
+.title-comment {
+  font-size: 20px;
+  font-style: italic;
+}
+
+.icon-gold {
+  color: #ffc400;
+}

@@ -1,39 +1,53 @@
-<a href="/teacher/students/<%= homework.user.id %>">Go back </a>
-<h3><%= homework.title %></h3>
-<h5 class="button-spacing"><strong>Notes from lesson</strong></h5>
-<p><%= homework.note %></p>
-<h5 class="button-spacing"><strong>Tasks for the homework</strong></h5>
-<div class="button-spacing">
-  <ul class="collection">
-    <% homework.tasks.each do |task| %>
-      <li class="collection-item">
-        <% if current_user.role == 'S' %>
-          <input class="toggle-task-status"
-                 type="checkbox"
-                 name="<%= task.id %>"
-                 id="<%= task.id %>"
-                 <%= if task.complete then "checked" end %> >
-          <label for="<%= task.id %>"></label>
-        <% elsif task.complete %>
-           <i class="material-icons right done-icon">done_all</i>
-        <% end %>
-        <p class="">
-          <%= task.item %> <br>
-          <%= youtubify(task.url) %>
-        </p>
-      </li>
-    <% end %>
-  </ul>
+<h4 class="center h-3-spacing"><%= homework.title %></h4>
+<% if teacher? %>
+  <div class="row">
+    <div class="col s10">
+      <a class="btn-floating waves-effect waves-light green" href="/teacher/students/<%= homework.user.id %>"><i class="material-icons">skip_previous</i></a>
+      <span class="button-text">back to <%= homework.user.name %>'s work</span>
+    </div>
+  </div>
+<% end %>
+<div class="card-panel white hoverable">
+  <h5 class="button-spacing"><strong>Notes from lesson</strong></h5>
+  <p><%= homework.note %></p>
+  <h5 class="button-spacing"><strong>Tasks for the homework</strong></h5>
+  <div class="button-spacing">
+    <ul class="collection">
+      <% homework.tasks.each do |task| %>
+        <li class="collection-item">
+          <% if current_user.role == 'S' %>
+            <div class="right">
+              <input class="toggle-task-status filled-in"
+                     type="checkbox"
+                     name="<%= task.id %>"
+                     id="<%= task.id %>"
+                     <%= if task.complete then "checked" end %> >
+              <label for="<%= task.id %>"></label>
+            </div>
+          <% elsif task.complete %>
+             <i class="material-icons right done-icon">done_all</i>
+          <% end %>
+          <blockquote>
+            <p class="">
+              <strong><%= task.item %></strong> <br>
+              <%= youtubify(task.url) %>
+            </p>
+          </blockquote>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>
-
 <div class="row">
-  <div class="col s8 offset-s2">
+  <div class="col s12">
     <% homework.comments.each do |comment| %>
+      <div class="card panel comment-padding hoverable">
       <h5><%= comment.feedback %></h5>
       <p class="comment-name">---<%= comment.user.name %></p>
       <% if comment.url and comment.url != "" %>
       <%= youtubify(comment.url) %>
       <% end %>
+      </div>
     <% end %>
   </div>
 </div>

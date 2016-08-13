@@ -33,19 +33,18 @@
   <p><%= @homework.note %></p>
   <% end %>
 <br>
-<h5>This weeks tasks:</h5>
-<div class="row">
-  <ul class="collection col s8">
-  <%  unless params[:homework].nil? %>
-    <% @homework.tasks.map do |task| %>
-     <li class="collection-item"><%= task.item %>
-       <% unless task.url == "" || nil %>
-        <a class="right" href="<%= task.url %>">Resource</a>
-       <% end %>
-     </li>
-    <% end %>
-  </ul>
-</div>
+<%  unless params[:homework].nil? %>
+  <div class="row">
+    <ul class="collection col s8">
+      <% @homework.tasks.map do |task| %>
+       <li class="collection-item"><%= task.item %>
+         <% unless task.url == "" || nil %>
+          <a class="right" href="<%= task.url %>">Resource</a>
+         <% end %>
+       </li>
+    </ul>
+  </div>
+<% end %>
   <!-- <form class="" action="/homework/<%= @homework.id %>/task?user_id=<%= @student.id %>" method="post">
     <label>New task</label>
     <input type="text" name="item" value="">
