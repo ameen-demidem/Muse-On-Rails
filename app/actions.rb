@@ -62,6 +62,18 @@ get '/teacher/students/:id/homework/:homework' do
   erb :'teacher/student_homework'
 end
 
+get "/teacher/homework/edit_homework" do
+  @student = User.where(id: params[:student]).first
+  redirect "/teacher/students" if !@student
+
+  @homework = Homework.where(id: params[:homework]).first
+  redirect "/teacher/students/#{params[:student]}" if !@homework
+
+  redirect "teacher/students/#{params[:student]}" if !@student.homeworks.include? @homework
+
+  erb :'teacher/edit_homework'
+end
+
 # gets for student
 
 before '/student*' do
@@ -186,6 +198,31 @@ post '/student/homework/task_update' do
   task.save
 end
 
+post "/teacher/homework/edit" do
+  @homework = Homework.where(id: params[:homework]).first
+  redirect "/teacher/students/#{params[:student]}/homework/#{params[:homework]}" if !@homework
+
+  @homework.title = params[:title]
+  @homework.note = params[:note]
+  @homework.save
+
+  @homework.tasks.each do |task|
+    item_key = ("item" + task.id.to_s).to_sym
+    url_key = ("url" + task.id.to_s).to_sym
+
+    if params[item_key] and params[url_key]
+      if params[item_key] == ""
+        task.destroy
+      else
+        task.item, task.url = params[item_key], params[url_key]
+        task.save
+      end
+    end
+  end
+
+  redirect "/teacher/students/#{params[:student]}/homework/#{params[:homework]}" 
+end
+
 helpers do
   def current_user
     User.find(session[:current_user])
@@ -203,6 +240,7 @@ helpers do
     url =~ /(youtube|youtu.be)/
   end
 
+  # TODO: Ugly meaningless name. Change it!
   def youtubify(url)
     if youtube?(url)
       "<iframe width='400' height='300' " +
