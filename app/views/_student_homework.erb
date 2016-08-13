@@ -8,6 +8,11 @@
   </div>
 <% end %>
 <div class="card-panel white hoverable">
+
+  <% if current_user.role == "T" %>
+    <button type="button" onclick="editHomeworkNote(<%= @student.id %>,<%= homework.id %>)">edit</button>
+  <% end %>
+
   <h5 class="button-spacing"><strong>Notes from lesson</strong></h5>
   <p><%= homework.note %></p>
   <h5 class="button-spacing"><strong>Tasks for the homework</strong></h5>
@@ -65,4 +70,9 @@
       $.post('/student/homework/task_update', task_update);
     }
   );
+
+  function editHomeworkNote(student, homework) {
+    window.location = "/teacher/homework/edit_homework?student=" + student + "&homework=" + homework
+    console.log("editing " + homework + " of " + student);
+  }
 </script>

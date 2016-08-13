@@ -1,0 +1,16 @@
+<h1>Here goes note editing</h1>
+<form method="post" action="/teacher/homework/edit">
+  <input type="hidden" name="homework" value="<%= @homework.id %>" >
+  <input type="hidden" name="student" value="<%= @student.id %>" >
+  <input type="text" name="title" value="<%= @homework.title %>" >
+  <input type="text" name="note" value="<%= @homework.note %>" >
+
+  <% @homework.tasks.each do |task| %>
+    <input type="text" name="item<%= task.id %>" value="<%= task.item %>" >
+    <input type="text" name="url<%= task.id %>" value="<%= task.url %>" >
+  <% end %>
+
+  <input type="submit" name="submit" value="Submit">
+</form>
+
+<a href="/teacher/students/<%= @student.id %>/homework/<%= @homework.id %>">go back</a>
