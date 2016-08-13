@@ -1,7 +1,29 @@
-<h1>This is where a student will see all assignemnts</h1>
+<h3 class="center h-3-spacing">Hello <%= current_user.name %> <br> Here are your assignemnts</h3>
 
 <ul>
- <% current_user.homeworks.map do |homework| %>
-   <li><a href="/student/homework/<%= homework.id %>"><%= homework.title %></a></li>
- <% end %>
+  <% current_user.homeworks.map do |homework| %>
+    <div class="row">
+      <div class="col s10 offset-s1">
+        <div class="card-panel hoverable">
+          <% unless homework.tasks.where("complete = ? OR complete IS NULL", false).any? == true %>
+              <i class="material-icons right icon-gold">stars</i>
+          <% end %>
+          <span class="">
+            <blockquote class="">
+              <h5><%= homework.title %></h5>
+              <p>
+                <%= homework.note %>
+              </p>
+              <p>
+                <%= homework.tasks.where("complete = ? OR complete IS NULL", false).count %> tasks left!
+              </p>
+            </blockquote>
+            <div class="card-action">
+              <a href="/student/homework/<%= homework.id %>">View Homework <i class="material-icons right">send</i></a>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </ul>
