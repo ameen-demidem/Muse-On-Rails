@@ -11,6 +11,7 @@
   <div class="card-panel white hoverable">
     <% if current_user.role == "T" %>
       <div class="right">
+        <span class="button-text">edit homework</span>
         <!-- <button type="button" onclick="editHomeworkNote(<%= @student.id %>,<%= homework.id %>)">Edit the homework</button> -->
         <a class="btn-floating btn-Small waves-effect waves-light red" onclick="editHomeworkNote(<%= @student.id %>,<%= homework.id %>)"><i class="Tiny material-icons">edit</i></a>
       </div>
