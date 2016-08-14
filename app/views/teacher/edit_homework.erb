@@ -1,6 +1,6 @@
 <h3 class="center button-spacing">Edit homework for: <%= @student.name %></h3>
-<button class="btn-floating waves-effect waves-light red" name="cancel" onclick="goBack(student, homework)">
-  <!-- <i class="material-icons">cancel</i> -->
+<button class="btn-floating waves-effect waves-light red" name="Cancel" onclick="goBack()">
+  <i class="material-icons">cancel</i>
 </button>
 <div class="row button-spacing">
   <div class="card-panel white hoverable">
@@ -57,7 +57,7 @@
 </div>
 
 <script>
-  function goBack(student, homework) {
+  function goBack() {
     //a href="/teacher/students/<%= @student.id %>/homework/<%= @homework.id %>">go back</a>-->
     window.history.go(-1);
   }
