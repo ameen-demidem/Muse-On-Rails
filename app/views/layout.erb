@@ -7,9 +7,9 @@
   <link type="text/css" rel="stylesheet" href="/stylesheets/materialize.css"  media="screen,projection"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="/javascript/application.js"></script>
-  <script type="text/javascript" src="javascript/materialize.js"></script>
+  <script type="text/javascript" src="/`javascript/materialize.js"></script>
 
   <title></title>
 </head>
@@ -19,7 +19,24 @@
       <div class="container">
         <div class="nav-wrapper">
           <a href="/" class="brand-logo">Logo</a>
+          <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <% if not_logged_in %>
+              <li class="blue darken-2"><a href="/login">login</a></li>
+            <% else %>
+              <% if teacher? %>
+                <li><a href="/teacher/students">STUDENTS</a></li>
+                <li><a href="/teacher/students/new">ADD STUDENT</a></li>
+                <li class="blue darken-2"><a href="/logout">LOGOUT</a></li>
+                <li class="nav-username"><%= current_user.name %></li>
+              <% else %>
+                <li><a href="/student">HOMEWORK</a></li>
+                <li class="blue darken-2"><a href="/logout">LOGOUT</a></li>
+                <li class="nav-username"><%= current_user.name %></li>
+              <% end %>
+            <% end %>
+          </ul>
+          <ul class="side-nav" id="mobile-menu">
             <% if not_logged_in %>
               <li class="blue darken-2"><a href="/login">login</a></li>
             <% else %>
