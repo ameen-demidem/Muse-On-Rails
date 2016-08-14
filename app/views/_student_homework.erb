@@ -7,47 +7,48 @@
     </div>
   </div>
 <% end %>
-<div class="card-panel white hoverable">
-
-  <% if current_user.role == "T" %>
-    <button type="button" onclick="editHomeworkNote(<%= @student.id %>,<%= homework.id %>)">Edit the homework</button>
-  <% end %>
-
-  <h5 class="button-spacing"><strong>Notes from lesson</strong></h5>
-  <p><%= homework.note %></p>
-
-  <h5 class="button-spacing"><strong>Tasks for the homework</strong></h5>
-
-  <div class="button-spacing">
-    <ul class="collection">
-      <% homework.tasks.each do |task| %>
-        <li class="collection-item">
-          <% if current_user.role == 'S' %>
-            <div class="right">
-              <input class="toggle-task-status filled-in"
-                     type="checkbox"
-                     name="<%= task.id %>"
-                     id="<%= task.id %>"
-                     <%= if task.complete then "checked" end %> >
-              <label for="<%= task.id %>"></label>
-            </div>
-          <% elsif task.complete %>
-             <i class="material-icons right done-icon">done_all</i>
-          <% end %>
-          <blockquote>
-            <p class="">
-              <strong><%= task.item %></strong> <br>
-              <%= youtubify(task.url) %>
-            </p>
-          </blockquote>
-        </li>
-      <% end %>
-    </ul>
-
+<div class="row">
+  <div class="card-panel white hoverable">
     <% if current_user.role == "T" %>
-      <button type="button" onclick="addTask(<%= @student.id %>,<%= homework.id %>)">Add a task</button>
+      <div class="right">
+        <!-- <button type="button" onclick="editHomeworkNote(<%= @student.id %>,<%= homework.id %>)">Edit the homework</button> -->
+        <a class="btn-floating btn-Small waves-effect waves-light red" onclick="editHomeworkNote(<%= @student.id %>,<%= homework.id %>)"><i class="Tiny material-icons">edit</i></a>
+      </div>
     <% end %>
-
+    <h5 class="button-spacing"><strong>Notes from lesson</strong></h5>
+    <p><%= homework.note %></p>
+    <h5 class="button-spacing"><strong>Tasks for the homework</strong></h5>
+    <div class="button-spacing">
+      <ul class="collection">
+        <% homework.tasks.each do |task| %>
+          <li class="collection-item">
+            <% if current_user.role == 'S' %>
+              <div class="right">
+                <input class="toggle-task-status filled-in"
+                       type="checkbox"
+                       name="<%= task.id %>"
+                       id="<%= task.id %>"
+                       <%= if task.complete then "checked" end %> >
+                <label for="<%= task.id %>"></label>
+              </div>
+            <% elsif task.complete %>
+               <i class="material-icons right done-icon">done_all</i>
+            <% end %>
+            <blockquote>
+              <p class="">
+                <strong><%= task.item %></strong> <br>
+                <%= youtubify(task.url) %>
+              </p>
+            </blockquote>
+          </li>
+        <% end %>
+      </ul>
+      <% if current_user.role == "T" %>
+      <div class="row">
+        <a class="btn-floating waves-effect waves-light blue-grey"  type="button" onclick="addTask(<%= @student.id %>,<%= homework.id %>)"><i class="material-icons">add</i></a>
+      </div>
+      <% end %>
+    </div>
   </div>
 </div>
 <div class="row">

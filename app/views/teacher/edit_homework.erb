@@ -1,54 +1,59 @@
-<h3 class="center button-spacing">Edit Homework For <%= @student.name %></h3>
-
+<h3 class="center button-spacing">Edit homework for: <%= @student.name %></h3>
+<button class="btn-floating waves-effect waves-light red" name="cancel" onclick="goBack(student, homework)">
+  <!-- <i class="material-icons">cancel</i> -->
+</button>
 <div class="row button-spacing">
-  <form class="col s8 offset-s2" action="/teacher/homework/edit" method="post">
-    <input type="hidden" name="homework" value="<%= @homework.id %>" >
-    <input type="hidden" name="student" value="<%= @student.id %>" >
-
-    <div class="row">
-      <h5 class="button-spacing"><strong>Homework Title</strong></h5>
-      <div class="input-field col s12">
-        <input id="homework_title" type="text" class="validate" name="title" value="<%= @homework.title %>" >
-        <label class="active" for="homework_title"></label>
+  <div class="card-panel white hoverable">
+    <form action="/teacher/homework/edit" method="post">
+      <input type="hidden" name="homework" value="<%= @homework.id %>" >
+      <input type="hidden" name="student" value="<%= @student.id %>" >
+      <div class="row">
+        <div class="col s10 offset-s1">
+          <h5 class="button-spacing"><strong>Homework Title</strong></h5>
+          <div class="input-field col s12">
+            <input id="homework_title" type="text" class="validate" name="title" value="<%= @homework.title %>" >
+            <label class="active" for="homework_title"></label>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="row">
-      <h5 class="button-spacing"><strong>Notes from lesson</strong></h5>
-      <div class="input-field col s12">
-        <input id="lesson_notes" type="text" class="validate" name="note" value="<%= @homework.note %>" >
-        <label class="active" for="lesson_notes"></label>
+      <div class="row">
+        <div class="col s10 offset-s1">
+          <h5 class="button-spacing"><strong>Notes from lesson</strong></h5>
+          <div class="input-field col s12">
+            <input id="lesson_notes" type="text" class="validate" name="note" value="<%= @homework.note %>" >
+            <label class="active" for="lesson_notes"></label>
+          </div>
+        </div>
       </div>
-    </div>
+      <div class="row">
+        <div class="col s10 offset-s1">
+          <h5 class="button-spacing"><strong>Tasks for the homework</strong></h5>
+          <div class="button-spacing">
+            <ul class="collection">
+              <% @homework.tasks.each do |task| %>
+                <!--li class="collection-item"-->
+                  <div class="input-field col s8">
+                    <input id="item<%= task.id %>" type="text" class="validate" name="item<%= task.id %>" value="<%= task.item %>">
+                    <label class="active" for="item<%= task.id %>"></label>
+                  </div>
 
-    <h5 class="button-spacing"><strong>Tasks for the homework</strong></h5>
-    <div class="row">
-      <ul class="collection">
-        <% @homework.tasks.each do |task| %>
-          <!--li class="collection-item"-->
-            <div class="input-field col s8">
-              <input id="item<%= task.id %>" type="text" class="validate" name="item<%= task.id %>" value="<%= task.item %>">
-              <label class="active" for="item<%= task.id %>"></label>
-            </div>
-
-            <div class="input-field col s4">
-              <input id="url<%= task.id %>" type="text" class="validate" name="url<%= task.id %>" value="<%= task.url %>">
-              <label class="active" for="item<%= task.id %>"></label>
-            </div>
-          <!--/li-->
-        <% end %>
-      </ul>
-    </div>
-
-    <div class="center">
-      <button class="btn waves-effect waves-light button-spacing green" type="submit" name="action" value="submit">
-        Update!
-      </button>
-      <button class="btn waves-effect waves-light button-spacing green" name="cancel" onclick="goBack(student, homework)">
-        Cancel
-      </button>
-    </div>
-  </form>
+                  <div class="input-field col s4">
+                    <input id="url<%= task.id %>" type="text" class="validate" name="url<%= task.id %>" value="<%= task.url %>">
+                    <label class="active" for="item<%= task.id %>"></label>
+                  </div>
+                <!--/li-->
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="center">
+        <button class="btn waves-effect waves-light button-spacing green" type="submit" name="action" value="submit">
+          Update!
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <script>
