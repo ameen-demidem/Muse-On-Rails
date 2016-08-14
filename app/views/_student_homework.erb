@@ -12,7 +12,7 @@
     <% if current_user.role == "T" %>
       <div class="right">
         <!-- <button type="button" onclick="editHomeworkNote(<%= @student.id %>,<%= homework.id %>)">Edit the homework</button> -->
-        <a class="btn-floating btn-Small waves-effect waves-light red" onclick="editHomeworkNote(<%= @student.id %>,<%= homework.id %>)"><i class="Tiny material-icons">edit</i></a>
+        <a class="btn-floating btn-Small waves-effect waves-light grey lighten-1" onclick="editHomeworkNote(<%= @student.id %>,<%= homework.id %>)"><i class="Tiny material-icons">edit</i></a>
       </div>
     <% end %>
     <h5 class="button-spacing"><strong>Notes from lesson</strong></h5>
@@ -45,7 +45,7 @@
       </ul>
       <% if current_user.role == "T" %>
       <div class="row">
-        <a class="btn-floating waves-effect waves-light blue-grey"  type="button" onclick="addTask(<%= @student.id %>,<%= homework.id %>)"><i class="material-icons">add</i></a>
+        <a class="btn-floating waves-effect waves-light grey lighten-1"  type="button" onclick="addTask(<%= @student.id %>,<%= homework.id %>)"><i class="material-icons md-18">add</i></a>
       </div>
       <% end %>
     </div>
