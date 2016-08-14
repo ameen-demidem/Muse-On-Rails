@@ -9,68 +9,91 @@
     <input type="submit" value="submit">
   </form> -->
   <div class="row button-spacing">
-    <form class="col s8 offset-s2" action="/homework/new" method="post">
-      <div class="row">
-        <div class="input-field col s12">
-          <input placeholder="E.g. 'week of july 15th: Circle of 5ths'" id="homework_title" type="text" class="validate" name="title">
-          <label class="active" for="homework_title">This weeks homework is called:</label>
-        </div>
-        <div class="input-field col s12">
-          <input placeholder="This week I want to to spend time understanding..." id="lesson_notes" type="text" class="validate" name="note">
-          <label class="active" for="lesson_notes">Important notes</label>
-        </div>
-        <input type="hidden" name="user_id" value="<%= @student.id %>">
+    <div class="col s12">
+      <div class="card-panel white hoverable">
+        <form class="" action="/homework/new" method="post">
+          <div class="row">
+            <div class="input-field col s12">
+              <input placeholder="E.g. 'week of july 15th: Circle of 5ths'" id="homework_title" type="text" class="validate" name="title">
+              <label class="active" for="homework_title">This weeks homework is called:</label>
+            </div>
+            <div class="input-field col s12">
+              <input placeholder="This week I want to to spend time understanding..." id="lesson_notes" type="text" class="validate" name="note">
+              <label class="active" for="lesson_notes">Important notes</label>
+            </div>
+            <input type="hidden" name="user_id" value="<%= @student.id %>">
+          </div>
+          <div class="center">
+            <button class="btn waves-effect waves-light button-spacing green" type="submit" name="action" value="submit">
+              Assign!
+            </button>
+          </div>
+        </form>
       </div>
-      <div class="center">
-        <button class="btn waves-effect waves-light button-spacing green" type="submit" name="action" value="submit">
-          Assign!
-        </button>
-      </div>
-    </form>
+    </div>
   </div>
-  <% else %>
+<% else %>
+  <div class="row">
+  <div class="col s12">
+  <div class="card-panel white hoverable">
+
+
+
+
+
+
   <h5 class="button-spacing"><%= @homework.title %></h5>
   <p><%= @homework.note %></p>
-  <% end %>
-<br>
-<%  unless params[:homework].nil? %>
-  <div class="row">
-    <ul class="collection col s8">
-      <% @homework.tasks.map do |task| %>
-       <li class="collection-item"><%= task.item %>
-         <% unless task.url == "" || nil %>
-          <a class="right" href="<%= task.url %>">Resource</a>
-         <% end %>
-       </li>
-    </ul>
-  </div>
-<% end %>
-  <!-- <form class="" action="/homework/<%= @homework.id %>/task?user_id=<%= @student.id %>" method="post">
-    <label>New task</label>
-    <input type="text" name="item" value="">
-    <label>Link</label>
-    <input type="text" name="url" value="">
-    <input type="submit" value="submit">
-  </form> -->
-  <div class="row button-spacing">
-    <form class="col s10" action="/homework/<%= @homework.id %>/task?user_id=<%= @student.id %>" method="post">
-      <div class="row">
-        <div class="input-field col s4">
-          <input placeholder="task name" id="task_title" input type="text" name="item" class="validate">
-          <label class="active" for="task_title">Task for them:</label>
-        </div>
-        <div class="input-field col s4">
-          <input placeholder="youtube.com..." id="task_link" type="text" name="url" class="validate">
-          <label class="active" for="task_link">Link</label>
-        </div>
-        <input type="hidden" name="user_id" value="<%= @student.id %>">
-        <div class="input-field col s2">
-          <button class="waves-effect waves-teal btn-flat" type="submit" name="action" value="submit">
-            add
-          </button>
+
+  <br>
+  <%  unless params[:homework].nil? %>
+    <div class="row">
+      <div class="col s12">
+        <div class="card-panel white">
+          <h6><strong>Tasks for this week</strong></h6>
+          <ul class="collection button-spacing">
+            <% @homework.tasks.map do |task| %>
+             <li class="collection-item"><%= task.item %>
+               <% unless task.url == "" || nil %>
+                <a class="right" href="<%= task.url %>">Resource</a>
+               <% end %>
+             </li>
+            <% end %>
+          </ul>
         </div>
       </div>
-    </form>
+    </div>
   </div>
-  <a class="waves-effect waves-light btn green" href="/teacher/students">Finished</a>
+  </div>
+  </div>
+
+    <div class="row">
+      <div class="col s12">
+        <div class="card-panel white hoverable">
+          <h5>Add a task!</h5>
+          <form class="button-spacing" action="/homework/<%= @homework.id %>/task?user_id=<%= @student.id %>" method="post">
+            <div class="row">
+              <div class="input-field col s5">
+                <input placeholder="task name" id="task_title" input type="text" name="item" class="validate">
+                <label class="active" for="task_title">Task for them:</label>
+              </div>
+              <div class="input-field col s5">
+                <input placeholder="youtube.com..." id="task_link" type="text" name="url" class="validate">
+                <label class="active" for="task_link">Link</label>
+              </div>
+              <input type="hidden" name="user_id" value="<%= @student.id %>">
+              <div class="input-field col s2">
+                <button class="waves-effect waves-teal btn-flat" type="submit" name="action" value="submit">
+                  add
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+    <a class="waves-effect waves-light btn green" href="/teacher/students/<%= @student.id %>">Finished</a>
+    </div>
+  <% end %>
 <% end %>
