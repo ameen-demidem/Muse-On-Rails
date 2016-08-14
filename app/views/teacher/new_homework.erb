@@ -1,13 +1,5 @@
 <h3 class="center button-spacing">New Homework For <%= @student.name %></h3>
 <% if params[:homework].nil? %>
-  <!-- <form class="" >
-    <label>Title</label>
-    <input type="text" name="title" value="">
-    <label>Notes</label>
-    <input type="text" name="note" value="">
-    <input type="hidden" name="user_id" value="<%= @student.id %>">
-    <input type="submit" value="submit">
-  </form> -->
   <div class="row button-spacing">
     <div class="col s12">
       <div class="card-panel white hoverable">
@@ -33,40 +25,32 @@
     </div>
   </div>
 <% else %>
-  <div class="row">
-  <div class="col s12">
-  <div class="card-panel white hoverable">
-
-
-
-
-
-
-  <h5 class="button-spacing"><%= @homework.title %></h5>
-  <p><%= @homework.note %></p>
-
-  <br>
   <%  unless params[:homework].nil? %>
     <div class="row">
       <div class="col s12">
-        <div class="card-panel white">
-          <h6><strong>Tasks for this week</strong></h6>
-          <ul class="collection button-spacing">
-            <% @homework.tasks.map do |task| %>
-             <li class="collection-item"><%= task.item %>
-               <% unless task.url == "" || nil %>
-                <a class="right" href="<%= task.url %>">Resource</a>
-               <% end %>
-             </li>
-            <% end %>
-          </ul>
+        <div class="card-panel white hoverable">
+          <h5 class="button-spacing"><%= @homework.title %></h5>
+          <p><%= @homework.note %></p>
+          <br>
+          <div class="row">
+            <div class="col s12">
+              <div class="card-panel white">
+                <h6><strong>Tasks for this week</strong></h6>
+                <ul class="collection button-spacing">
+                  <% @homework.tasks.map do |task| %>
+                   <li class="collection-item"><%= task.item %>
+                     <% unless task.url == "" || nil %>
+                      <a class="right" href="<%= task.url %>">Resource</a>
+                     <% end %>
+                   </li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  </div>
-  </div>
-
     <div class="row">
       <div class="col s12">
         <div class="card-panel white hoverable">
@@ -93,7 +77,7 @@
       </div>
     </div>
     <div class="right">
-    <a class="waves-effect waves-light btn green" href="/teacher/students/<%= @student.id %>">Finished</a>
+      <a class="waves-effect waves-light btn green" href="/teacher/students/<%= @student.id %>">Finished</a>
     </div>
   <% end %>
 <% end %>
