@@ -33,7 +33,7 @@
             <div class="button-spacing">
               <ul class="collection blue-grey darken-3">
                 <% @homework.tasks.each do |task| %>
-                  <li class="`blue-grey darken-3">
+                  <li class="blue-grey darken-3">
                     <div class="input-field col s8">
                       <input id="item<%= task.id %>" type="text" class="validate" name="item<%= task.id %>" value="<%= task.item %>">
                       <label class="active" for="item<%= task.id %>"></label>
