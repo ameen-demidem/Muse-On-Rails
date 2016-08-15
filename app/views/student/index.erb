@@ -1,21 +1,24 @@
-<h3 class="center h-3-spacing">Hello <%= current_user.name %> <br> Here are your assignemnts</h3>
+<h3 class="center h-3-spacing white-text thin">Hello <span class="thick"><%= current_user.name %></span> <br> Here are your assignemnts</h3>
 
 <ul>
   <% current_user.homeworks.map do |homework| %>
     <div class="row">
-      <div class="col s10 offset-s1">
+      <div class="col s10 offset-s1 white-text">
         <div class="card-panel hoverable">
           <% unless homework.tasks.where("complete = ? OR complete IS NULL", false).any? == true %>
               <i class="material-icons right icon-gold">stars</i>
           <% end %>
           <span class="">
             <blockquote class="">
-              <h5><%= homework.title %></h5>
-              <p>
+              <h5 class="thin"><%= homework.title %></h5>
+              <p class="thin">
                 <%= homework.note %>
               </p>
-              <p>
-                <%= homework.tasks.where("complete = ? OR complete IS NULL", false).count %> tasks left!
+              <p class="thin">
+                <span class="amber-text thick">
+                  <%= homework.tasks.where("complete = ? OR complete IS NULL", false).count %>
+                </span>
+                tasks left!
               </p>
             </blockquote>
             <div class="card-action">

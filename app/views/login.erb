@@ -1,23 +1,17 @@
-<h3 class="center h-3-spacing">
+<h3 class="center h-3-spacing white-text">
   Login<br>
   <span class="title-comment">(Good news awaits)</span>
 </h3>
 
 <% if session["error"] %>
-  <div>
+  <div class="text-white">
     <strong>We couldn't authenticate you!</strong>
     <p><%= session["error"] %></p>
   </div>
 <% end %>
 
-<!-- <form method="post" action="/login">
-  <input type="text" name="username">
-  <input type="password" name="password">
-  <input type="submit" value="Submit">
-</form> -->
-
 <div class="row">
-  <div class="col s12">
+  <div class="col s10 offset-s1 card-bottom">
     <div class="card-panel hoverable">
       <form class="card-padding" method="post" action="/login">
         <div>
@@ -29,7 +23,7 @@
           <input type="password" name="password">
         </div>
         <div class="center button-spacing">
-          <button class="btn waves-effect waves-light" type="submit" name="action" value="Submit">
+          <button class="btn waves-effect waves-light blue darken-2" type="submit" name="action" value="Submit">
             Login
             <i class="material-icons right">send</i>
           </button>

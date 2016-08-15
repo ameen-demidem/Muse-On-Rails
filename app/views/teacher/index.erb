@@ -1,4 +1,4 @@
-<h3 class="center">all of your wonderful students</h3>
+<h3 class="center white-text">all of your wonderful students</h3>
 <div class="row">
   <div class="col s6 offset-s2">
     <a class="btn-floating waves-effect waves-light green" href="/teacher/students/new"><i class="material-icons">add</i></a>
@@ -8,10 +8,10 @@
 <% current_user.students.each do | student | %>
   <div class="row">
     <div class="col s10 offset-s1">
-      <div class="card-panel hoverable">
+      <div class="card-panel hoverable blue-grey darken-4">
         <span class="">
           <blockquote class="">
-            <h5><%= student.name %></h5>
+            <h5 class="white-text"><%= student.name %></h5>
           </blockquote>
           <a href="/teacher/students/<%= student.id %>">view student <i class="material-icons right">send</i></a>
         </span>

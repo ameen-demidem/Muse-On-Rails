@@ -9,36 +9,36 @@
 
   <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="/javascript/application.js"></script>
-  <script type="text/javascript" src="/`javascript/materialize.js"></script>
+  <script type="text/javascript" src="/javascript/materialize.js"></script>
 
   <title></title>
 </head>
-<main class="grey lighten-5">
+<main class="blue-grey darken-3">
   <div class="navbar-fixed">
-    <nav class="blue lighten-2">
+    <nav class="black">
       <div class="container">
         <div class="nav-wrapper">
-          <a href="/" class="brand-logo">Logo</a>
+          <a href="/" class="brand-logo">MUSE</a>
           <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
           <ul id="nav-mobile" class="right hide-on-med-and-down">
             <% if not_logged_in %>
-              <li class="blue darken-2"><a href="/login">login</a></li>
+              <li><a class="blue darken-2 btn" href="/login">login</a></li>
             <% else %>
               <% if teacher? %>
                 <li><a href="/teacher/students">STUDENTS</a></li>
                 <li><a href="/teacher/students/new">ADD STUDENT</a></li>
-                <li class="blue darken-2"><a href="/logout">LOGOUT</a></li>
+                <li><a class="blue darken-2 btn" href="/logout">LOGOUT</a></li>
                 <li class="nav-username"><%= current_user.name %></li>
               <% else %>
                 <li><a href="/student">HOMEWORK</a></li>
-                <li class="blue darken-2"><a href="/logout">LOGOUT</a></li>
+                <li><a class="blue darken-2 btn" href="/logout">LOGOUT</a></li>
                 <li class="nav-username"><%= current_user.name %></li>
               <% end %>
             <% end %>
           </ul>
           <ul class="side-nav" id="mobile-menu">
             <% if not_logged_in %>
-              <li class="blue darken-2"><a href="/login">login</a></li>
+              <li class="lack"><a href="/login">login</a></li>
             <% else %>
               <% if teacher? %>
                 <li><a href="/teacher/students">STUDENTS</a></li>
@@ -60,12 +60,12 @@
     <%= yield %>
   </div>
 </main>
-<footer class="page-footer blue-grey darken-3">
+<footer class="page-footer blue-grey darken-4">
   <div class="container">
     <div class="row">
       <div class="col l6 s12">
         <h5 class="white-text">Why this site!</h5>
-        <p class="grey-text text-lighten-4">This is a great tool for you to learn to KILL it on your instrument</p>
+        <p class="grey-text text-lighten-3">This is a great tool for you to learn to KILL it on your instrument</p>
       </div>
       <div class="col l4 offset-l2 s12">
         <h5 class="white-text">Links</h5>
@@ -75,7 +75,7 @@
       </div>
     </div>
   </div>
-  <div class="footer-copyright blue-grey darken-4">
+  <div class="footer-copyright black">
     <div class="container">
     © 2016 Muse Corp
     </div>

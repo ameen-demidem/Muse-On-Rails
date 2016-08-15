@@ -2704,7 +2704,7 @@ a {
 blockquote {
   margin: 20px 0;
   padding-left: 1.5rem;
-  border-left: 5px solid #b3e5fc;
+  border-left: 5px solid #1976d2;
 }
 
 i {
@@ -3084,8 +3084,8 @@ td, th {
 
 .collection {
   margin: 0.5rem 0 1rem 0;
-  border: 1px solid #e0e0e0;
-  border-radius: 2px;
+  border: 1px solid #263238;
+  border-radius: 30px;
   overflow: hidden;
   position: relative;
 }
@@ -3095,7 +3095,7 @@ td, th {
   line-height: 1.5rem;
   padding: 10px 20px;
   margin: 0;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #c6dbf3;
 }
 
 .collection .collection-item.avatar {
@@ -4382,6 +4382,10 @@ small {
   font-weight: 200;
 }
 
+.thick {
+  font-weight: 400;
+}
+
 .flow-text {
   font-weight: 300;
 }
@@ -4522,21 +4526,21 @@ small {
   transition: box-shadow .25s;
   padding: 20px;
   margin: 0.5rem 0 1rem 0;
-  border-radius: 2px;
-  background-color: #fff;
+  border-radius: 30px;
+  background-color: #263238;
 }
 
 .card {
   position: relative;
   margin: 0.5rem 0 1rem 0;
-  background-color: #fff;
+  background-color: #263238;
   transition: box-shadow .25s;
-  border-radius: 2px;
+  border-radius: 30px;
 }
 
 .card .card-title {
   font-size: 24px;
-  font-weight: 300;
+  font-weight: 200;
 }
 
 .card .card-title.activator {
@@ -4889,7 +4893,7 @@ small {
 .btn, .btn-large,
 .btn-flat {
   border: none;
-  border-radius: 2px;
+  border-radius: 30px;
   display: inline-block;
   height: 36px;
   line-height: 36px;
@@ -5067,8 +5071,9 @@ button.btn-floating {
 
 .btn-flat {
   box-shadow: none;
+  border: 1px solid rgba(255, 255, 255, 0.36);
   background-color: transparent;
-  color: #343434;
+  color: #fff;
   cursor: pointer;
   transition: background-color .2s;
 }
@@ -5078,7 +5083,7 @@ button.btn-floating {
 }
 
 .btn-flat:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.36);
   box-shadow: none;
 }
 
@@ -5719,8 +5724,8 @@ input[type=tel]:focus:not([readonly]),
 input[type=number]:focus:not([readonly]),
 input[type=search]:focus:not([readonly]),
 textarea.materialize-textarea:focus:not([readonly]) {
-  border-bottom: 1px solid #26a69a;
-  box-shadow: 0 1px 0 0 #26a69a;
+  border-bottom: 1px solid #1976d2;
+  box-shadow: 0 1px 0 0 #1976d2;
 }
 
 input:not([type]):focus:not([readonly]) + label,
@@ -5736,7 +5741,7 @@ input[type=tel]:focus:not([readonly]) + label,
 input[type=number]:focus:not([readonly]) + label,
 input[type=search]:focus:not([readonly]) + label,
 textarea.materialize-textarea:focus:not([readonly]) + label {
-  color: #26a69a;
+  color: #1976d2;
 }
 
 input:not([type]).valid, input:not([type]):focus.valid,
@@ -5934,7 +5939,7 @@ textarea.materialize-textarea + label:after {
 }
 
 .input-field .prefix.active {
-  color: #26a69a;
+  color: #1976d2;
 }
 
 .input-field .prefix ~ input,
@@ -6113,12 +6118,12 @@ textarea.materialize-textarea {
 [type="radio"]:checked + label:after,
 [type="radio"].with-gap:checked + label:before,
 [type="radio"].with-gap:checked + label:after {
-  border: 2px solid #26a69a;
+  border: 2px solid #1976d2;
 }
 
 [type="radio"]:checked + label:after,
 [type="radio"].with-gap:checked + label:after {
-  background-color: #26a69a;
+  background-color: #1976d2;
   z-index: 0;
 }
 
@@ -6252,8 +6257,8 @@ form p:last-child {
   height: 22px;
   border-top: 2px solid transparent;
   border-left: 2px solid transparent;
-  border-right: 2px solid #26a69a;
-  border-bottom: 2px solid #26a69a;
+  border-right: 2px solid #1976d2;
+  border-bottom: 2px solid #1976d2;
   -webkit-transform: rotate(40deg);
           transform: rotate(40deg);
   -webkit-backface-visibility: hidden;
@@ -6275,7 +6280,7 @@ form p:last-child {
   height: 22px;
   border-top: none;
   border-left: none;
-  border-right: 2px solid #26a69a;
+  border-right: 2px solid #1976d2;
   border-bottom: none;
   -webkit-transform: rotate(90deg);
           transform: rotate(90deg);
@@ -6344,8 +6349,8 @@ form p:last-child {
   top: 0;
   width: 20px;
   height: 20px;
-  border: 2px solid #26a69a;
-  background-color: #26a69a;
+  border: 2px solid #1976d2;
+  background-color: #1976d2;
   z-index: 0;
 }
 

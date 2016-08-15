@@ -1,7 +1,7 @@
 <%= erb :_student_homework, locals: {homework: @homework} %>
-<div class="row button-spacing">
+<div class="row button-spacing white-text">
   <form class="col s12"  method="post" action="/student/homework/new_comment">
-    <div class="card-panel white">
+    <div class="card-panel">
       <h5>Submit work or add a comment</h5>
       <input type="hidden" name="homework_id" value="<%= @homework.id %>">
       <div class="row button-spacing">

@@ -37,7 +37,7 @@ main {
 }
 
 .card-padding {
-  margin: 5rem;
+  margin: 4rem;
 }
 
 .comment-padding {
@@ -46,7 +46,7 @@ main {
 
 .h-3-spacing {
    margin-top: 75px;
-   margin-bottom: 45px;
+   margin-bottom: 25px;
 }
 
 .title-comment {
@@ -56,4 +56,48 @@ main {
 
 .icon-gold {
   color: #ffc400;
+}
+
+.nav-button {
+  margin-top: 1rem;
+}
+.home-card {
+  margin-top: 10rem;
+  margin-bottom: 10rem;
+}
+
+.home-card-p {
+  margin-bottom: 20px
+}
+
+.sub-title-weight {
+  font-weight: 300;
+}
+
+.home-page-desc {
+  font-weight: 200;
+}
+
+.card-bottom {
+  margin-bottom: 10rem;
+}
+
+.h-5-spacing {
+  margin-top: 30px;
+  margin-bottom: 45px;
+}
+
+.form-button {
+    margin-bottom: 30px;
+}
+
+.errors-list{
+  margin-top: 1rem;
+  margin-bottom: .5rem;
+  padding-left: 2rem;
+  color: #ff5353;
+}
+
+.check-box {
+      margin-top: 20px;
 }

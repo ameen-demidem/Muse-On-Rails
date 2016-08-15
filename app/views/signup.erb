@@ -1,16 +1,31 @@
 <h1>Where a teacher can signup</h1>
 
 <% if @teacher.errors.any? %>
-  <div>
+  <!-- <div>
     <strong>Some issues with your entry, please fix them:</strong>
     <ul>
       <% @teacher.errors.full_messages.each do |error| %>
         <li><%= error %></li>
       <% end %>
     </ul>
+  </div> -->
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel hoverable thick">
+        <div class="white-text">
+          <h5>Some issues with your entry, please fix them:</h5>
+          <ol>
+            <% @teacher.errors.full_messages.each do |error| %>
+              <li class="errors-list"><%= error %></li>
+            <% end %>
+          </ol>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
 
+<!--
 <form method="post" action="/signup">
   <div>
     <label>Full Name:</label>
@@ -27,4 +42,32 @@
   <div>
     <input type="submit" value="Create" >
   </div>
-</form>
+</form> -->
+
+<div class="row">
+  <div class="col s12 white-text card-bottom">
+    <div class="card-panel hoverable">
+      <h5 class="center">Add a student</h5>
+      <form class="card-padding" method="post" action="/signup">
+        <div>
+          <label>Full Name:</label>
+          <input type="text" name="name" value="<%= @teacher.name %>">
+        </div>
+        <div>
+          <label>Username:</label>
+          <input type="text" name="username" value="<%= @teacher.username %>">
+        </div>
+        <div>
+          <label>Password:</label>
+          <input type="text" name="password" value="<%= @teacher.password %>">
+        </div>
+        <div class="center button-spacing">
+          <button class="btn waves-effect waves-light green" type="submit" name="action" value="Create">
+            Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
