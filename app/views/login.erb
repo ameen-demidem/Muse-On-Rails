@@ -4,13 +4,23 @@
 </h3>
 
 <% if session["error"] %>
-  <div class="text-white">
+  <!-- <div class="text-white">
     <strong>We couldn't authenticate you!</strong>
     <p><%= session["error"] %></p>
+  </div> -->
+  <div class="row">
+    <div class=" col s10 offset-s1">
+      <div class="card-panel hoverable thick">
+        <div class="white-text">
+          <h5>We couldn't authenticate you!</h5>
+          <p class="errors-list"><%= session["error"] %></p>
+        </div>
+      </div>
+    </div>
   </div>
 <% end %>
 
-<div class="row">
+<div class="row white-text">
   <div class="col s10 offset-s1 card-bottom">
     <div class="card-panel hoverable">
       <form class="card-padding" method="post" action="/login">

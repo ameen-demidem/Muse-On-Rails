@@ -101,3 +101,13 @@ main {
 .check-box {
       margin-top: 20px;
 }
+
+.back-ground {
+  /*background-color: #0e1519;*/
+background-image: linear-gradient(-135deg, #051823 0%, #09161d 100%);
+}
+
+.task-spacing {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
