@@ -38,7 +38,7 @@
               <h6><strong>Tasks for this week</strong></h6>
               <ul class="collection blue-grey darken-3 button-spacing">
                 <% @homework.tasks.map do |task| %>
-                 <li class="collection-item blue-grey darken-3"><%= task.item %>
+                 <li class="collection-item blue-grey darken-3 task-spacing"><%= task.item %>
                    <% unless task.url == "" || nil %>
                     <a class="right" href="<%= task.url %>">Resource</a>
                    <% end %>
@@ -75,7 +75,7 @@
         </div>
       </div>
     </div>
-    <div class="right">
+    <div class="center form-button">
       <a class="waves-effect waves-light btn green form-button" href="/teacher/students/<%= @student.id %>">Finished</a>
     </div>
   <% end %>
