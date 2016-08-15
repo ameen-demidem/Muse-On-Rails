@@ -9,6 +9,15 @@ end
 
 # posts to /login
 get '/login' do
+  if current_user
+    if current_user.role = "T"
+      redirect "/teacher/students"
+    elsif current_user.role = "S"
+      redirect "/student"
+    else
+      redirect "/logout"
+    end
+  end
   erb :login
 end
 
@@ -225,7 +234,7 @@ end
 
 helpers do
   def current_user
-    User.find(session[:current_user])
+    User.where(id: session[:current_user]).first
   end
 
   def teacher?
