@@ -1,0 +1,49 @@
+<h3 class="center h-3-spacing white-text">
+  Login<br>
+  <span class="title-comment">(Good news awaits)</span>
+</h3>
+
+<% if session["error"] %>
+  <!-- <div class="text-white">
+    <strong>We couldn't authenticate you!</strong>
+    <p><%= session["error"] %></p>
+    </div> -->
+    <div class="row">
+      <div class=" col s10 offset-s1">
+        <div class="card-panel hoverable thick">
+          <div class="white-text">
+            <h5>We couldn't authenticate you!</h5>
+            <p class="errors-list"><%= session["error"] %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row white-text">
+    <div class="col s10 offset-s1 card-bottom">
+      <div class="card-panel hoverable">
+        <%= form_tag controller: :sessions, action: "create", class: "card-padding" do %>
+          <div>
+            <%= label_tag :username, "Username:" %>
+            <%= text_field_tag :username %>
+          </div>
+          <div>
+            <%= label_tag :password, "Password:" %>
+            <%= password_field_tag :password %>
+          </div>
+          <div class="center button-spacing">
+            <%= submit_tag "Login", class: "btn waves-effect waves-light blue darken-2" do %>
+              <i class="material-icons right">send</i>
+            <% end %>
+          </div>
+      <% end %>
+
+      <div class="white-text thin center">
+        <p>
+        If you are not currently a member, feel free to <a href="/signup">Sign-up!</a>
+        </p>
+      </div>
+      </div>
+    </div>
+  </div>
