@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   root "welcome#index"
 
   resource :session, only: [:new, :create, :destroy]
-  resource :user, only: [:new, :create, :destroy]
+  resources :users, only: [:new, :create, :destroy]
 
   namespace :student do
     resources :homeworks, only: [:index, :show, :update]

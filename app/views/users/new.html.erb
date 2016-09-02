@@ -48,26 +48,26 @@
       <div class="col s12 white-text card-bottom">
         <div class="card-panel hoverable">
           <h5 class="center">Create an account</h5>
-          <form class="card-padding" method="post" action="/signup">
+          <%= form_for @teacher, html: { class: "card-padding" } do |f| %>
             <div>
-              <label>Full Name:</label>
-              <input type="text" name="name" value="<%= @teacher.name %>">
+              <%= f.label "Full Name:" %>
+              <%= f.text_field :name %>
             </div>
             <div>
-              <label>Username:</label>
-              <input type="text" name="username" value="<%= @teacher.username %>">
+              <%= f.label "Username:" %>
+              <%= f.text_field :username %>
             </div>
             <div>
-              <label>Password:</label>
-              <input type="text" name="password" value="<%= @teacher.password %>">
+              <%= f.label "Password:" %>
+              <%= f.password_field :password %>
             </div>
             <div class="center button-spacing">
-              <button class="btn waves-effect waves-light green" type="submit" name="action" value="Create">
+              <%= button_tag "Submit", class: "btn waves-effect waves-light green" do %>
                 Submit
                 <i class="material-icons right">send</i>
-              </button>
+              <% end %>
             </div>
-          </form>
+          <% end %>
         </div>
       </div>
     </div>
