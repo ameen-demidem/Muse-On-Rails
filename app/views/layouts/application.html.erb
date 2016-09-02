@@ -29,7 +29,9 @@
             <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
               <% if not_logged_in %>
-                <li><a class="blue darken-2 btn" href="/login">login</a></li>
+                <li>
+                  <%= link_to "Login", new_session_path, class: "blue darken-2 btn" %>
+                </li>
               <% else %>
                 <% if teacher? %>
                   <li><a href="/teacher/students">STUDENTS</a></li>
@@ -58,7 +60,7 @@
             </ul>
             <ul class="side-nav" id="mobile-menu">
               <% if not_logged_in %>
-                <li class="lack"><a href="/login">login</a></li>
+                <li class="lack"><%= link_to "Login", new_session_path %></li>
               <% else %>
                 <% if teacher? %>
                   <li><a href="/teacher/students">STUDENTS</a></li>
@@ -98,12 +100,18 @@
           <div class="col l4 offset-l2 s12">
             <h5 class="white-text">Links</h5>
             <ul>
-              <li>
-                <%= link_to "Logout",
-                  session_path,
-                  method: :delete, rel: "nofollow",
-                  class: "grey-text text-lighten-3" %>
-              </li>
+              <% if not_logged_in %>
+                <li>
+                  <%= link_to "Login", new_session_path, class: "grey-text text-lighten-3" %>
+                </li>
+              <% else %>
+                <li>
+                  <%= link_to "Logout",
+                    session_path,
+                    method: :delete, rel: "nofollow",
+                    class: "grey-text text-lighten-3" %>
+                </li>
+              <% end %>
             </ul>
           </div>
         </div>
