@@ -1,2 +1,36 @@
-<h1>Student::Homeworks#index</h1>
-<p>Find me in app/views/student/homeworks/index.html.erb</p>
+<h3 class="center h-3-spacing white-text thin">
+  Hello <span class="thick"><%= current_user.name %></span><br>
+  Here are your assignemnts
+</h3>
+
+<ul>
+  <% current_user.homeworks.map do |homework| %>
+    <div class="row">
+      <div class="col s10 offset-s1 white-text">
+        <div class="card-panel hoverable">
+          <% unless homework.tasks.where("complete = ? OR complete IS NULL", false).any? == true %>
+            <i class="material-icons right icon-gold">stars</i>
+          <% end %>
+          <span class="">
+            <blockquote class="">
+              <h5 class="thin"><%= homework.title %></h5>
+              <p class="thin"><%= homework.note %></p>
+              <p class="thin">
+              <span class="amber-text thick">
+                <%= homework.tasks.where("complete = ? OR complete IS NULL", false).count %>
+              </span>
+              tasks left!
+              </p>
+            </blockquote>
+            <div class="card-action">
+              <%= link_to student_homework_path(homework) do %>
+                View Homework
+                <i class="material-icons right">send</i>
+              <% end %>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</ul>

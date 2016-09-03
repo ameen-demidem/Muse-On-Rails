@@ -1,0 +1,99 @@
+<h4 class="center h-3-spacing white-text"><%= homework.title %></h4>
+<% if teacher? %>
+  <div class="row">
+    <div class="col s10">
+      <a class="btn-floating waves-effect waves-light green" href="/teacher/students/<%= homework.user.id %>">
+        <i class="material-icons">skip_previous</i>
+      </a>
+      <span class="button-text white-text">back to <%= homework.user.name %>'s work</span>
+    </div>
+  </div>
+<% end %>
+<div class="row">
+  <div class="col s12">
+    <div class="card-panel blue-grey darken-4 hoverable white-text thin">
+      <% if current_user.role == "T" %>
+        <div class="right">
+          <a class="btn-floating btn-Small waves-effect waves-light grey lighten-1"
+             onclick="editHomeworkNote(<%= @student.id %>,<%= homework.id %>)">
+             <i class="Tiny material-icons">edit</i>
+          </a>
+        </div>
+      <% end %>
+      <h5 class="button-spacing"><strong>Notes from lesson</strong></h5>
+      <p><%= homework.note %></p>
+      <h5 class="button-spacing"><strong>Tasks for the homework</strong></h5>
+      <div class="button-spacing thin">
+        <ul class="collection blue-grey-text text-blue-grey darken-4">
+          <% homework.tasks.each do |task| %>
+            <li class="collection-item blue-grey darken-3 white-text">
+              <% if current_user.role == 'S' %>
+                <div class="right">
+                  <input class="toggle-task-status filled-in"
+                         type="checkbox"
+                         name="<%= task.id %>"
+                         id="<%= task.id %>"
+                         <%= if task.complete then "checked" end %> >
+                   <label class="check-box" for="<%= task.id %>"></label>
+                </div>
+              <% elsif task.complete %>
+                <i class="material-icons right done-icon">done_all</i>
+              <% end %>
+              <blockquote>
+                <p class="">
+                <strong><%= task.item %></strong> <br>
+                <%= youtubify(task.url) %>
+                </p>
+              </blockquote>
+            </li>
+          <% end %>
+        </ul>
+        <% if current_user.role == "T" %>
+          <div class="row">
+            <a class="btn-floating waves-effect waves-light grey lighten-1"
+               type="button" onclick="addTask(<%= @student.id %>,<%= homework.id %>)">
+               <i class="material-icons md-18">add</i>
+            </a>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12 white-text">
+    <% homework.comments.each do |comment| %>
+      <div class="card panel comment-padding hoverable">
+        <h5><%= comment.feedback %></h5>
+        <p class="comment-name">---<%= comment.user.name %></p>
+        <% if comment.url and comment.url != "" %>
+          <%= youtubify(comment.url) %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+$(".toggle-task-status").on('click', function() {
+  task_update = {
+    homework: "<%= homework.id %>",
+    task: $(this).attr("name"),
+    done: this.checked ? true : false
+  };
+  // TODO Fix the url once the task controller is written
+  $.post('/student/homework/task_update', task_update);
+});
+
+function editHomeworkNote(student, homework) {
+  window.location = "/teacher/homework/edit_homework?student=" + student + "&homework=" + homework
+    console.log("editing " + homework + " of " + student);
+}
+
+function addTask(student, homework) {
+  //    console.log("redirecting to : /teacher/students/" + student + "/homework/new?homework=" + homework)
+  window.location = "/teacher/students/" + student + "/homework/new?homework=" + homework;
+}
+</script>
+

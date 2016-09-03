@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   resource :session, only: [:new, :create, :destroy]
   resources :users, only: [:new, :create, :destroy]
+  resources :comments, only: [:create]
+  resource :task, only: [:create, :update]
 
   namespace :student do
     resources :homeworks, only: [:index, :show, :update]

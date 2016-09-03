@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
+    #TODO implement the deletion of a user
   end
 
   protected

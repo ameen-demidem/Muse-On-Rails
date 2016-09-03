@@ -2,11 +2,11 @@ class SessionsController < ApplicationController
   def new
     if current_user
       if current_user.role = "T"
-        redirect_to "/teacher/students"
+        redirect_to [:teacher, :students]
       elsif current_user.role = "S"
-        redirect_to "/student"
+        redirect_to [:student, :homeworks]
       else
-        redirect_to "/logout"
+        destroy
       end
     end
   end
@@ -17,8 +17,9 @@ class SessionsController < ApplicationController
     if user
       session.delete(:error)
       session[:current_user] = user.id
-      user.role == 'T' ? redirect_to('/teacher/students'): redirect_to('/student')
+      user.role == 'T' ? redirect_to([:teacher, :students]): redirect_to([:student, :homeworks])
     else
+      # TODO Use flash.now.alert for consistency
       session.delete(:current_user)
       session[:error] = "Wrong username or password!"
       redirect_to new_session_path

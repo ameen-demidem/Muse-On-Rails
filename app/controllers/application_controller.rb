@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :not_logged_in
   helper_method :teacher?
+  helper_method :youtubify
   
   protected
 
@@ -15,8 +16,30 @@ class ApplicationController < ActionController::Base
     session[:current_user].nil?
   end
 
+  def check_authentication
+    unless current_user
+      flash.alert = "Unauthorized access!"
+      redirect_to root_path
+    end
+  end
+
   def teacher?
     current_user.role == 'T'
+  end
+
+  def youtube?(url)
+    url =~ /(youtube|youtu.be)/
+  end
+
+  def youtubify(url)
+    youtube_iframe = "<iframe width='400' height='300' " +
+                             "src='#{url.sub(/watch\?v=/, "embed/")}' " +
+                             "frameborder='0' allowfullscreen>" +
+                     "</iframe>"
+    regular_link = "<a href='#{url}'>Resources ...</a>"
+
+    link = youtube?(url) ? youtube_iframe : regular_link
+    link.html_safe
   end
 
 end

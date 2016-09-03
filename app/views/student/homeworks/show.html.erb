@@ -1,2 +1,25 @@
-<h1>Student::Homeworks#show</h1>
-<p>Find me in app/views/student/homeworks/show.html.erb</p>
+<%= render "shared/student_homework", homework: @homework %>
+<div class="row button-spacing white-text">
+  <%= form_for @comment, html: { class: "col s12" } do |f| %>
+    <div class="card-panel">
+      <h5>Submit work or add a comment</h5>
+      <%= f.hidden_field :homework_id, value: @homework.id %>
+      <div class="row button-spacing">
+        <div class="input-field col s6">
+          <%= f.label "Feedback", class: "active" %>
+          <%= f.text_field :feedback, placeholder: "Leave a comment" %>
+        </div>
+        <div class="input-field col s6">
+          <%= f.label "Link", class: "active" %>
+          <%= f.text_field :url, placeholder: "attach a link" %>
+        </div>
+        <div class="center">
+          <%= button_tag  class: "btn waves-effect waves-light button-spacing green" do %>
+            Submit
+            <i class="material-icons right">send</i>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
