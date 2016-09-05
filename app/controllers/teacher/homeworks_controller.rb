@@ -35,7 +35,7 @@ class Teacher::HomeworksController < ApplicationController
     puts "Processing update request: #{homework_params.inspect}"
     homework_params[:tasks_attributes].each { |k,v| puts "Task #{k} : #{v.inspect}" }
     @homework.update_attributes(homework_params)
-    redirect_to teacher_student_homework_path(@homework)
+    redirect_to teacher_student_homework_path(@student, @homework)
   end
 
   def destroy
