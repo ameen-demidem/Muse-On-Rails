@@ -6,7 +6,9 @@ class CommentsController < ApplicationController
     comment = Comment.new(comment_params)
     comment.user_id = session[:current_user]
     comment.save!
-    redirect_to [:student, @homework]
+    redirect_to current_user.role == 'S' ?
+                  student_homework_path(@homework) :
+                  teacher_student_homework_path(@homework.user, @homework)
   end
 
   protected

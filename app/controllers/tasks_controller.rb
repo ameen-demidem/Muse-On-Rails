@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   before_action :check_update_data_sanity, only: [:update]
 
   def create
-    task = Comment.new(comment_params)
+    task = Task.new(task_params)
     task.user_id = session[:current_user]
     task.save!
     redirect_to [:student, @homework]
@@ -18,10 +18,6 @@ class TasksController < ApplicationController
   end
 
   protected
-
-  def task_params
-#    params.permit(:homework_id, :task_id, :done)
-  end
 
   def load_homework
     @homework = Homework.find_by(id: params[:homework_id])

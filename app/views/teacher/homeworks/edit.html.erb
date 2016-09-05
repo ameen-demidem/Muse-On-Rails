@@ -1,2 +1,66 @@
-<h1>Teacher::Homeworks#edit</h1>
-<p>Find me in app/views/teacher/homeworks/edit.html.erb</p>
+<h3 class="center button-spacing white-text h-3-spacing">
+  <span class="thin">Edit homework for:</span> <%= @student.name %>
+</h3>
+<%= link_to teacher_student_homework_path(@student, @homework) do %>
+  <%= button_tag class: "btn-floating waves-effect waves-light red" do %>
+    <i class="material-icons">cancel</i>
+  <% end %>
+<% end %>
+<span class="button-text white-text">cancel</span>
+<div class="row button-spacing white-text">
+  <div class="card-bottom">
+    <div class="card-panel hoverable">
+      <%= form_for @homework, url: teacher_student_homework_path(@student, @homework) do |f| %>
+        <div class="row">
+          <div class="col s10 offset-s1">
+            <h5 class="button-spacing"><strong>Homework Title</strong></h5>
+            <div class="input-field col s12">
+              <%= f.label " ", class: "active" %>
+              <%= f.text_field :title, value: @homework.title, class: "validate" %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s10 offset-s1">
+            <h5 class="button-spacing"><strong>Notes from lesson</strong></h5>
+            <div class="input-field col s12">
+              <%= f.label " ", class: "active" %>
+              <%= f.text_field :note, value: @homework.note, class: "validate" %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col s10 offset-s1">
+            <h5 class="button-spacing"><strong>Tasks for the homework</strong></h5>
+            <div class="button-spacing">
+              <ul class="collection blue-grey darken-3">
+                <%= f.fields_for :tasks do |task_form| %>
+                  <li class="blue-grey darken-3">
+                    <div class="input-field col s8">
+                      <%= task_form.label " ", class: "active" %>
+                      <%= task_form.text_field :item, class: "validate" %>
+                    </div>
+                    <div class="input-field col s4">
+                      <%= task_form.label " ", class: "active" %>
+                      <%= task_form.text_field :url, class: "validate" %>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="center">
+          <%= button_tag "Update!", class: "btn waves-effect waves-light form-button green" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+function goBack() {
+  //a href="/teacher/students/<%= @student.id %>/homework/<%= @homework.id %>">go back</a>-->
+  window.history.go(-1);
+}
+</script>

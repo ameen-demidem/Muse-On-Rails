@@ -1,7 +1,10 @@
 <h3 class="h-3-spacing center white-text">all of your wonderful students</h3>
 <div class="row">
   <div class="col s6 offset-s2">
-    <a class="btn-floating waves-effect waves-light green" href="/teacher/students/new"><i class="material-icons">add</i></a>
+    <%= link_to [:new, :teacher, :student],
+                class: "btn-floating waves-effect waves-light green" do %>
+      <i class="material-icons">add</i>
+    <% end %>
     <span class="button-text white-text">Add New Student</span>
   </div>
 </div>
@@ -13,7 +16,10 @@
           <blockquote class="">
             <h5 class="white-text"><%= student.name %></h5>
           </blockquote>
-          <a href="/teacher/students/<%= student.id %>">view student <i class="material-icons right">send</i></a>
+          <%= link_to teacher_student_homeworks_path(student) do %>
+            view student 
+            <i class="material-icons right">send</i>
+          <% end %>
         </span>
       </div>
     </div>

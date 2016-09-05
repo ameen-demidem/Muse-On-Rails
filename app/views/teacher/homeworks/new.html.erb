@@ -1,2 +1,44 @@
-<h1>Teacher::Homeworks#new</h1>
-<p>Find me in app/views/teacher/homeworks/new.html.erb</p>
+<% if @homework.errors.any? %>
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel hoverable thick">
+        <div class="white-text">
+          <h5>Some issues with your entry, please fix them:</h5>
+          <ol>
+            <% @homework.errors.full_messages.each do |error| %>
+              <li class="errors-list"><%= error %></li>
+            <% end %>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<h3 class="center button-spacing white-text">
+  <span class="thin">New Homework For</span> <%= @student.name %>
+</h3>
+<div class="row button-spacing">
+  <div class="col s12 white-text">
+    <div class="card-panel hoverable">
+      <%= form_for [:teacher, :student, @homework] do |f| %>
+        <div class="row col s10 offset-s1">
+          <h5 class="h-5-spacing">This weeks homework</h5>
+          <div class="input-field button-spacing">
+            <%= f.label "This weeks homework is called: ", class: "active" %>
+            <%= f.text_field :title, class: "validate",
+              placeholder: "E.g. 'week of july 15th: Circle of 5ths'" %>
+          </div>
+          <div class="input-field">
+            <%= f.label "Important notes", class: "active" %>
+            <%= f.text_field :note, class: "validate",
+              placeholder: "This week I want to to spend time understanding..." %>
+          </div>
+        </div>
+        <div class="center">
+          <%= button_tag "Assign!", class: "btn waves-effect waves-light form-button green" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

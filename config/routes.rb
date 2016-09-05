@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resource :task, only: [:create, :update]
 
   namespace :student do
-    resources :homeworks, only: [:index, :show, :update]
+    resources :homeworks, only: [:index, :show]
   end
 
   namespace :teacher do

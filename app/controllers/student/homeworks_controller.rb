@@ -8,7 +8,4 @@ class Student::HomeworksController < ApplicationController
     redirect_to [:student, :homeworks] unless current_user.homeworks.include? @homework
     @comment = Comment.new
   end
-
-  def update
-  end
 end

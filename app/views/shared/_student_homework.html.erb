@@ -2,10 +2,10 @@
 <% if teacher? %>
   <div class="row">
     <div class="col s10">
-      <a class="btn-floating waves-effect waves-light green"
-         href="/teacher/students/<%= homework.user.id %>">
+      <%= link_to teacher_student_homeworks_path(homework.user),
+                  class: "btn-floating waves-effect waves-light green" do %>
         <i class="material-icons">skip_previous</i>
-      </a>
+      <% end %>
       <span class="button-text white-text">back to <%= homework.user.name %>'s work</span>
     </div>
   </div>
@@ -16,7 +16,7 @@
       <% if current_user.role == "T" %>
         <div class="right">
           <a class="btn-floating btn-Small waves-effect waves-light grey lighten-1"
-             onclick="editHomeworkNote(<%= @student.id %>,<%= homework.id %>)">
+             onclick="editHomeworkNote(<%= homework.user.id %>,<%= homework.id %>)">
              <i class="Tiny material-icons">edit</i>
           </a>
         </div>
@@ -90,7 +90,7 @@ $(".toggle-task-status").on('click', function() {
 });
 
 function editHomeworkNote(student, homework) {
-  window.location = "/teacher/homework/edit_homework?student=" + student + "&homework=" + homework
+    window.location = "/teacher/students/" + student + "/homeworks/" + homework + "/edit"
     console.log("editing " + homework + " of " + student);
 }
 
