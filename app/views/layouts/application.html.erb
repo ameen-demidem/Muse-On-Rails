@@ -36,6 +36,7 @@
                 <% if teacher? %>
                   <li><a href="/teacher/students">STUDENTS</a></li>
                   <li><a href="/teacher/students/new">ADD STUDENT</a></li>
+                  <li><a href="/teacher/lessons">CALENDAR</a></li>
                   <li>
                     <%= link_to "LOGOUT",
                                 session_path,
@@ -47,6 +48,7 @@
                   <li>
                     <%= link_to "HOMEWORK", student_homeworks_path %>
                   </li>
+                  <li><a href="/student/lessons">CALENDAR</a></li>
 
                   <li>
                     <%= link_to "LOGOUT",

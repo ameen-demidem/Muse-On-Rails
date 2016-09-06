@@ -1,28 +1,22 @@
-class LessonsController < ApplicationController
-  before_action :set_lesson, only: [:show, :edit, :update, :destroy]
+class Student::LessonsController < ApplicationController
+  before_action :set_lesson, only: [:index, :show, :edit, :update, :destroy]
+  before_action :check_authentication
+  # before_action :check_authorization
 
-  # GET /lessons
-  # GET /lessons.json
   def index
-    @lessons = Lesson.all
+    @lessons = Lesson.where("student_id = ?", current_user.id)
   end
 
-  # GET /lessons/1
-  # GET /lessons/1.json
   def show
   end
 
-  # GET /lessons/new
   def new
     @lesson = Lesson.new
   end
 
-  # GET /lessons/1/edit
   def edit
   end
 
-  # POST /lessons
-  # POST /lessons.json
   def create
     clean_up_dates(lesson_params)
     binding.pry
@@ -73,8 +67,6 @@ class LessonsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /lessons/1
-  # PATCH/PUT /lessons/1.json
   def update
     respond_to do |format|
       if @lesson.update(lesson_params)
@@ -87,8 +79,6 @@ class LessonsController < ApplicationController
     end
   end
 
-  # DELETE /lessons/1
-  # DELETE /lessons/1.json
   def destroy
     @lesson.destroy
     respond_to do |format|
@@ -97,29 +87,38 @@ class LessonsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_lesson
-      @lesson = Lesson.find(params[:id])
+  protected
+
+    def load_student
+      @student = User.find_by(id: params[:student_id])
+      unless @student
+        flash.alert = "Couldn't find the requested student!"
+        redirect_to teacher_students_path
+      end
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
+  private
+
+    def set_lesson
+      @lesson = Lesson.find_by(id: params[:id])
+    end
+
     def lesson_params
       params.require(:lesson).permit(:title, :description, :lesson_date, :start_time, :end_time, :recurring, :user_id, :teacher_id, :how_many, :how_often)
     end
 
     def clean_up_dates(params)
-     @params = params
-     # this is where I fix the start_time date
-     @params["start_time(1i)"] = @params["lesson_date(1i)"]
-     @params["start_time(2i)"] = @params["lesson_date(2i)"]
-     @params["start_time(3i)"] = @params["lesson_date(3i)"]
-     # this is where I fix the end_time date
-     @params["end_time(1i)"] = @params["lesson_date(1i)"]
-     @params["end_time(2i)"] = @params["lesson_date(2i)"]
-     @params["end_time(3i)"] = @params["lesson_date(3i)"]
+      @params = params
+       # this is where I fix the start_time date
+      @params["start_time(1i)"] = @params["lesson_date(1i)"]
+      @params["start_time(2i)"] = @params["lesson_date(2i)"]
+      @params["start_time(3i)"] = @params["lesson_date(3i)"]
+       # this is where I fix the end_time date
+      @params["end_time(1i)"] = @params["lesson_date(1i)"]
+      @params["end_time(2i)"] = @params["lesson_date(2i)"]
+      @params["end_time(3i)"] = @params["lesson_date(3i)"]
 
-     @params
+      @params
     end
 
     def create_weekly_occurences(num, start_time, end_time)
