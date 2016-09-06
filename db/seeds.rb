@@ -9,6 +9,15 @@ User.create(
 
 first_name = Faker::Name.first_name
 last_name = Faker::Name.last_name
+parent = User.create(
+  name: "#{first_name.capitalize} #{last_name.capitalize}",
+  username: "#{first_name}",
+  password: "parent",
+  role: "P"
+);
+
+first_name = Faker::Name.first_name
+last_name = Faker::Name.last_name
 user = User.new(
   name: "#{first_name.capitalize} #{last_name.capitalize}",
   username: "#{first_name.downcase}",
@@ -16,6 +25,7 @@ user = User.new(
   role: "S"
 )
 user.teacher = User.find_by(name: "Leeroy Jenkins")
+user.parent = parent
 user.save!
 
 homework_1 = Homework.new(
@@ -64,6 +74,15 @@ task_22 = Task.new(
 task_22.homework = Homework.find_by(title: "Week Three Review Practice")
 task_22.save!
 
+first_name = Faker::Name.first_name
+last_name = Faker::Name.last_name
+parent = User.create(
+  name: "#{first_name.capitalize} #{last_name.capitalize}",
+  username: "#{first_name}",
+  password: "parent",
+  role: "P"
+);
+
 first_name_2 = Faker::Name.first_name
 last_name_2 = Faker::Name.last_name
 user = User.new(
@@ -73,6 +92,7 @@ user = User.new(
   role: "S"
 )
 user.teacher = User.find_by(name: "Leeroy Jenkins")
+user.parent = parent
 user.save!
 
 homework_3 = Homework.new(
