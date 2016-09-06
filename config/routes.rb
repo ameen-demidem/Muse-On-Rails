@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   end
 
   namespace :parent do
-    resources :children, only: [:index] do
+    resources :children, only: [:index, :show] do
       resources :homeworks, only: [:index, :show]
     end
   end
