@@ -23,6 +23,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def is_payment_setup?
+    if (current_user.role == 'T') && (current_user.stripe_token.nil?)
+      redirect_to users_payment_path
+    end
+  end
+
   def teacher?
     current_user.role == 'T'
   end

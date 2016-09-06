@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20160810203953) do
     t.string  "username"
     t.string  "password_digest"
     t.string  "role",            limit: 1
+    t.string  "stripe_token"
     t.integer "teacher_id"
     t.index ["teacher_id"], name: "index_users_on_teacher_id"
   end

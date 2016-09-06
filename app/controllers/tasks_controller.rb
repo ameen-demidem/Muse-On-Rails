@@ -4,6 +4,7 @@ class TasksController < ApplicationController
   before_action :load_homework
   before_action :load_task, only: [:update]
   before_action :check_update_data_sanity, only: [:update]
+  before_action :is_payment_setup?
 
   def create
     task = Task.new(task_params)

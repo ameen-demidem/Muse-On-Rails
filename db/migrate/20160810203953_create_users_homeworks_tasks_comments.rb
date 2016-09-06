@@ -5,6 +5,7 @@ class CreateUsersHomeworksTasksComments < ActiveRecord::Migration
       t.string :username
       t.string :password_digest
       t.string :role, limit: 1
+      t.string :stripe_token
       t.references :teacher, index: true
     end
 

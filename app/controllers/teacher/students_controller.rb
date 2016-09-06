@@ -1,6 +1,7 @@
 class Teacher::StudentsController < ApplicationController
   before_action :check_authentication
   before_action :check_authorization
+  before_action :is_payment_setup?
 
   def index
   end

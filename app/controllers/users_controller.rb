@@ -16,9 +16,21 @@ class UsersController < ApplicationController
     #TODO implement the deletion of a user
   end
 
+  def payment
+    # renders payment.html.erb
+  end
+
+  def pay
+    puts params
+  end
+
   protected
 
   def user_params
     params.require(:user).permit(:name, :username, :password)
+  end
+
+  def process_payment
+    # TODO: implement
   end
 end
