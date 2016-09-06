@@ -11,7 +11,7 @@ first_name = Faker::Name.first_name
 last_name = Faker::Name.last_name
 parent = User.create(
   name: "#{first_name.capitalize} #{last_name.capitalize}",
-  username: "#{first_name}",
+  username: "#{first_name.downcase}",
   password: "parent",
   role: "P"
 );
@@ -78,7 +78,7 @@ first_name = Faker::Name.first_name
 last_name = Faker::Name.last_name
 parent = User.create(
   name: "#{first_name.capitalize} #{last_name.capitalize}",
-  username: "#{first_name}",
+  username: "#{first_name.downcase}",
   password: "parent",
   role: "P"
 );

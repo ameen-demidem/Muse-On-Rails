@@ -1,2 +1,6 @@
-<h1>Parent::Children#index</h1>
-<p>Find me in app/views/parent/children/index.html.erb</p>
+<h1>Welcome <%= @parent.name %>!</h1>
+<ul>
+  <% @children.each do |child| %>
+    <li><%= link_to child.name, parent_child_path(child) %></li>
+  <% end %>
+</ul>

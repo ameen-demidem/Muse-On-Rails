@@ -5,6 +5,8 @@ class SessionsController < ApplicationController
         redirect_to [:teacher, :students]
       elsif current_user.role = "S"
         redirect_to [:student, :homeworks]
+      elsif current_user.role = "P"
+        redirect_to [:parent, :children]
       else
         destroy
       end
@@ -17,7 +19,15 @@ class SessionsController < ApplicationController
     if user
       session.delete(:error)
       session[:current_user] = user.id
-      user.role == 'T' ? redirect_to([:teacher, :students]): redirect_to([:student, :homeworks])
+      if user.role == 'T'
+        redirect_to([:teacher, :students])
+      elsif user.role == 'S'
+        redirect_to([:student, :homeworks])
+      elsif user.role == 'P'
+        redirect_to([:parent, :children])
+      else
+        destroy # shouldn't happen though!
+      end
     else
       # TODO Use flash.now.alert for consistency
       session.delete(:current_user)
