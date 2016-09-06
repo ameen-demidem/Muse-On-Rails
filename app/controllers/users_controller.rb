@@ -21,7 +21,16 @@ class UsersController < ApplicationController
   end
 
   def pay
-    puts params
+    customer = Stripe::Customer.create(
+      :email => params[:stripeEmail],
+      :plan => 'basic',
+      :source => params[:stripeToken]
+    )
+
+    current_user.update_attribute(:stripe_token, customer.id)
+    current_user.save
+
+    redirect_to teacher_students_path
   end
 
   protected
@@ -30,7 +39,4 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :username, :password)
   end
 
-  def process_payment
-    # TODO: implement
-  end
 end

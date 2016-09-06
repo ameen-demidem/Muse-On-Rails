@@ -1,13 +1,12 @@
 <!-- begin stripe form -->
-<form action="/users/:user_id/pay" method="POST">
+<%= form_tag users_pay_path do %>
   <script
     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key="pk_test_Ns6tz2pvq3SLoaNI2pVZWh3A"
-    data-amount="500"
+    data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
     data-name="Muse Subscription"
-    data-description="Monthly"
+    data-description="$5.00/mo"
     data-locale="auto"
     data-currency="cad">
   </script>
-</form>
+<% end %>
 <!-- end stripe form -->

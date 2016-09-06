@@ -4,11 +4,12 @@ Rails.application.routes.draw do
   root "welcome#index"
 
   resource :session, only: [:new, :create, :destroy]
-  resources :users, only: [:new, :create, :destroy, :pay, :payment]
+  resources :users, only: [:new, :create, :destroy]
   resources :comments, only: [:create]
   resource :task, only: [:create, :update]
 
   get '/users/payment', to: 'users#payment'
+  post '/users/pay', to: 'users#pay'
 
   namespace :student do
     resources :homeworks, only: [:index, :show]
