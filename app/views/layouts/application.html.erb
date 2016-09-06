@@ -36,28 +36,24 @@
                 <% if teacher? %>
                   <li><a href="/teacher/students">STUDENTS</a></li>
                   <li><a href="/teacher/students/new">ADD STUDENT</a></li>
-                  <li>
-                    <%= link_to "LOGOUT",
-                                session_path,
-                                method: :delete, rel: "nofollow",
-                                class: "blue darken-2 btn" %>
-                  </li>
-                  <li class="nav-username"><%= current_user.name %></li>
-                <% else %>
+                <% elsif student? %>
                   <li>
                     <%= link_to "HOMEWORK", student_homeworks_path %>
                   </li>
-                 
+                <% else %>
                   <li>
-                    <%= link_to "LOGOUT",
-                                session_path,
-                                method: :delete, rel: "nofollow",
-                                class: "blue darken-2 btn" %>
+                    <%= link_to "Children", parent_children_path %>
                   </li>
-                  
-
-                  <li class="nav-username"><%= current_user.name %></li>
                 <% end %>
+
+                <li>
+                  <%= link_to "LOGOUT",
+                              session_path,
+                              method: :delete, rel: "nofollow",
+                              class: "blue darken-2 btn" %>
+                </li>
+
+                <li class="nav-username"><%= current_user.name %></li>
               <% end %>
             </ul>
             <ul class="side-nav" id="mobile-menu">

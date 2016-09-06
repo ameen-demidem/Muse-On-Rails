@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
   helper_method :not_logged_in
   helper_method :teacher?
+  helper_method :student?
   helper_method :youtubify
   
   protected
@@ -25,6 +26,10 @@ class ApplicationController < ActionController::Base
 
   def teacher?
     current_user.role == 'T'
+  end
+
+  def student?
+    current_user.role == 'S'
   end
 
   def youtube?(url)

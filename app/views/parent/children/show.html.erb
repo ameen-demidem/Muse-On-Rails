@@ -1,7 +1,0 @@
-<h1>Welcome <%= @parent.name %>!</h1>
-<ul>
-  <% @child.homeworks.each do |homework| %>
-    <li><%= link_to homework.title, parent_child_homework_path(@child, homework) %></li>
-  <% end %>
-</ul>
-

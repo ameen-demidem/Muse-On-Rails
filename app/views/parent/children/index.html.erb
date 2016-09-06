@@ -1,6 +1,18 @@
-<h1>Welcome <%= @parent.name %>!</h1>
-<ul>
-  <% @children.each do |child| %>
-    <li><%= link_to child.name, parent_child_path(child) %></li>
-  <% end %>
-</ul>
+<h3 class="h-3-spacing center white-text">Hello, <%= @parent.name %>!</h3>
+<% @children.each do | child | %>
+  <div class="row">
+    <div class="col s10 offset-s1">
+      <div class="card-panel hoverable blue-grey darken-4">
+        <span class="">
+          <blockquote class="">
+            <h5 class="white-text"><%= child.name %></h5>
+          </blockquote>
+          <%= link_to parent_child_homeworks_path(child) do %>
+            View homeworks 
+            <i class="material-icons right">send</i>
+          <% end %>
+        </span>
+      </div>
+    </div>
+  </div>
+<% end %>
