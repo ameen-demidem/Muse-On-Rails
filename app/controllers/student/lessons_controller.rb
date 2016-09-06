@@ -57,7 +57,7 @@ class Student::LessonsController < ApplicationController
       @lesson = Lesson.new(lesson_params)
       respond_to do |format|
         if @lesson.save
-          format.html { redirect_to lessons_path, notice: 'Lesson was successfully created.' }
+          format.html { redirect_to student_lessons_path, notice: 'Lesson was successfully created.' }
           format.json { render :show, status: :created, location: @lesson }
         else
           format.html { render :new }
