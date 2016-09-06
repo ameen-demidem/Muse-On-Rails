@@ -12,6 +12,12 @@ Rails.application.routes.draw do
     resources :homeworks, only: [:index, :show]
   end
 
+  namespace :parent do
+    resources :children, only: [:index] do
+      resources :homeworks, only: [:index, :show]
+    end
+  end
+
   namespace :teacher do
     resources :students do
       resources :homeworks
