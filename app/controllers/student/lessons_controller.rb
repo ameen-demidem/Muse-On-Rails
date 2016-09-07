@@ -21,7 +21,7 @@ class Student::LessonsController < ApplicationController
     clean_up_dates(lesson_params)
     if @params[:recurring].to_i > 0
       @recurrences = []
-      how_many = (@params[:how_many].to_i - 1) || 52
+      how_many = (@params[:how_many].to_i > 0) ? (@params[:how_many].to_i - 1) : 52
       @lesson = Lesson.new(@params)
 
       if @lesson.save
