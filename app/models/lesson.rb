@@ -4,7 +4,7 @@ class Lesson < ApplicationRecord
   belongs_to :teacher, class_name: "User"
 
 
-  attr_accessor :how_many, :how_often, :lesson_date
+  attr_accessor :how_many, :how_often, :lesson_date, :recurring
 
   validates_presence_of :start_time, :end_time, :title, :description
 
