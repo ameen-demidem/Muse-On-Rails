@@ -3084,18 +3084,17 @@ td, th {
 
 .collection {
   margin: 0.5rem 0 1rem 0;
-  border: 1px solid #263238;
-  border-radius: 30px;
+  border-radius: 5px;
   overflow: hidden;
   position: relative;
 }
 
 .collection .collection-item {
-  background-color: #fff;
+  background-color: #282828;
   line-height: 1.5rem;
   padding: 15px 20px;
   margin: 0;
-  border-bottom: 1px solid #c6dbf3;
+  border-bottom: 1px solid #181818;
 }
 
 .collection .collection-item.avatar {
@@ -4526,14 +4525,14 @@ small {
   transition: box-shadow .25s;
   padding: 20px;
   margin: 0.5rem 0 1rem 0;
-  border-radius: 30px;
-  background-color: #263238;
+  border-radius: 10px;
+  background-color: #323333;
 }
 
 .card {
   position: relative;
   margin: 0.5rem 0 1rem 0;
-  background-color: #263238;
+  background-color: #323333;
   transition: box-shadow .25s;
   border-radius: 30px;
 }
