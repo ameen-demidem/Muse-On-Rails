@@ -1,0 +1,84 @@
+<div class="row">
+  <%= form_for lesson, url: teacher_lessons_path, html: {class: "col s12 white-text"} do |f| %>
+    <% if lesson.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+
+        <ul>
+        <% lesson.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= f.collection_select(:student_id, current_user.students.all, :id, :name) %>
+
+    <div class="input-field">
+      <%= f.label :title, class:"active" %>
+      <%= f.text_field :title %>
+    </div>
+
+    <div class="input-field">
+      <%= f.label :description, class:"active" %>
+      <%= f.text_area :description, class:"materialize-textarea" %>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.label :lesson_date, class:'active' %>
+        <%= f.date_select :lesson_date, {twelve_hour: true, minute_step: 15, ampm: true, time_separator: ""}, class:'col s4' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="row col s4">
+        <div class="input-field">
+          <%= f.label :start_time, class:'active' %>
+          <%= f.time_select :start_time, {twelve_hour: true, minute_step: 15, ampm: true, time_separator: ""}, class:'col s6' %>
+        </div>
+      </div>
+      <div class="row col s4">
+        <div class="input-field">
+          <%= f.label :end_time, class:"active" %>
+          <%= f.time_select :end_time, {twelve_hour: true, minute_step: 15, ampm: true, time_separator: ""}, class:'col s6' %>
+        </div>
+      </div>
+
+      <div class="row col s4 center">
+        <div class="input-field">
+          <%= f.check_box :recurring, class:"filled-in" %>
+          <%= f.label :recurring %>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div id="reccuringAttributes">
+        <div class="input-field col s6">
+          <%= f.label :how_often, class:'active' %>
+          <%= f.select :how_often, ['weekly', 'bi-weekly', 'monthly']%>
+        </div>
+        <div class="input-field col s6">
+          <%= f.label :how_many, class: 'active' %>
+          <%= number_field(:lesson, :how_many, in: 1..99, step: 1) %>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    $('.datepicker').pickadate({
+      selectMonths: true, // Creates a dropdown to control month
+      selectYears: 15 // Creates a dropdown of 15 years to control year
+    });
+
+    $('select').material_select();
+
+  });
+</script>

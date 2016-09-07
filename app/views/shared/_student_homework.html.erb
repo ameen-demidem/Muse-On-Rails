@@ -41,7 +41,7 @@
                 <i class="material-icons right done-icon">done_all</i>
               <% end %>
               <blockquote>
-                <p class="">
+                <p>
                 <strong><%= task.item %></strong> <br>
                 <%= youtubify(task.url) %>
                 </p>
@@ -81,7 +81,7 @@ $(".toggle-task-status").on('click', function() {
   $.ajax({
     url: "<%= url_for controller: '/tasks', action: 'update' %>",
     method: "PUT",
-    data: { 
+    data: {
       homework_id: "<%= homework.id %>",
       task_id: $(this).attr("name"),
       done: this.checked ? true : false
@@ -99,4 +99,3 @@ function addTask(student, homework) {
   window.location = "/teacher/students/" + student + "/homework/new?homework=" + homework;
 }
 </script>
-

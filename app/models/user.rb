@@ -17,6 +17,7 @@ class User < ActiveRecord::Base
       }
 
   has_many :homeworks
+  has_many :lessons
   has_many :comments, through: :homeworks
   has_many :tasks, through: :homeworks
 

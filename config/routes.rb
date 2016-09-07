@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
- 
+
   root "welcome#index"
 
   resource :session, only: [:new, :create, :destroy]
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
 
   namespace :student do
     resources :homeworks, only: [:index, :show]
+    resources :lessons
   end
 
   namespace :parent do
@@ -22,6 +24,7 @@ Rails.application.routes.draw do
     resources :students do
       resources :homeworks
     end
+    resources :lessons
   end
 
 end
