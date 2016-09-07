@@ -1,5 +1,5 @@
 class Student::LessonsController < ApplicationController
-  before_action :set_lesson, only: [:index, :show, :edit, :update, :destroy]
+  before_action :set_lesson, except: [:new]
   before_action :check_authentication
   # before_action :check_authorization
 
@@ -19,7 +19,6 @@ class Student::LessonsController < ApplicationController
 
   def create
     clean_up_dates(lesson_params)
-    binding.pry
     if @params[:recurring].to_i > 0
       @recurrences = []
       how_many = (@params[:how_many].to_i - 1) || 52

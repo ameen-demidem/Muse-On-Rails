@@ -31,9 +31,7 @@ class Teacher::LessonsController < ApplicationController
       @recurrences = []
       how_many =  (@params[:how_many].to_i > 0) ? (@params[:how_many].to_i - 1) : 52
       @lesson = Lesson.new(@params)
-binding.pry
       if @lesson.save
-        binding.pry
         lesson_start_time = @lesson[:start_time]
         lesson_end_time = @lesson[:end_time]
         id = @lesson[:id]
@@ -51,13 +49,13 @@ binding.pry
         end
 
         respond_to do |format|
-          if Lesson.find(id)
-            format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully created.' }
-            format.json { render :show, status: :created, location: @lesson }
-          else
+          format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully created.' }
+          format.json { render :show, status: :created, location: @lesson }
+        end
+      else
+        respond_to do |format|
             format.html { render :new }
             format.json { render json: @lesson.errors, status: :unprocessable_entity }
-          end
         end
       end
     else
