@@ -104,10 +104,49 @@ main {
 
 .back-ground {
   /*background-color: #0e1519;*/
-background-image: linear-gradient(-135deg, #051823 0%, #09161d 100%);
+background-image: linear-gradient(-135deg, #181818 0%, #1d1d1d 100%);
 }
 
 .task-spacing {
   padding-top: 15px;
   padding-bottom: 15px;
+}
+
+
+/* COLOURS! */
+
+.brand-bg-dark{
+  background-color: #181818 !important;
+}
+
+.brand-bg-grey{
+  background-color: #282828 !important;
+}
+
+.brand-bg-lt-grey{
+  background-color: #A9ABAE !important;
+}
+
+.brand-bg-overlay{
+  background-color: #323333 !important;
+}
+
+.brand-bg-blue{
+  background-color: #4385D8 !important;
+}
+
+.brand-bg-green{
+  background-color: #03BB4F !important;
+}
+
+.brand-text-grey {
+  color: #A9ABAE !important;
+}
+
+.brand-text-blue {
+  color: #4385D8 !important;
+}
+
+.brand-text-green {
+  color: #03BB4F !important;
 }

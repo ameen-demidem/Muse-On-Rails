@@ -2,7 +2,7 @@
   <%= @student.name %><span class="thin">'s homework assignments:</span>
 </h3>
 <div class="row">
-  <div class="col s6 offset-s2">
+  <div class="col s6">
     <%= link_to new_teacher_student_homework_path(@student),
                 class: "btn-floating waves-effect waves-light green" do %>
        <i class="material-icons">assignment</i>
@@ -13,8 +13,8 @@
 <ul>
   <% @student.homeworks.each do |homework| %>
     <div class="row">
-      <div class="col s10 offset-s1 white-text">
-        <div class="card-panel hoverable blue-grey darken-4">
+      <div class="col s12 white-text">
+        <div class="card-panel hoverable">
           <% unless homework.tasks.where("complete = ? OR complete IS NULL", false).any? == true %>
             <i class="small material-icons right icon-gold">stars</i>
           <% end %>
@@ -32,7 +32,6 @@
               </p>
             </blockquote>
             <div class="card-action">
-
               <%= link_to teacher_student_homework_path(@student, homework), class: "thin" do %>
                 View Homework
                 <i class="material-icons right">send</i>

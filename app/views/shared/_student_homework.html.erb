@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col s10">
       <%= link_to teacher_student_homeworks_path(homework.user),
-                  class: "btn-floating waves-effect waves-light green" do %>
+                  class: "btn-floating waves-effect waves-light brand-bg-lt-grey" do %>
         <i class="material-icons">skip_previous</i>
       <% end %>
       <span class="button-text white-text">back to <%= homework.user.name %>'s work</span>
@@ -12,10 +12,10 @@
 <% end %>
 <div class="row">
   <div class="col s12">
-    <div class="card-panel blue-grey darken-4 hoverable white-text thin">
+    <div class="card-panel hoverable white-text thin">
       <% if current_user.role == "T" %>
         <div class="right">
-          <a class="btn-floating btn-Small waves-effect waves-light grey lighten-1"
+          <a class="btn-floating btn-Small waves-effect waves-light brand-bg-grey"
              onclick="editHomeworkNote(<%= homework.user.id %>,<%= homework.id %>)">
              <i class="Tiny material-icons">edit</i>
           </a>
@@ -25,9 +25,9 @@
       <p><%= homework.note %></p>
       <h5 class="button-spacing"><strong>Tasks for the homework</strong></h5>
       <div class="button-spacing thin">
-        <ul class="collection blue-grey-text text-blue-grey darken-4">
+        <ul class="collection">
           <% homework.tasks.each do |task| %>
-            <li class="collection-item blue-grey darken-3 white-text">
+            <li class="collection-item white-text">
               <% if current_user.role == 'S' %>
                 <div class="right">
                   <input class="toggle-task-status filled-in"
@@ -51,7 +51,7 @@
         </ul>
         <% if current_user.role == "T" %>
           <div class="row">
-            <a class="btn-floating waves-effect waves-light grey lighten-1"
+            <a class="btn-floating waves-effect waves-light brand-bg-green"
                type="button" onclick="addTask(<%= @student.id %>,<%= homework.id %>)">
                <i class="material-icons md-18">add</i>
             </a>
@@ -81,7 +81,7 @@ $(".toggle-task-status").on('click', function() {
   $.ajax({
     url: "<%= url_for controller: '/tasks', action: 'update' %>",
     method: "PUT",
-    data: { 
+    data: {
       homework_id: "<%= homework.id %>",
       task_id: $(this).attr("name"),
       done: this.checked ? true : false
@@ -99,4 +99,3 @@ function addTask(student, homework) {
   window.location = "/teacher/students/" + student + "/homework/new?homework=" + homework;
 }
 </script>
-
