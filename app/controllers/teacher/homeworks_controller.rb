@@ -4,6 +4,7 @@ class Teacher::HomeworksController < ApplicationController
   before_action :load_student
   before_action :load_homework, only: [:edit, :show, :update, :destroy]
   before_action :check_requestdata_sanity
+  before_action :is_payment_setup?
 
   def index
   end

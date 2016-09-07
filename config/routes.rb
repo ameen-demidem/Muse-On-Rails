@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   resources :comments, only: [:create]
   resource :task, only: [:create, :update]
 
+  get '/users/payment', to: 'users#payment'
+  post '/users/pay', to: 'users#pay'
+
   namespace :student do
     resources :homeworks, only: [:index, :show]
     resources :lessons

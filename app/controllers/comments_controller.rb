@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :check_authentication
   before_action :load_homework
+  before_action :is_payment_setup?
 
   def create
     comment = Comment.new(comment_params)

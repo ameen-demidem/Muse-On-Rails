@@ -16,9 +16,26 @@ class UsersController < ApplicationController
     #TODO implement the deletion of a user
   end
 
+  def payment
+    # renders payment.html.erb
+  end
+
+  def pay
+    customer = Stripe::Customer.create(
+      :email => params[:stripeEmail],
+      :plan => 'basic',
+      :source => params[:stripeToken]
+    )
+
+    current_user.update_attribute(:stripe_token, customer.id)
+
+    redirect_to teacher_students_path
+  end
+
   protected
 
   def user_params
     params.require(:user).permit(:name, :username, :password)
   end
+
 end
