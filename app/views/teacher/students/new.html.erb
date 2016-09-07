@@ -3,14 +3,14 @@
   <span class="title-comment thin">(and your parents said music was a dumb choice!)</span>
 </h3>
 
-<% if @student.errors.any? %>
+<% if @parent.errors.any? %>
   <div class="row">
     <div class="col s12">
       <div class="card-panel hoverable thick">
         <div class="white-text">
           <h5>Some issues with your entry, please fix them:</h5>
           <ol>
-            <% @student.errors.full_messages.each do |error| %>
+            <% @parent.errors.full_messages.each do |error| %>
               <li class="errors-list"><%= error %></li>
             <% end %>
           </ol>
@@ -22,11 +22,11 @@
 
 <div class="row">
   <div class="col s12 white-text card-bottom">
-    <div class="card-panel hoverable">
-      <h5 class="center">Add a student</h5>
-      <%= form_for @student, url: teacher_students_path(@student), class: "card-padding" do |f| %>
+    <%= form_for @parent, url: teacher_students_path(@parent), class: "card-padding" do |f| %>
+      <div class="card-panel hoverable">
+        <h5 class="center">Add the parent</h5>
         <div>
-          <%= f.label "Student Name:" %>
+          <%= f.label "Parent Name:" %>
           <%= f.text_field :name %>
         </div>
         <div>
@@ -37,14 +37,31 @@
           <%= f.label "Password:" %>
           <%= f.password_field :password %>
         </div>
-        <div class="center button-spacing">
-          <%= button_tag class: "btn waves-effect waves-light green" do %>
-            Submit
-            <i class="material-icons right">send</i>
-          <% end %>
+      </div>
+      <%= f.fields_for :children do |child_form| %>
+        <div class="card-panel hoverable">
+          <h5 class="center">Add a child</h5>
+          <div>
+            <%= child_form.label "Child Name:" %>
+            <%= child_form.text_field :name %>
+          </div>
+          <div>
+            <%= child_form.label "Username:" %>
+            <%= child_form.text_field :username %>
+          </div>
+          <div>
+            <%= child_form.label "Password:" %>
+            <%= child_form.password_field :password %>
+          </div>
         </div>
       <% end %>
-    </div>
+      <div class="center button-spacing">
+        <%= button_tag class: "btn waves-effect waves-light green" do %>
+          Submit
+          <i class="material-icons right">send</i>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
 
