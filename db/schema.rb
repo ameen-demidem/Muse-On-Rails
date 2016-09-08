@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907202022) do
+ActiveRecord::Schema.define(version: 20160908161158) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "feedback"
@@ -49,10 +49,16 @@ ActiveRecord::Schema.define(version: 20160907202022) do
     t.string  "name"
     t.string  "username"
     t.string  "password_digest"
-    t.string  "role",            limit: 1
+    t.string  "role",                  limit: 1
     t.integer "teacher_id"
     t.integer "parent_id"
     t.string  "stripe_token"
+    t.string  "publishable_key"
+    t.string  "secret_key"
+    t.string  "stripe_user_id"
+    t.string  "stripe_account_type"
+    t.string  "currency"
+    t.text    "stripe_account_status",           default: "{}"
     t.index ["parent_id"], name: "index_users_on_parent_id"
     t.index ["teacher_id"], name: "index_users_on_teacher_id"
   end

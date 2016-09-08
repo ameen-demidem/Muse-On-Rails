@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
              attr[:password].blank?
       }
 
+  def oauth?
+    stripe_account_type == 'oauth'
+  end
+
   has_many :homeworks
   has_many :lessons
   has_many :comments, through: :homeworks

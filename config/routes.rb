@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   get '/users/payment', to: 'users#payment'
   post '/users/pay', to: 'users#pay'
 
+  get '/connect/oauth' => 'stripe#oauth', as: 'stripe_oauth'
+  get '/connect/confirm' => 'stripe#confirm', as: 'stripe_confirm'
+  get '/connect/deauthorize' => 'stripe#deauthorize', as: 'stripe_deauthorize'
+
   namespace :student do
     resources :homeworks, only: [:index, :show]
     resources :lessons
