@@ -2,10 +2,11 @@ class Teacher::StudentsController < ApplicationController
   before_action :check_authentication
   before_action :check_authorization
   before_action :is_payment_setup?
+  before_action :load_student, only: [:edit, :show, :update, :destroy]
 
   def index
   end
- 
+
   def new
     @parent = User.new
     3.times { @parent.children.build }
@@ -25,6 +26,10 @@ class Teacher::StudentsController < ApplicationController
     end
   end
 
+  def edit
+
+  end
+
   def destroy
   end
 
@@ -33,7 +38,7 @@ class Teacher::StudentsController < ApplicationController
   def student_params
     params.require(:user).permit(
       :name, :username, :password,
-      children_attributes: [:name, :username, :password]
+      children_attributes: [:name, :username, :password, :archived?]
     )
   end
 
@@ -41,6 +46,14 @@ class Teacher::StudentsController < ApplicationController
     unless current_user.role == 'T'
       flash.alert = "Unauthorized access!"
       redirect_to root_path
+    end
+  end
+
+  def load_student
+    @student = User.find_by(id: params[:id])
+    unless @student
+      flash.alert = "Couldn't find the requested student!"
+      redirect_to teacher_students_path
     end
   end
 end

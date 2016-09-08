@@ -1,2 +1,47 @@
-<h1>Teacher::Students#edit</h1>
-<p>Find me in app/views/teacher/students/edit.html.erb</p>
+<h3 class="center h-3-spacing white-text">
+  Congrats, more business!<br>
+  <span class="title-comment thin">(and your parents said music was a dumb choice!)</span>
+</h3>
+<% if @student.errors.any? %>
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel hoverable thick">
+        <div class="white-text">
+          <h5>Some issues with your entry, please fix them:</h5>
+          <ol>
+            <% @student.errors.full_messages.each do |error| %>
+              <li class="errors-list"><%= error %></li>
+            <% end %>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<div class="row">
+  <div class="col s12 white-text card-bottom">
+    <%= form_for @student, url: teacher_students_path(@student), class: "card-padding" do |f| %>
+      <div class="card-panel hoverable">
+        <h5 class="center">Add the student</h5>
+        <div>
+          <%= f.label "Parent Name:" %>
+          <%= f.text_field :name %>
+        </div>
+        <div>
+          <%= f.label "Username:" %>
+          <%= f.text_field :username %>
+        </div>
+        <div>
+          <%= f.label "Password:" %>
+          <%= f.password_field :password %>
+        </div>
+      </div>
+      <div class="center button-spacing">
+        <%= button_tag class: "btn waves-effect waves-light green" do %>
+          Submit
+          <i class="material-icons right">send</i>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
