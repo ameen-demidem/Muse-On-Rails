@@ -44,7 +44,10 @@
                   <li><a href="/student/lessons">CALENDAR</a></li>
                 <% else %>
                   <li>
-                    <%= link_to "Children", parent_children_path %>
+                    <%= link_to "CHILDREN", parent_children_path %>
+                  </li>
+                  <li>
+                    <%= link_to "CALENDAR", parent_lessons_path %>
                   </li>
                 <% end %>
 
@@ -60,11 +63,12 @@
             </ul>
             <ul class="side-nav" id="mobile-menu">
               <% if not_logged_in %>
-                <li class="lack"><%= link_to "Login", new_session_path %></li>
+                <li><%= link_to "Login", new_session_path %></li>
               <% else %>
                 <% if teacher? %>
                   <li><a href="/teacher/students">STUDENTS</a></li>
                   <li><a href="/teacher/students/new">ADD STUDENT</a></li>
+                  <li><a href="/teacher/lessons">CALENDAR</a></li>
                   <li class="blue darken-2">
                     <%= link_to "LOGOUT",
                                 session_path,
@@ -73,6 +77,7 @@
                   <li class="nav-username"><%= current_user.name %></li>
                 <% else %>
                   <li><a href="/student">HOMEWORK</a></li>
+                  <li><a href="/student/lessons">CALENDAR</a></li>
                   <li class="blue darken-2">
                     <%= link_to "LOGOUT",
                                 session_path,

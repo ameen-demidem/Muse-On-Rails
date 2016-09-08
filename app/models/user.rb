@@ -17,10 +17,11 @@ class User < ActiveRecord::Base
       }
 
   has_many :homeworks
-  has_many :lessons
+  has_many :lessons, class_name: User
   has_many :comments, through: :homeworks
   has_many :tasks, through: :homeworks
 
   validates :name, presence: true
   validates :username, presence: true
+
 end
