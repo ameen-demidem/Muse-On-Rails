@@ -15,6 +15,7 @@ class Teacher::HomeworksController < ApplicationController
 
   def new
     @homework = Homework.new
+    7.times { @homework.tasks.build }
   end
 
   def edit
@@ -25,7 +26,7 @@ class Teacher::HomeworksController < ApplicationController
     @homework = Homework.new(homework_params)
     @homework.user = @student
     if @homework.save
-      redirect_to edit_teacher_student_homework_path(@student, @homework)
+      redirect_to teacher_student_homework_path(@student, @homework)
     else
       flash.now.alert = "Couldn't create the new homework!"
       render :new
@@ -33,8 +34,6 @@ class Teacher::HomeworksController < ApplicationController
   end
 
   def update
-    puts "Processing update request: #{homework_params.inspect}"
-    homework_params[:tasks_attributes].each { |k,v| puts "Task #{k} : #{v.inspect}" }
     @homework.update_attributes(homework_params)
     redirect_to teacher_student_homework_path(@student, @homework)
   end
