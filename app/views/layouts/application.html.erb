@@ -111,6 +111,13 @@
                     method: :delete, rel: "nofollow",
                     class: "grey-text text-lighten-3" %>
                 </li>
+                <li>
+                <% if current_user.oauth? %>
+                  <a href="<%= stripe_deauthorize_path %>">Disconnect Stripe</a>
+                <% else %>
+                  <a href="<%= stripe_oauth_path %>">Connect Stripe</a>
+                <% end %>    
+                </li>
               <% end %>
             </ul>
           </div>
