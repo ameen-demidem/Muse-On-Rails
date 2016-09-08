@@ -5,7 +5,7 @@
   <% @child.homeworks.each do |homework| %>
     <div class="row">
       <div class="col s10 offset-s1 white-text">
-        <div class="card-panel hoverable blue-grey darken-4">
+        <div class="card-panel hoverable">
           <% unless homework.tasks.where("complete = ? OR complete IS NULL", false).any? == true %>
             <i class="small material-icons right icon-gold">stars</i>
           <% end %>

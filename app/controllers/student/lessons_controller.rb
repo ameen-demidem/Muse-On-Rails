@@ -25,7 +25,6 @@ class Student::LessonsController < ApplicationController
       @lesson = Lesson.new(@params)
 
       if @lesson.save
-
         lesson_start_time = @lesson[:start_time]
         lesson_end_time = @lesson[:end_time]
         id = @lesson[:id]

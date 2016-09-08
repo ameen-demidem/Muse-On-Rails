@@ -1,60 +1,54 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Lessons</h1>
+<h3 class="center h-3-spacing white-text">
+  Check out your schedule!
+</h3>
+<%= link_to new_teacher_lesson_path,
+            class: "btn-floating waves-effect waves-light green" do %>
+   <i class="material-icons">date_range</i>
+<% end %>
+<span class="button-text white-text">add lessons!</span>
 <div class="row">
   <div class="col s12 white-text">
     <div class="card-panel hoverable">
-      <table id="listOfLessons">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Start time</th>
-            <th>End time</th>
-            <th>User</th>
-            <th>Teacher</th>
-            <th colspan="3"></th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <% @lessons.each do |lesson| %>
-            <tr>
-              <td><%= lesson.title %></td>
-              <td><%= lesson.description %></td>
-              <td><%= lesson.start_time %></td>
-              <td><%= lesson.end_time %></td>
-              <td><%= lesson.student.name %></td>
-              <td><%= lesson.teacher.name %></td>
-              <td><%= link_to 'Show', teacher_lesson_path(lesson) %></td>
-              <td><%= link_to 'Edit', edit_teacher_lesson_path(lesson) %></td>
-              <td><%= link_to 'Destroy', teacher_lesson_path(lesson), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-
-      <br>
-      <%= link_to 'New Lesson', new_teacher_lesson_path %>
       <div class="" id="calendar"></div>
     </div>
   </div>
 </div>
 <script>
+
   $(document).on('turbolinks:load', function(){
     $('#calendar').fullCalendar({
-      defaultView: 'agendaWeek',
+      defaultView: $(window).width() > 400 ? 'agendaWeek' : 'agendaDay',
       height: 'auto',
-      minTime: "08:00:00",
+      minTime: "12:00:00",
       allDaySlot: false,
       events: {
         url: '/teacher/lessons.json',
-        color: 'red',
         textColor: 'white'
       },
       theme: true,
       timeFormat: 'h(:mm)'
     });
+
+    var nextPrev = {
+      "border": "none",
+      "border-radius": "3px",
+      "margin-right": "0.5em",
+      "background-color": "#A9ABAE"
+    }
+
+    var today = {
+      "border": "none",
+      "border-radius": "3px",
+      "margin-right": "0.5em",
+      "background-color": "#4385D8"
+    }
+
+    $('.fc-button-group > .ui-corner-left').text('< prev').css(nextPrev)
+    $('.fc-button-group > .ui-corner-right').html('next >').css(nextPrev)
+
+    $('.fc-today-button').css(today)
   });
 
 </script>
