@@ -2,7 +2,7 @@ $(document).on('turbolinks:load', function(){
   function teacherHomeworkNew() {
     var nextTaskToShow = 0;
 
-    $tasks = $("ul.collection li");
+    $tasks = $("ul#new-home-work-task-list li");
     $tasks.hide();
 
     var AddTask = function () {
