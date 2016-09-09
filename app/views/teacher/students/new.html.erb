@@ -3,14 +3,14 @@
   <span class="title-comment thin">(and your parents said music was a dumb choice!)</span>
 </h3>
 
-<% if @parent.errors.any? %>
+<% if @child.errors.any? %>
   <div class="row">
     <div class="col s12">
       <div class="card-panel hoverable thick">
         <div class="white-text">
           <h5>Some issues with your entry, please fix them:</h5>
           <ol>
-            <% @parent.errors.full_messages.each do |error| %>
+            <% @child.errors.full_messages.each do |error| %>
               <li class="errors-list"><%= error %></li>
             <% end %>
           </ol>
@@ -22,11 +22,11 @@
 
 <div class="row">
   <div class="col s12 white-text card-bottom">
-    <%= form_for @parent, url: teacher_students_path(@parent), class: "card-padding" do |f| %>
+    <%= form_for @child, url: teacher_students_path(@child), class: "card-padding" do |f| %>
       <div class="card-panel hoverable">
-        <h5 class="center">Add the parent</h5>
+        <h5 class="center">Add a student</h5>
         <div>
-          <%= f.label "Parent Name:" %>
+          <%= f.label "Student Name:" %>
           <%= f.text_field :name %>
         </div>
         <div>
@@ -37,21 +37,26 @@
           <%= f.label "Password:" %>
           <%= f.password_field :password %>
         </div>
+        <div>
+          <%= f.label "Parent:" %>
+          <%= f.collection_select :parent, User.where(role: 'P'), :id, :name,
+            include_blank: true, selected: @selected_parent %>
+        </div>
       </div>
-      <%= f.fields_for :children do |child_form| %>
-        <div class="card-panel hoverable">
-          <h5 class="center">Add a child</h5>
+      <%= f.fields_for :parent do |parent_form| %>
+        <div id="teacher-new-student-parent-form" class="card-panel hoverable">
+          <h5 class="center">Add their parent</h5>
           <div>
-            <%= child_form.label "Child Name:" %>
-            <%= child_form.text_field :name %>
+            <%= parent_form.label "Parent Name:" %>
+            <%= parent_form.text_field :name %>
           </div>
           <div>
-            <%= child_form.label "Username:" %>
-            <%= child_form.text_field :username %>
+            <%= parent_form.label "Username:" %>
+            <%= parent_form.text_field :username %>
           </div>
           <div>
-            <%= child_form.label "Password:" %>
-            <%= child_form.password_field :password %>
+            <%= parent_form.label "Password:" %>
+            <%= parent_form.password_field :password %>
           </div>
         </div>
       <% end %>
@@ -65,3 +70,5 @@
   </div>
 </div>
 
+<script type="text/javascript">
+</script>

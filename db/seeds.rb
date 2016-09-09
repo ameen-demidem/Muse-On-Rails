@@ -4,7 +4,8 @@ User.create(
   name: "Leeroy Jenkins",
   username: "leeroy",
   password: "jenkins",
-  role: "T"
+  role: "T",
+  stripe_token: "ABC"
 )
 
 first_name = Faker::Name.first_name
