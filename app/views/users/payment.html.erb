@@ -1,18 +1,4 @@
-<!-- begin old stripe checkout -->
-  <!-- 
-  <%= form_tag users_pay_path do %>
-    <script
-      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-      data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-      data-name="Muse Subscription"
-      data-description="$5.00/mo"
-      data-locale="auto"
-      data-allow-remember-me="false"
-      data-currency="cad">
-    </script>
-  <% end %>
-   -->
-<!-- end old stripe checkout -->
+<h3 style="color:white">Sign up for a Basic account ($5/mo)</h3>
 
 <%= form_tag users_pay_path, :id => 'payment-form' do %>
   <span class="payment-errors"></span>

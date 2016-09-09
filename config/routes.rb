@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   get '/users/payment', to: 'users#payment'
   post '/users/pay', to: 'users#pay'
+  post 'users/charge', to: 'users#charge'
 
   get '/connect/oauth' => 'stripe#oauth', as: 'stripe_oauth'
   get '/connect/confirm' => 'stripe#confirm', as: 'stripe_confirm'
