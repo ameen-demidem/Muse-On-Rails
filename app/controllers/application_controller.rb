@@ -44,14 +44,6 @@ class ApplicationController < ActionController::Base
     current_user.students.where("archived = ?", true).length
   end
 
-  def archived_check
-    if current_user.archived?
-      flash.alert = "Currently not allowed to use the system." +
-      " Please follow-up with your reacher for more information"
-      redirect_to root_path
-    end
-  end
-
   def youtube?(url)
     url =~ /(youtube|youtu.be)/
   end

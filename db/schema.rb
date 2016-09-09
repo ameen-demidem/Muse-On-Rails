@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20160908203355) do
     t.string  "stripe_account_type"
     t.string  "currency"
     t.text    "stripe_account_status",           default: "{}"
-    t.boolean "archived?"
+    t.boolean "archived"
     t.index ["parent_id"], name: "index_users_on_parent_id"
     t.index ["teacher_id"], name: "index_users_on_teacher_id"
   end
