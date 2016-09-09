@@ -1,7 +1,6 @@
 class Student::LessonsController < ApplicationController
   before_action :set_lesson, except: [:new]
   before_action :check_authentication
-  # before_action :check_authorization
 
   def index
     @lessons = Lesson.where("student_id = ?", current_user.id)

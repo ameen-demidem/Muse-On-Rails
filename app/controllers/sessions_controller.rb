@@ -16,6 +16,13 @@ class SessionsController < ApplicationController
   def create
     username, password = params[:username], params[:password]
     user = User.find_by(username: username).try(:authenticate, password)
+    if user[:archived] == true
+      session.delete(:current_user)
+      session[:error] = "Your access to this account has been blocked. " +
+       "Please contact your teacher to learn more!"
+       redirect_to new_session_path
+       return
+    end
     if user
       session.delete(:error)
       session[:current_user] = user.id

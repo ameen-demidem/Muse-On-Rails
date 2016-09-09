@@ -147,6 +147,21 @@ background-image: linear-gradient(-135deg, #181818 0%, #1d1d1d 100%);
   color: #4385D8 !important;
 }
 
+.brand-text-green {
+  color: #03BB4F !important;
+}
+
+.brand-text-dark {
+  color: #181818 !important;
+}
+
+/*.some-css{
+  border: none;
+  border-radius: 10px;
+  margin-right: 0.5em;
+  background-color: #A9ABAE;
+}*/
+
 .fc th,
 .fc td {
 	border-style: solid;
@@ -154,16 +169,4 @@ background-image: linear-gradient(-135deg, #181818 0%, #1d1d1d 100%);
 	border-color: #464646;
 	padding: 0.5em;
 	vertical-align: top;
-}
-
-.brand-text-green {
-  color: #03BB4F !important;
-}
-
-
-.some-css{
-  border: none;
-  border-radius: 10px;
-  margin-right: 0.5em;
-  background-color: #A9ABAE;
 }

@@ -2,10 +2,11 @@ class Teacher::StudentsController < ApplicationController
   before_action :check_authentication
   before_action :check_authorization
   before_action :is_payment_setup?
+  before_action :load_student, only: [:edit, :show, :update, :destroy]
 
   def index
   end
- 
+
   def new
     @parent = User.new
     3.times { @parent.children.build }
@@ -25,15 +26,34 @@ class Teacher::StudentsController < ApplicationController
     end
   end
 
+  def edit
+  end
+
+  def update
+    respond_to do |format|
+      if @student.update(student_params)
+        format.html { redirect_to teacher_students_path, notice: 'Student information has been updated.' }
+        format.json { render :show, status: :ok, location: @student }
+      else
+        format.html { render :edit }
+        format.json { render json: @student.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def destroy
+  end
+
+  def archived_students
+    # renders payment.html.erb
   end
 
   protected
 
   def student_params
     params.require(:user).permit(
-      :name, :username, :password,
-      children_attributes: [:name, :username, :password]
+      :name, :username, :password, :archived,
+      children_attributes: [:name, :username, :password, :archived]
     )
   end
 
@@ -41,6 +61,14 @@ class Teacher::StudentsController < ApplicationController
     unless current_user.role == 'T'
       flash.alert = "Unauthorized access!"
       redirect_to root_path
+    end
+  end
+
+  def load_student
+    @student = User.find_by(id: params[:id])
+    unless @student
+      flash.alert = "Couldn't find the requested student!"
+      redirect_to teacher_students_path
     end
   end
 end

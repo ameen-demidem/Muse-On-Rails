@@ -1,2 +1,70 @@
-<h1>Teacher::Students#edit</h1>
-<p>Find me in app/views/teacher/students/edit.html.erb</p>
+<h3 class="center h-3-spacing white-text">
+  <span class="thin">Update</span> <%= @student.name %>
+</h3>
+<% if @student.errors.any? %>
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel hoverable thick">
+        <div class="white-text">
+          <h5>Some issues with your entry, please fix them:</h5>
+          <ol>
+            <% @student.errors.full_messages.each do |error| %>
+              <li class="errors-list"><%= error %></li>
+            <% end %>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+<div class="row">
+  <div class="col s12 white-text card-bottom">
+    <%= form_for @student, url: teacher_student_path(@student), class: "card-padding" do |f| %>
+      <div class="card-panel hoverable">
+        <h5 class="center">Edit <%= @student.name %>'s information'</h5>
+        <div class="input-field">
+          <%= f.label "Parent Name:", class: "active" %>
+          <%= f.text_field :name %>
+        </div>
+        <div class="input-field">
+          <%= f.label "Username:", class: "active" %>
+          <%= f.text_field :username %>
+        </div>
+        <div class="input-field">
+          <%= f.label "Password:", class: "active" %>
+          <%= f.password_field :password %>
+        </div>
+        <div class="row">
+          <div class="input-field left col s12">
+             <%= f.check_box :archived, class:"filled-in" %>
+             <%= f.label :archived %>
+             <p class="brand-text-grey"> **This will stop a student from accessing the system. You will also no longer be charged for this student.</p>
+          </div>
+        </div>
+      </div>
+      <div class="center button-spacing">
+        <%= button_tag class: "btn waves-effect waves-light green" do %>
+          Submit
+          <i class="material-icons right">send</i>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  $(document).ready( function(){
+    var $checkBox = $("#user_archived")
+
+    checkBoxToBoolean()
+
+    $checkBox.on('click', function(){
+      checkBoxToBoolean()
+    });
+
+    function checkBoxToBoolean() {
+      $checkBox.is(':checked') ? $checkBox.val(true) : $checkBox.val(false)
+    }
+
+  });
+</script>

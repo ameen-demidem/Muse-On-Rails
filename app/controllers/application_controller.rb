@@ -6,7 +6,9 @@ class ApplicationController < ActionController::Base
   helper_method :teacher?
   helper_method :student?
   helper_method :youtubify
-  
+  helper_method :archived_students?
+  helper_method :archived_check
+
   protected
 
   def current_user
@@ -36,6 +38,10 @@ class ApplicationController < ActionController::Base
 
   def student?
     current_user.role == 'S'
+  end
+
+  def archived_students?
+    current_user.students.where("archived = ?", true).length
   end
 
   def youtube?(url)

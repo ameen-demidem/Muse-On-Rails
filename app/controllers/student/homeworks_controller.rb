@@ -1,4 +1,5 @@
 class Student::HomeworksController < ApplicationController
+
   def index
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908161158) do
+ActiveRecord::Schema.define(version: 20160908203355) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "feedback"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20160908161158) do
     t.string  "stripe_account_type"
     t.string  "currency"
     t.text    "stripe_account_status",           default: "{}"
+    t.boolean "archived"
     t.index ["parent_id"], name: "index_users_on_parent_id"
     t.index ["teacher_id"], name: "index_users_on_teacher_id"
   end
