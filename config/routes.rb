@@ -31,6 +31,9 @@ Rails.application.routes.draw do
   namespace :teacher do
     resources :students do
       resources :homeworks
+      collection do
+        get '/archived_students', action: :archived_students
+      end
     end
     resources :lessons
   end

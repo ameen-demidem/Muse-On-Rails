@@ -22,23 +22,24 @@
     <%= form_for @student, url: teacher_students_path(@student), class: "card-padding" do |f| %>
       <div class="card-panel hoverable">
         <h5 class="center">Edit <%= @student.name %>'s information'</h5>
-        <div class="row">
-          <div class="input-field right">
-             <%= f.check_box :archived?, class:"filled-in" %>
-             <%= f.label :archived? %>
-          </div>
-        </div>
         <div class="input-field">
-          <%= f.label "Parent Name:" %>
+          <%= f.label "Parent Name:", class: "active" %>
           <%= f.text_field :name %>
         </div>
         <div class="input-field">
-          <%= f.label "Username:" %>
+          <%= f.label "Username:", class: "active" %>
           <%= f.text_field :username %>
         </div>
         <div class="input-field">
-          <%= f.label "Password:" %>
+          <%= f.label "Password:", class: "active" %>
           <%= f.password_field :password %>
+        </div>
+        <div class="row">
+          <div class="input-field left col s12">
+             <%= f.check_box :archived, class:"filled-in" %>
+             <%= f.label :archived %>
+             <p class="brand-text-grey"> **This will stop a student from accessing the system. You will also no longer be charged for this student.</p>
+          </div>
         </div>
       </div>
       <div class="center button-spacing">

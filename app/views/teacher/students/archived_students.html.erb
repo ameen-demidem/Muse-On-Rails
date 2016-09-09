@@ -1,15 +1,16 @@
-<h3 class="h-3-spacing center white-text">all of your wonderful students</h3>
+<h3 class="h-3-spacing center white-text">Your Archived Students</h3>
 <div class="row">
   <div class="col s6">
-    <%= link_to [:new, :teacher, :student],
-                class: "btn-floating waves-effect waves-light green" do %>
+    <%= link_to teacher_students_path,
+                class: "btn-floating waves-effect waves-light brand-bg-lt-grey" do %>
       <i class="material-icons">add</i>
     <% end %>
-    <span class="button-text white-text">Add New Student</span>
+    <span class="button-text white-text">back to all students</span>
   </div>
+
 </div>
 <% current_user.students.each do | student | %>
-  <% unless student[:archived] == true %>
+  <% if student[:archived] == true %>
     <div class="row">
       <div class="col s12">
         <div class="card-panel hoverable">
@@ -18,7 +19,7 @@
           <% end %>
           <span class="">
             <blockquote class="">
-              <h5 class="white-text thin"><%= student.name %></h5>
+              <h5 class="white-text"><%= student.name %></h5>
               <p class="brand-text-grey"> Parents Name: <span class="thin"><%= student.parent.name %></span></p>
             </blockquote>
             <%= link_to teacher_student_homeworks_path(student) do %>

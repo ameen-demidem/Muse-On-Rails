@@ -33,6 +33,10 @@ class Teacher::StudentsController < ApplicationController
   def destroy
   end
 
+  def archived_students
+    # renders payment.html.erb
+  end
+
   protected
 
   def student_params
