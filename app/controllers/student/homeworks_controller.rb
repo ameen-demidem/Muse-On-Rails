@@ -1,4 +1,7 @@
 class Student::HomeworksController < ApplicationController
+
+  before_action :archived_check
+
   def index
   end
 

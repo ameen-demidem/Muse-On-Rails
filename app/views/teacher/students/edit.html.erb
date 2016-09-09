@@ -19,7 +19,7 @@
 <% end %>
 <div class="row">
   <div class="col s12 white-text card-bottom">
-    <%= form_for @student, url: teacher_students_path(@student), class: "card-padding" do |f| %>
+    <%= form_for @student, url: teacher_student_path(@student), class: "card-padding" do |f| %>
       <div class="card-panel hoverable">
         <h5 class="center">Edit <%= @student.name %>'s information'</h5>
         <div class="input-field">
@@ -51,3 +51,20 @@
     <% end %>
   </div>
 </div>
+
+<script>
+  $(document).ready( function(){
+    var $checkBox = $("#user_archived")
+
+    checkBoxToBoolean()
+
+    $checkBox.on('click', function(){
+      checkBoxToBoolean()
+    });
+
+    function checkBoxToBoolean() {
+      $checkBox.is(':checked') ? $checkBox.val(true) : $checkBox.val(false)
+    }
+
+  });
+</script>

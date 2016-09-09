@@ -7,6 +7,9 @@
     <% end %>
     <span class="button-text white-text">Add New Student</span>
   </div>
+  <% if archived_students? > 0 %>
+    <%= link_to "see archived students", archived_students_teacher_students_path, class:"right waves-effect waves-light btn brand-bg-grey" %>
+  <% end %>
 </div>
 <% current_user.students.each do | student | %>
   <% unless student[:archived] == true %>

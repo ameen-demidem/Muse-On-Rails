@@ -27,7 +27,18 @@ class Teacher::StudentsController < ApplicationController
   end
 
   def edit
+  end
 
+  def update
+    respond_to do |format|
+      if @student.update(student_params)
+        format.html { redirect_to teacher_students_path, notice: 'Student information has been updated.' }
+        format.json { render :show, status: :ok, location: @student }
+      else
+        format.html { render :edit }
+        format.json { render json: @student.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def destroy
@@ -41,8 +52,8 @@ class Teacher::StudentsController < ApplicationController
 
   def student_params
     params.require(:user).permit(
-      :name, :username, :password,
-      children_attributes: [:name, :username, :password, :archived?]
+      :name, :username, :password, :archived,
+      children_attributes: [:name, :username, :password, :archived]
     )
   end
 
