@@ -5,7 +5,6 @@ class User < ActiveRecord::Base
   belongs_to :teacher, class_name: "User", optional: true
   belongs_to :parent, class_name: "User", optional: true
 
-
   has_many :students, class_name: "User", foreign_key: "teacher_id"
   has_many :children, class_name: "User", foreign_key: "parent_id"
 

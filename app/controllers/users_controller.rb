@@ -32,6 +32,23 @@ class UsersController < ApplicationController
     redirect_to teacher_students_path
   end
 
+  def charge
+    begin
+      charge = Stripe::Charge.create({
+        :amount => 2500,
+        :currency => "cad",
+        :source => params[:stripeToken]
+        }, {:stripe_account => current_user.children.first.teacher.stripe_user_id}
+      )
+
+      flash[:notice] = "Charged successfully!"
+
+    rescue Stripe::CardError => e
+      error = e.json_body[:error][:message]
+      flash[:error] = "Charge failed! #{error}"
+    end
+  end
+
   protected
 
   def user_params

@@ -116,13 +116,18 @@
                     method: :delete, rel: "nofollow",
                     class: "grey-text text-lighten-3" %>
                 </li>
-                <li>
-                <% if current_user.oauth? %>
-                  <a href="<%= stripe_deauthorize_path %>">Disconnect Stripe</a>
+                <% if current_user.role == 'T' %>
+                  <li>
+                  <% if current_user.oauth? %>
+                    <a href="<%= stripe_deauthorize_path %>">Disconnect Stripe</a>
+                  <% else %>
+                    <a href="<%= stripe_oauth_path %>">Connect Stripe</a>
+                  <% end %>    
+                  </li>
+                <% elsif current_user.role == 'P' %>
+                  <%= render '/shared/cardform' %>
                 <% else %>
-                  <a href="<%= stripe_oauth_path %>">Connect Stripe</a>
-                <% end %>    
-                </li>
+                <% end %>
               <% end %>
             </ul>
           </div>
@@ -134,5 +139,6 @@
         </div>
       </div>
     </footer>
+    <script>$(document).ready(function(){$('.modal-trigger').leanModal()});</script>
   </body>
 </html>
