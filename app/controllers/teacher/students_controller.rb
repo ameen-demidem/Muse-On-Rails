@@ -7,20 +7,39 @@ class Teacher::StudentsController < ApplicationController
   end
  
   def new
-    @parent = User.new
-    3.times { @parent.children.build }
+    @child = User.new
+    @parent = @child.build_parent
+    @selected_parent = ""
   end
 
   def create
-    @parent = User.new(student_params)
-    @parent.role = 'P'
-    @parent.children.each { |child| child.role = 'S'; child.teacher = current_user }
-    if @parent.save
-      redirect_to @parent.children.length > 1 ?
-        teacher_students_path :
-        teacher_student_homeworks_path(@parent.children.first)
+    child_params = student_params
+    parent_id = child_params.delete :parent
+
+    if parent_id != ""
+      @parent = User.find_by(id: parent_id)
     else
-      flash.now.alert = "Couldn't create a new student!"
+      @parent = User.new(child_params[:parent_attributes])
+      @parent.role = 'P'
+    end
+    child_params.delete :parent_attributes
+
+    @child = User.new(child_params)
+    @child.role = 'S'
+    @child.parent = @parent
+    @child.teacher = current_user
+
+    if @child.save
+      if @parent.save
+        redirect_to teacher_student_homeworks_path(@child)
+      else
+        @selected_parent = ""
+        flash.now.alert = "Couldn't create the parent!"
+        render action: :new
+      end
+    else
+      @selected_parent = parent_id != "" ? parent_id : ""
+      flash.now.alert = "Couldn't create the new student!"
       render action: :new
     end
   end
@@ -32,8 +51,8 @@ class Teacher::StudentsController < ApplicationController
 
   def student_params
     params.require(:user).permit(
-      :name, :username, :password,
-      children_attributes: [:name, :username, :password]
+      :name, :username, :password, :parent,
+      parent_attributes: [:name, :username, :password]
     )
   end
 
