@@ -24,18 +24,18 @@
               <h5 class="white-text thin"><%= student.name %></h5>
               <div class="row">
                 <% if !student.parent.name.nil? %>
-                <p class="brand-text-grey col s12 m3 ">Parents Name:<br> <span class="thin"><%= student.parent.name %></span></p>
+                <p class="brand-text-grey col s12 m2 ">Parents Name:<br> <span class="thin"><%= student.parent.name %></span></p>
                 <% end %>
                 <% if !student.age.nil? %>
-                <p class="brand-text-grey col s12 m3 ">Age:<br> <span class="thin"><%= student.age %></span></p>
+                <p class="brand-text-grey col s12 m2 ">Age:<br> <span class="thin"><%= student.age %></span></p>
                 <% end %>
                 <% if !student.instrument.nil? %>
-                <p class="brand-text-grey col s12 m3 ">Instrument:<br> <span class="thin"><%= student.instrument %></span></p>
+                <p class="brand-text-grey col s12 m2 ">Instrument:<br> <span class="thin"><%= student.instrument %></span></p>
                 <% end %>
                 <% if !student.level.nil? %>
-                <p class="brand-text-grey col s12 m3 ">Level:<br> <span class="thin"><%= student.level %></span></p>
+                <p class="brand-text-grey col s12 m2 ">Level:<br> <span class="thin"><%= student.level %></span></p>
                 <% end %>
-                <p class="brand-text-grey col s12 m6 left">Started Lessons:<br><span class="thin"><%= student.created_at.strftime("%A, %d %b %Y") %></span></p>
+                <p class="brand-text-grey col s12 m3 left">Started Lessons:<br><span class="thin"><%= student.created_at.strftime("%A, %d %b %Y") %></span></p>
                 <p class="brand-text-grey col s12 m6 left">Number of Lessons:<br><span class="thin"><%= student.homeworks.length %></span></p>
               </div>
             </blockquote>

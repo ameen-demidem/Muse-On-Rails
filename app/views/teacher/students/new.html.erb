@@ -21,11 +21,17 @@
     </div>
   </div>
 <% end %>
-
-<div class="row">
+<div class="col s6 offset-s2">
+  <%= link_to teacher_students_path,
+              class: "btn-floating waves-effect waves-light brand-bg-lt-grey" do %>
+     <i class="material-icons">skip_previous</i>
+  <% end %>
+  <span class="button-text white-text">back to students</span>
+</div>
+<div class="row button-spacing">
   <div class="col s12 white-text card-bottom">
     <%= form_for @child, url: teacher_students_path(@child), class: "card-padding" do |f| %>
-      <div class="card-panel hoverable">
+      <div class="card-panel hoverable grad">
         <h5 class="center">Add a student</h5>
         <div class="input-field">
           <%= f.label "Name:" %>
@@ -65,7 +71,7 @@
         </div>
       </div>
       <%= f.fields_for :parent do |parent_form| %>
-        <div id="teacher-new-student-parent-form" class="card-panel hoverable">
+        <div id="teacher-new-student-parent-form" class="card-panel hoverable grad">
           <h5 class="center">Add their parent<br> <span class="thin">If you dont already teach their siblings</span></h5>
           <div class="row button-spacing">
             <div class="input-field col s12 m4">
