@@ -1,26 +1,27 @@
 <%= render "shared/student_homework", homework: @homework %>
-
-<div class="row button-spacing white-text">
-  <%= form_for @comment, html: { class: "col s12" } do |f| %>
-    <div class="card-panel">
-      <h5>Add a comment</h5>
-      <%= f.hidden_field :homework_id, value: @homework.id %>
-      <div class="row button-spacing">
-        <div class="input-field col s6">
-          <%= f.label "Feedback", class: "active" %>
-          <%= f.text_field :feedback, placeholder: "Leave a comment" %>
+<div id="modal1" class="modal bottom-sheet">
+  <div class="modal-content brand-bg-grey">
+    <div class="row button-spacing white-text">
+      <%= form_for @comment, html: { class: "col s12" } do |f| %>
+        <h5>Add a comment</h5>
+        <%= f.hidden_field :homework_id, value: @homework.id %>
+        <div class="row button-spacing">
+          <div class="input-field col m6 s12">
+            <%= f.label "Feedback", class: "active" %>
+            <%= f.text_field :feedback, placeholder: "Leave a comment" %>
+          </div>
+          <div class="input-field col m6 s12">
+            <%= f.label "Link", class: "active" %>
+            <%= f.text_field :url, placeholder: "attach a link" %>
+          </div>
+          <div class="center">
+            <%= button_tag  class: "btn waves-effect waves-light button-spacing green" do %>
+              Submit
+              <i class="material-icons right">send</i>
+            <% end %>
+          </div>
         </div>
-        <div class="input-field col s6">
-          <%= f.label "Link", class: "active" %>
-          <%= f.text_field :url, placeholder: "attach a link" %>
-        </div>
-        <div class="center">
-          <%= button_tag  class: "btn waves-effect waves-light button-spacing green" do %>
-            Submit
-            <i class="material-icons right">send</i>
-          <% end %>
-        </div>
-      </div>
+      <% end %>
     </div>
-  <% end %>
+  </div>
 </div>
