@@ -48,9 +48,18 @@ class Teacher::StudentsController < ApplicationController
   end
 
   def update
-    binding.pry
+    child_params = student_params
+    parent_id = child_params.delete :parent
+    if parent_id != ""
+      @parent = User.find_by(id: parent_id)
+    else
+      @parent = User.new(child_params[:parent_attributes])
+      @parent.role = 'P'
+    end
+    child_params.delete :parent_attributes
+
     respond_to do |format|
-      if @student.update(student_params)
+      if @student.update(child_params)
         format.html { redirect_to teacher_students_path, notice: 'Student information has been updated.' }
         format.json { render :show, status: :ok, location: @student }
       else
@@ -64,7 +73,6 @@ class Teacher::StudentsController < ApplicationController
   end
 
   def archived_students
-    # renders payment.html.erb
   end
 
   protected
