@@ -132,16 +132,10 @@ $(document).ready( function(){
      accordion: false
    });
 
-   $('.modal-trigger').leanModal({
-     ready: function() {
-       $("#modal1").find("input[name='comment[task_id]']").eq(0).val(TaskCommentID);
-     }
-   });
-
 });
 
 function setTaskID(id) {
-  TaskCommentID = id;
+  $("#modal1").find("input[name='comment[task_id]']").eq(0).val(id);
 }
 
 function editHomeworkNote(student, homework) {
