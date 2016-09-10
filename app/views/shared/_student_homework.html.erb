@@ -43,16 +43,17 @@
                 <% end %>
                 <blockquote>
                   <p>
-                  <strong><%= task.item %></strong> <br>
-                  <%= youtubify(task.url) %>
+                    <strong><%= task.item %></strong> <br>
+                    <%= youtubify(task.url) %>
                   </p>
                   <div class="row">
-                    <a class="modal-trigger right brand-text-green" href="#modal1">+ comment</a>
+                    <a class="modal-trigger right brand-text-green"
+                    onClick="setTaskID(<%= task.id %>)" href="#modal1">+ comment</a>
                   </div>
                 </blockquote>
               </div>
               <div class="collapsible-body">
-                <% homework.comments.each do |comment| %>
+                <% task.comments.each do |comment| %>
                   <div class="comment-padding hoverable">
                     <p>
                       <%= comment.feedback %>
@@ -82,6 +83,33 @@
     </div>
   </div>
 </div>
+<div id="modal1" class="modal bottom-sheet">
+  <div class="modal-content brand-bg-grey">
+    <div class="row button-spacing white-text">
+      <%= form_for @comment, html: { class: "col s12" } do |f| %>
+        <h5>Add a comment</h5>
+        <%= f.hidden_field :homework_id, value: @homework.id %>
+        <%= f.hidden_field :task_id %>
+        <div class="row button-spacing">
+          <div class="input-field col m6 s12">
+            <%= f.label "Feedback", class: "active" %>
+            <%= f.text_field :feedback, placeholder: "Leave a comment" %>
+          </div>
+          <div class="input-field col m6 s12">
+            <%= f.label "Link", class: "active" %>
+            <%= f.text_field :url, placeholder: "attach a link" %>
+          </div>
+          <div class="center">
+            <%= button_tag  class: "btn waves-effect waves-light button-spacing green" do %>
+              Submit
+              <i class="material-icons right">send</i>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <script>
 $(".toggle-task-status").on('click', function() {
@@ -99,12 +127,22 @@ $(".toggle-task-status").on('click', function() {
 $(document).ready( function(){
 
    $('.collapsible').collapsible({
-      accordion: false// A setting that changes the collapsible behavior to expandable instead of the default accordion style
+     // A setting that changes the collapsible behavior to expandable
+     // instead of the default accordion style
+     accordion: false
    });
 
-   $('.modal-trigger').leanModal();
+   $('.modal-trigger').leanModal({
+     ready: function() {
+       $("#modal1").find("input[name='comment[task_id]']").eq(0).val(TaskCommentID);
+     }
+   });
 
 });
+
+function setTaskID(id) {
+  TaskCommentID = id;
+}
 
 function editHomeworkNote(student, homework) {
     window.location = "/teacher/students/" + student + "/homeworks/" + homework + "/edit"

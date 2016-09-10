@@ -5,7 +5,7 @@ class CommentsController < ApplicationController
 
   def create
     comment = Comment.new(comment_params)
-    comment.user_id = session[:current_user]
+    comment.user = current_user
     comment.save!
     redirect_to current_user.role == 'S' ?
                   student_homework_path(@homework) :
@@ -15,7 +15,7 @@ class CommentsController < ApplicationController
   protected
 
   def comment_params
-    params.require(:comment).permit(:feedback, :url, :homework_id)
+    params.require(:comment).permit(:feedback, :url, :task_id)
   end
 
   def load_homework

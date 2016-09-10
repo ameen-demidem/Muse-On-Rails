@@ -10,14 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908203355) do
+ActiveRecord::Schema.define(version: 20160910205323) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "feedback"
     t.string   "url"
-    t.integer  "homework_id"
     t.integer  "user_id"
     t.datetime "created_at"
+    t.integer  "task_id"
+    t.index ["task_id"], name: "index_comments_on_task_id"
   end
 
   create_table "homeworks", force: :cascade do |t|
@@ -59,7 +60,7 @@ ActiveRecord::Schema.define(version: 20160908203355) do
     t.string  "stripe_account_type"
     t.string  "currency"
     t.text    "stripe_account_status",           default: "{}"
-    t.boolean "archived", default: false
+    t.boolean "archived"
     t.index ["parent_id"], name: "index_users_on_parent_id"
     t.index ["teacher_id"], name: "index_users_on_teacher_id"
   end
