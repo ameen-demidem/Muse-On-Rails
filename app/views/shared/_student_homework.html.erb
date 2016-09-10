@@ -25,30 +25,45 @@
       <p><%= homework.note %></p>
       <h5 class="button-spacing"><strong>Tasks for the homework</strong></h5>
       <div class="button-spacing thin">
-        <ul class="collection">
+        <ul class="collapsible brand-bg-grey" data-collapsible="accordion">
           <% homework.tasks.each do |task| %>
-            <li class="collection-item white-text">
-              <% if current_user.role == 'S' %>
-                <div class="right">
-                  <input class="toggle-task-status filled-in"
-                         type="checkbox"
-                         name="<%= task.id %>"
-                         id="<%= task.id %>"
-                         <%= if task.complete then "checked" end %> >
-                           <label class="check-box" for="<%= task.id %>"></label>
-                </div>
-              <% elsif task.complete %>
-                <i class="material-icons right done-icon">done_all</i>
-              <% end %>
-              <blockquote>
-                <p>
-                <strong><%= task.item %></strong> <br>
-                <%= youtubify(task.url) %>
-                </p>
-              </blockquote>
+
+            <li>
+              <div  class="collapsible-header brand-bg-grey white-text">
+                <% if current_user.role == 'S' %>
+                  <div class="right">
+                    <input class="toggle-task-status filled-in"
+                           type="checkbox"
+                           name="<%= task.id %>"
+                           id="<%= task.id %>"
+                           <%= if task.complete then "checked" end %> >
+                             <label class="check-box" for="<%= task.id %>"></label>
+                  </div>
+                <% elsif task.complete %>
+                  <i class="material-icons right done-icon">done_all</i>
+                <% end %>
+                <blockquote>
+                  <p>
+                  <strong><%= task.item %></strong> <br>
+                  <%= youtubify(task.url) %>
+                  </p>
+                </blockquote>
+              </div>
+              <div class="collapsible-body">
+                <% homework.comments.each do |comment| %>
+                  <div class="comment-padding hoverable">
+                    <h5><%= comment.feedback %></h5>
+                    <p class="comment-name">---<%= comment.user.name %></p>
+                    <% if comment.url and comment.url != "" %>
+                      <%= youtubify(comment.url) %>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
             </li>
           <% end %>
-        </ul>
+          </ul>
+
         <% if current_user.role == "T" %>
           <div class="row">
             <a class="btn-floating waves-effect waves-light brand-bg-green"
@@ -76,6 +91,21 @@
   </div>
 </div>
 
+<!-- <ul class="collapsible" data-collapsible="accordion">
+  <li>
+    <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+  </li>
+  <li>
+    <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+  </li>
+  <li>
+    <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+    <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+  </li>
+</ul> -->
+
 <script>
 $(".toggle-task-status").on('click', function() {
   $.ajax({
@@ -87,6 +117,13 @@ $(".toggle-task-status").on('click', function() {
       done: this.checked ? true : false
     }
   });
+});
+
+$(document).ready( function(){
+  console.log('hello')
+   $('.collapsible').collapsible({
+      accordion: false// A setting that changes the collapsible behavior to expandable instead of the default accordion style
+   });
 });
 
 function editHomeworkNote(student, homework) {

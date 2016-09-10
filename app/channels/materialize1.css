@@ -3084,17 +3084,17 @@ td, th {
 
 .collection {
   margin: 0.5rem 0 1rem 0;
-  border-radius: 5px;
+  border-radius: 15px;
   overflow: hidden;
   position: relative;
 }
 
 .collection .collection-item {
-  background-color: #282828;
+  background-color: #fff;
   line-height: 1.5rem;
   padding: 15px 20px;
   margin: 0;
-  border-bottom: 1px solid #181818;
+  border-bottom: 1px solid #c6dbf3;
 }
 
 .collection .collection-item.avatar {
@@ -4525,14 +4525,14 @@ small {
   transition: box-shadow .25s;
   padding: 20px;
   margin: 0.5rem 0 1rem 0;
-  border-radius: 10px;
-  background-color: #323333;
+  border-radius: 30px;
+  background-color: #263238;
 }
 
 .card {
   position: relative;
   margin: 0.5rem 0 1rem 0;
-  background-color: #323333;
+  background-color: #263238;
   transition: box-shadow .25s;
   border-radius: 30px;
 }
@@ -5373,15 +5373,10 @@ button.btn-floating {
 }
 
 .collapsible {
-  /*border-top: 1px solid #ddd;
+  border-top: 1px solid #ddd;
   border-right: 1px solid #ddd;
-  border-left: 1px solid #ddd;*/
+  border-left: 1px solid #ddd;
   margin: 0.5rem 0 1rem 0;
-  padding-top: 1rem;
-  padding-left: 1rem;
-  padding-bottom: 2rem;
-  padding-right: 1rem;
-  border-radius: 10px;
 }
 
 .collapsible-header {
@@ -5390,7 +5385,8 @@ button.btn-floating {
   min-height: 3rem;
   line-height: 3rem;
   padding: 0 1rem;
-  border-bottom: 1px solid #000;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
 }
 
 .collapsible-header i {
@@ -5405,10 +5401,8 @@ button.btn-floating {
 
 .collapsible-body {
   display: none;
-  border-radius: 3px;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #ddd;
   box-sizing: border-box;
-  background-color: #323333;
 }
 
 .collapsible-body p {
