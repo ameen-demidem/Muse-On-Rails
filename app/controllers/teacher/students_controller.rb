@@ -48,6 +48,7 @@ class Teacher::StudentsController < ApplicationController
   end
 
   def update
+    binding.pry
     respond_to do |format|
       if @student.update(student_params)
         format.html { redirect_to teacher_students_path, notice: 'Student information has been updated.' }

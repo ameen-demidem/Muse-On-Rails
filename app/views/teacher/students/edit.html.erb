@@ -23,24 +23,40 @@
       <div class="card-panel hoverable">
         <h5 class="center">Edit <%= @student.name %>'s information'</h5>
         <div class="input-field">
-          <%= f.label "Parent Name:", class: "active" %>
+          <%= f.label "Name:" %>
           <%= f.text_field :name %>
         </div>
-        <div class="input-field">
-          <%= f.label "Username:", class: "active" %>
-          <%= f.text_field :username %>
-        </div>
-        <div class="input-field">
-          <%= f.label "Password:", class: "active" %>
-          <%= f.password_field :password %>
-        </div>
         <div class="row">
-          <div class="input-field left col s12">
-             <%= f.check_box :archived, class:"filled-in" %>
-             <%= f.label :archived %>
-             <p class="brand-text-grey"> **This will stop a student from accessing the system. You will also no longer be charged for this student.</p>
+          <div class="input-field col s12 m4">
+            <%= f.label "Age:", class:"active" %>
+            <p class="range-field">
+              <%= f.range_field(:age, in: 1..100) %>
+            </p>
+          </div>
+          <div class="input-field col s12 m4">
+            <%= f.label "Level:", class: "active" %>
+            <%= f.select :level, ['Beginner', 'Intermediate', 'Advanced'],
+                include_blank: true%>
+          </div>
+          <div class="input-field col s12 m4">
+            <%= f.label "Instrument:" %>
+            <%= f.text_field :instrument %>
           </div>
         </div>
+        <div class="row">
+          <div class="input-field col s12 m4">
+            <%= f.label "Username:" %>
+            <%= f.text_field :username %>
+          </div>
+          <div class="input-field col s12 m4">
+            <%= f.label "Password:" %>
+            <%= f.password_field :password %>
+          </div>
+          <div class="input-field col s12 m4">
+            <%= f.label "Parent:", class: "active" %>
+            <%= f.collection_select :parent, User.where(role: 'P'), :id, :name,
+                include_blank: true, selected: @selected_parent %>
+          </div>
       </div>
       <div class="center button-spacing">
         <%= button_tag class: "btn waves-effect waves-light green" do %>
