@@ -16,7 +16,6 @@ class Teacher::StudentsController < ApplicationController
   def create
     child_params = student_params
     parent_id = child_params.delete :parent
-
     if parent_id != ""
       @parent = User.find_by(id: parent_id)
     else
