@@ -71,7 +71,7 @@ class Teacher::StudentsController < ApplicationController
 
   def student_params
     params.require(:user).permit(
-      :name, :username, :password, :parent, :archived,
+      :name, :username, :password, :parent, :archived, :age, :level, :instrument,
       parent_attributes: [:name, :username, :password, :archived]
     )
   end

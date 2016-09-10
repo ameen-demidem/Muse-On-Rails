@@ -2029,7 +2029,7 @@ $(document).ready(function(){
         }
         else {
           // Insert as text;
-          toast.innerHTML = html; 
+          toast.innerHTML = html;
         }
         // Bind hammer
         var hammerHandler = new Hammer(toast, {prevent_default: false});
@@ -2917,7 +2917,7 @@ $(document).ready(function(){
 
       // If thumb indicator does not exist yet, create it
       if (thumb.length <= 0) {
-        thumb = $('<span class="thumb"><span class="value"></span></span>');
+        thumb = $('<span class="thumb"><span style="position: fixed" class="value"></span></span>');
         $(this).after(thumb);
       }
 
@@ -2960,7 +2960,7 @@ $(document).ready(function(){
       var left;
       if (range_mousedown) {
         if (!thumb.hasClass('active')) {
-          thumb.velocity({ height: '30px', width: '30px', top: '-20px', marginLeft: '-15px'}, { duration: 300, easing: 'easeOutExpo' });
+          thumb.velocity({ display: 'block', height: '30px', width: '30px', top: '-20px', marginLeft: '-15px'}, { duration: 300, easing: 'easeOutExpo' });
         }
         if (e.pageX === undefined || e.pageX === null) { //mobile
           left = e.originalEvent.touches[0].pageX - $(this).offset().left;

@@ -1,6 +1,8 @@
 <h3 class="center h-3-spacing white-text">
   Congrats, more business!<br>
-  <span class="title-comment thin">(and your parents said music was a dumb choice!)</span>
+  <span class="title-comment thin">
+    (and your parents said music was a dumb choice!)
+  </span>
 </h3>
 
 <% if @child.errors.any? %>
@@ -25,38 +27,59 @@
     <%= form_for @child, url: teacher_students_path(@child), class: "card-padding" do |f| %>
       <div class="card-panel hoverable">
         <h5 class="center">Add a student</h5>
-        <div>
-          <%= f.label "Student Name:" %>
+        <div class="input-field">
+          <%= f.label "Name:" %>
           <%= f.text_field :name %>
         </div>
-        <div>
-          <%= f.label "Username:" %>
-          <%= f.text_field :username %>
+        <div class="row">
+          <div class="input-field col s12 m4">
+            <%= f.label "Age:", class:"active" %>
+            <p class="range-field">
+              <%= f.range_field(:age, in: 1..100) %>
+            </p>
+          </div>
+          <div class="input-field col s12 m4">
+            <%= f.label "Level:", class: "active" %>
+            <%= f.select :level, ['Beginner', 'Intermediate', 'Advanced'],
+                include_blank: true%>
+          </div>
+          <div class="input-field col s12 m4">
+            <%= f.label "Instrument:" %>
+            <%= f.text_field :instrument %>
+          </div>
         </div>
-        <div>
-          <%= f.label "Password:" %>
-          <%= f.password_field :password %>
-        </div>
-        <div>
-          <%= f.label "Parent:" %>
-          <%= f.collection_select :parent, User.where(role: 'P'), :id, :name,
-            include_blank: true, selected: @selected_parent %>
+        <div class="row">
+          <div class="input-field col s12 m4">
+            <%= f.label "Username:" %>
+            <%= f.text_field :username %>
+          </div>
+          <div class="input-field col s12 m4">
+            <%= f.label "Password:" %>
+            <%= f.password_field :password %>
+          </div>
+          <div class="input-field col s12 m4">
+            <%= f.label "Parent:", class: "active" %>
+            <%= f.collection_select :parent, User.where(role: 'P'), :id, :name,
+                include_blank: true, selected: @selected_parent %>
+          </div>
         </div>
       </div>
       <%= f.fields_for :parent do |parent_form| %>
         <div id="teacher-new-student-parent-form" class="card-panel hoverable">
-          <h5 class="center">Add their parent</h5>
-          <div>
-            <%= parent_form.label "Parent Name:" %>
-            <%= parent_form.text_field :name %>
-          </div>
-          <div>
-            <%= parent_form.label "Username:" %>
-            <%= parent_form.text_field :username %>
-          </div>
-          <div>
-            <%= parent_form.label "Password:" %>
-            <%= parent_form.password_field :password %>
+          <h5 class="center">Add their parent<br> <span class="thin">If you dont already teach their siblings</span></h5>
+          <div class="row button-spacing">
+            <div class="input-field col s12 m4">
+              <%= parent_form.label "Parent Name:" %>
+              <%= parent_form.text_field :name %>
+            </div>
+            <div class="input-field col s12 m4">
+              <%= parent_form.label "Username:" %>
+              <%= parent_form.text_field :username %>
+            </div>
+            <div class="input-field col s12 m4">
+              <%= parent_form.label "Password:" %>
+              <%= parent_form.password_field :password %>
+            </div>
           </div>
         </div>
       <% end %>
