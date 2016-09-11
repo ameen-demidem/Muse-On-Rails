@@ -27,6 +27,8 @@ $(document).on('turbolinks:load', function(){
     };
 
     AddTask();
+    for (var i = nextTaskToShow; i < $tasks.length; i++)
+      if ($tasks.eq(i).find("input").val() !== "") AddTask();
 
     return {
       AddTask: AddTask,

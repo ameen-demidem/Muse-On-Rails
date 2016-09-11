@@ -29,6 +29,7 @@ class Teacher::HomeworksController < ApplicationController
       redirect_to teacher_student_homework_path(@student, @homework)
     else
       flash.now.alert = "Couldn't create the new homework!"
+      (7 - @homework.tasks.length).times { @homework.tasks.build }
       render :new
     end
   end
