@@ -38,3 +38,11 @@ $(document).on('turbolinks:load', function(){
 
   teacher_new_homework_view = teacherHomeworkNew();
 });
+
+function toggleTaskURLFieldDisabledStatus($el) {
+  $url = $el.parents('li').find('input[name*=url]');
+  if ($el.val() !== "")
+    $url.attr('disabled', true);
+  else
+    $url.removeAttr('disabled');
+}

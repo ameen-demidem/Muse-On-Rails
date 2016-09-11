@@ -21,7 +21,7 @@
 <div class="row button-spacing">
   <div class="col s12 white-text">
     <div class="card-panel hoverable">
-      <%= form_for [:teacher, :student, @homework] do |f| %>
+      <%= form_for [:teacher, :student, @homework], multipart: true do |f| %>
         <div class="row col s10 offset-s1">
           <h5 class="h-5-spacing">This weeks homework</h5>
           <div class="input-field button-spacing">
@@ -50,13 +50,25 @@
               <ul id="new-home-work-task-list" class="collection">
                 <%= f.fields_for :tasks do |task_form| %>
                   <li class="valign-wrapper blue-grey darken-3">
-                    <div class="input-field col s8">
-                      <%= task_form.label " ", class: "active" %>
-                      <%= task_form.text_field :item, class: "validate" %>
-                    </div>
-                    <div class="input-field col s4">
-                      <%= task_form.label " ", class: "active" %>
-                      <%= task_form.text_field :url, class: "validate" %>
+                    <div class="col s12">
+                      <div class="input-field col s12">
+                        <%= task_form.label :description, class: "active" %>
+                        <%= task_form.text_field :item, class: "validate" %>
+                      </div>
+                      <div class="input-field col s6">
+                        <%= task_form.label :URL, class: "active" %>
+                        <%= task_form.text_field :url, class: "validate" %>
+                      </div>
+                      <div class="file-field input-field col s6">
+                        <div class="btn">
+                          <span>File</span>
+                          <%= task_form.file_field :attachment, class: "validate",
+                            onChange: "toggleTaskURLFieldDisabledStatus($(this))" %>
+                        </div>
+                        <div class="file-path-wrapper">
+                          <input class="file-path validate" type="text" placeholder="Upload one or more files">
+                        </div>
+                      </div>
                     </div>
                     <div class="col valign">
                       <a onClick="teacher_new_homework_view.RemoveTask(this)",

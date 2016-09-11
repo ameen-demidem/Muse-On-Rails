@@ -45,7 +45,7 @@ class Teacher::HomeworksController < ApplicationController
   protected
 
   def homework_params
-    params.require(:homework).permit(:title, :note, tasks_attributes: [:id, :item, :url])
+    params.require(:homework).permit(:title, :note, tasks_attributes: [:id, :item, :url, :attachment])
   end
 
   def check_authorization
