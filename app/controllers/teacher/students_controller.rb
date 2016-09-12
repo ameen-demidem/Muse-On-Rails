@@ -33,7 +33,7 @@ class Teacher::StudentsController < ApplicationController
     if @child.save
       NotificationMailer.welcome_student(@child).deliver
       if @parent.save
-        NotificationMailer.welcome_parent(@parent).deliver
+        NotificationMailer.welcome_parent(@parent, @child).deliver
         redirect_to teacher_student_homeworks_path(@child)
       else
         @selected_parent = ""

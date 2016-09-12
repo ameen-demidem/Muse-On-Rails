@@ -1,5 +1,5 @@
 class NotificationMailer < ApplicationMailer
-  default from: 'Bill <muselessonsapp@gmail.com>'
+  default from: 'Bill from Muse <muselessonsapp@gmail.com>'
 
   def welcome(user)
     @user = user
@@ -11,14 +11,15 @@ class NotificationMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Welcome to MUSE lessons!')
   end
 
-  def welcome_parent(user)
+  def welcome_parent(user, child_id)
     @user = user
+    @child = User.find(child_id)
     mail(to: @user.email, subject: 'Welcome to MUSE lessons!')
   end
 
-  def parent_suspended(user, id)
+  def parent_suspended(user, child)
     @user = user
-    @child = User.find(id)
+    @child = child
 
     mail(to: @user.email, subject: 'Access to muse has been removed')
   end
