@@ -32,9 +32,6 @@ class Teacher::StudentsController < ApplicationController
 
     if @child.save
       if @parent.save
-
-        
-
         redirect_to teacher_student_homeworks_path(@child)
       else
         @selected_parent = ""
