@@ -1,74 +1,50 @@
 <h3 class="white-text h-3-spacing center">The Best Decison You'll Ever Make</h3>
 
 <% if @teacher.errors.any? %>
-  <!-- <div>
-    <strong>Some issues with your entry, please fix them:</strong>
-    <ul>
-    <% @teacher.errors.full_messages.each do |error| %>
-      <li><%= error %></li>
-    <% end %>
-    </ul>
-    </div> -->
-    <div class="row">
-      <div class="col s12">
-        <div class="card-panel hoverable thick home-card">
-          <div class="white-text">
-            <h5>Some issues with your entry, please fix them:</h5>
-            <ol>
-              <% @teacher.errors.full_messages.each do |error| %>
-                <li class="errors-list"><%= error %></li>
-              <% end %>
-            </ol>
-          </div>
+  <div class="row">
+    <div class="col s12">
+      <div class="card-panel hoverable thick home-card">
+        <div class="white-text">
+          <h5>Some issues with your entry, please fix them:</h5>
+          <ol>
+            <% @teacher.errors.full_messages.each do |error| %>
+              <li class="errors-list"><%= error %></li>
+            <% end %>
+          </ol>
         </div>
       </div>
     </div>
-  <% end %>
+  </div>
+<% end %>
 
-  <!--
-    <form method="post" action="/signup">
-    <div>
-    <label>Full Name:</label>
-    <input type="text" name="name" value="<%= @teacher.name %>">
-    </div>
-    <div>
-    <label>Username:</label>
-    <input type="text" name="username" value="<%= @teacher.username %>">
-    </div>
-    <div>
-    <label>Password:</label>
-    <input type="text" name="password" value="<%= @teacher.password %>">
-    </div>
-    <div>
-    <input type="submit" value="Create" >
-    </div>
-    </form> -->
-
-    <div class="row">
-      <div class="col s12 white-text card-bottom">
-        <div class="card-panel hoverable">
-          <h5 class="center">Create an account</h5>
-          <%= form_for @teacher, html: { class: "card-padding" } do |f| %>
-            <div>
-              <%= f.label "Full Name:" %>
-              <%= f.text_field :name %>
-            </div>
-            <div>
-              <%= f.label "Username:" %>
-              <%= f.text_field :username %>
-            </div>
-            <div>
-              <%= f.label "Password:" %>
-              <%= f.password_field :password %>
-            </div>
-            <div class="center button-spacing">
-              <%= button_tag "Submit", class: "btn waves-effect waves-light green" do %>
-                Submit
-                <i class="material-icons right">send</i>
-              <% end %>
-            </div>
+<div class="row">
+  <div class="col s12 white-text card-bottom">
+    <div class="card-panel hoverable grad">
+      <h5 class="center">Create an account</h5>
+      <%= form_for @teacher, html: { class: "card-padding" } do |f| %>
+        <div>
+          <%= f.label "Full Name:" %>
+          <%= f.text_field :name %>
+        </div>
+        <div>
+          <%= f.label "Username:" %>
+          <%= f.text_field :username %>
+        </div>
+        <div>
+          <%= f.label "Email:" %>
+          <%= f.email_field :email %>
+        </div>
+        <div>
+          <%= f.label "Password:" %>
+          <%= f.password_field :password %>
+        </div>
+        <div class="center button-spacing">
+          <%= button_tag "Submit", class: "btn waves-effect waves-light green" do %>
+            Submit
+            <i class="material-icons right">send</i>
           <% end %>
         </div>
-      </div>
+      <% end %>
     </div>
-
+  </div>
+</div>

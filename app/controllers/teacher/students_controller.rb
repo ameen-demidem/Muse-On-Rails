@@ -5,6 +5,7 @@ class Teacher::StudentsController < ApplicationController
   before_action :load_student, only: [:edit, :show, :update, :destroy]
 
   def index
+
   end
 
   def new
@@ -31,6 +32,9 @@ class Teacher::StudentsController < ApplicationController
 
     if @child.save
       if @parent.save
+
+        
+
         redirect_to teacher_student_homeworks_path(@child)
       else
         @selected_parent = ""
@@ -79,8 +83,8 @@ class Teacher::StudentsController < ApplicationController
 
   def student_params
     params.require(:user).permit(
-      :name, :username, :password, :parent, :archived, :age, :level, :instrument,
-      parent_attributes: [:name, :username, :password, :archived]
+      :name, :username, :password, :parent, :archived, :age, :level, :instrument, :email,
+      parent_attributes: [:name, :username, :password, :archived, :email]
     )
   end
 
