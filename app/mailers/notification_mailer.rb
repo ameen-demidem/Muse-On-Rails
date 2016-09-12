@@ -16,8 +16,10 @@ class NotificationMailer < ApplicationMailer
     mail(to: @user.email, subject: 'Welcome to MUSE lessons!')
   end
 
-  def parent_suspended(user)
+  def parent_suspended(user, id)
     @user = user
+    @child = User.find(id)
+
     mail(to: @user.email, subject: 'Access to muse has been removed')
   end
 
