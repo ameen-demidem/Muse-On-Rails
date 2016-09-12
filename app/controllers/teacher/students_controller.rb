@@ -31,7 +31,9 @@ class Teacher::StudentsController < ApplicationController
     @child.teacher = current_user
 
     if @child.save
+      NotificationMailer.welcome_student(@child).deliver
       if @parent.save
+        NotificationMailer.welcome_parent(@parent).deliver
         redirect_to teacher_student_homeworks_path(@child)
       else
         @selected_parent = ""
@@ -61,6 +63,11 @@ class Teacher::StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.update(child_params)
+        if @student[:archived] == true
+          @student.parent[:archived] = true
+          NotificationMailer.student_suspended(@student).deliver
+          NotificationMailer.parent_suspended(@student.parent).deliver unless  @student.parent.nil?
+        end
         format.html { redirect_to teacher_students_path, notice: 'Student information has been updated.' }
         format.json { render :show, status: :ok, location: @student }
       else
