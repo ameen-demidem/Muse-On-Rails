@@ -12,6 +12,7 @@ class Teacher::LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
+    binding.pry
   end
 
   # GET /lessons/new

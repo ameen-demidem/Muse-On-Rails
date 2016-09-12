@@ -1,6 +1,15 @@
-<h1>Editing Lesson</h1>
-
-<%= render 'form', lesson: @lesson %>
-
-<%= link_to 'Show', @lesson %> |
-<%= link_to 'Back', lessons_path %>
+<h3 class="center h-3-spacing white-text">Update Lesson</h3>
+<div class="col s6 offset-s2">
+  <%= link_to teacher_lessons_path,
+              class: "btn-floating waves-effect waves-light brand-bg-lt-grey" do %>
+     <i class="material-icons">skip_previous</i>
+  <% end %>
+  <span class="button-text white-text">back to calendar</span>
+</div>
+<div class="row">
+  <div class="col m12 s12 white-text">
+    <div class="card-panel hoverable">
+      <%= render 'form', lesson: @lesson %>
+    </div>
+  </div>
+</div>
