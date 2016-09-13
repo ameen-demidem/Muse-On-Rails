@@ -98,9 +98,11 @@ class Teacher::LessonsController < ApplicationController
   # DELETE /lessons/1
   # DELETE /lessons/1.json
   def destroy
+    NotificationMailer.student_cancelled_lesson(@lesson).deliver
+    NotificationMailer.parent_cancelled_lesson(@lesson).deliver
     @lesson.destroy
     respond_to do |format|
-      format.html { redirect_to lessons_url, notice: 'Lesson was successfully destroyed.' }
+      format.html { redirect_to teacher_lessons_url, notice: 'Lesson was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

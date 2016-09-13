@@ -16,6 +16,8 @@
       <%= link_to edit_teacher_lesson_path(@lesson) do %>
         <i class="material-icons right brand-text-grey">edit</i>
       <% end %>
+      <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+
       <p>
         Title:
         <span class="thin"><%= @lesson.title %></span>
@@ -38,3 +40,20 @@
     </div>
   </div>
 </div>
+<div id="modal1" class="modal bottom-sheet">
+  <div class="modal-content">
+    <h5>Are you Sure you want to cancel this lesson?</h5>
+    <%= link_to 'Yes! Cancel it', teacher_lesson_path(@lesson),
+        method: :delete,
+        class: "modal-action modal-close waves-effect waves-green btn-flat brand-text-grey right" %>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat"></a>
+  </div>
+</div>
+<script>
+$(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+</script>

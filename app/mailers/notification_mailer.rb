@@ -31,7 +31,6 @@ class NotificationMailer < ApplicationMailer
   def student_new_lesson(lesson)
     @lesson = lesson
     @student = User.find(@lesson[:student_id])
-    @parent =  @student.parent
     @teacher = @student.teacher
     mail(to: @student.email, subject: 'Your teacher' + @teacher.name + ' has assigned lesson dates!')
   end
@@ -42,6 +41,21 @@ class NotificationMailer < ApplicationMailer
     @parent =  @student.parent
     @teacher = @student.teacher
     mail(to: @parent.email, subject: 'Your child ' + @student.name + ' has been assigned lesson dates! by ' + @teacher.name)
+  end
+
+  def student_cancelled_lesson(lesson)
+    @lesson = lesson
+    @student = User.find(@lesson[:student_id])
+    @teacher = @student.teacher
+    mail(to: @student.email, subject: 'Your teacher' + @teacher.name + ' has cancelled a lesson')
+  end
+
+  def parent_cancelled_lesson(lesson)
+    @lesson = lesson
+    @student = User.find(@lesson[:student_id])
+    @parent =  @student.parent
+    @teacher = @student.teacher
+    mail(to: @student.email, subject: 'Your teacher' + @teacher.name + ' has cancelled a lesson')
   end
 
 end
