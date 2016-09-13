@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   def pay
     customer = Stripe::Customer.create(
       :email => params[:stripeEmail],
-      :plan => 'basic',
+      :plan => current_user.plan,
       :source => params[:stripeToken]
     )
 
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
   def charge
     begin
       charge = Stripe::Charge.create({
-        :amount => 2500,
+        :amount => (current_user.children.first.teacher.rate * 100),
         :currency => "cad",
         :source => params[:stripeToken]
         }, {:stripe_account => current_user.children.first.teacher.stripe_user_id}
@@ -52,7 +52,7 @@ class UsersController < ApplicationController
   protected
 
   def user_params
-    params.require(:user).permit(:name, :username, :password)
+    params.require(:user).permit(:name, :username, :password, :rate, :plan)
   end
 
 end

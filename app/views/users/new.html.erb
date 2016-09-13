@@ -61,6 +61,14 @@
               <%= f.label "Password:" %>
               <%= f.password_field :password %>
             </div>
+            <div>
+              <%= f.label "Rate ($) per Lesson:" %>
+              <%= f.number_field :rate %>
+            </div>
+            <div>
+              <%= f.label "Plan:" %>
+              <%= f.select :plan, options_for_select([["Basic (1-5 Students): $5/mo", "basic"], ["Standard (6-10 Students): $10/mo", "standard"], ["Premium (11+ Students): $15/mo", "premium"]], "basic") %>
+            </div>
             <div class="center button-spacing">
               <%= button_tag "Submit", class: "btn waves-effect waves-light green" do %>
                 Submit

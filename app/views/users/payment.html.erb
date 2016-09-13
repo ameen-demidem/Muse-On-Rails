@@ -1,4 +1,4 @@
-<h3 style="color:white">Sign up for a Basic account ($5/mo)</h3>
+<h3 style="color:white">Sign up for your <%= current_user.plan %> account</h3>
 
 <%= form_tag users_pay_path, :id => 'payment-form' do %>
   <span class="payment-errors"></span>
