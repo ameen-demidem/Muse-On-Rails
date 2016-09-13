@@ -48,13 +48,11 @@ class Teacher::LessonsController < ApplicationController
           new_lesson.save
         end
 
-        if !@lesson.student.email.nil?
-          NotificationMailer.student_new_lesson(@lesson).deliver
-        end
+        parent_email =   NotificationMailer.student_new_lesson(@lesson)
+        student_email =  NotificationMailer.parent_new_lesson(@lesson)
 
-        if !@lesson.student.parent.email.nil?
-          NotificationMailer.parent_new_lesson(@lesson).deliver
-        end
+        dont_send_emails_if_no_email(@lesson, student_email, parent_email)
+
         respond_to do |format|
           format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully created.' }
           format.json { render :show, status: :created, location: @lesson }
@@ -70,12 +68,10 @@ class Teacher::LessonsController < ApplicationController
       respond_to do |format|
         if @lesson.save
 
-          if !@lesson.student.email.nil?
-            NotificationMailer.student_new_lesson(@lesson).deliver
-          end
-          if !@lesson.student.parent.email.nil?
-            NotificationMailer.parent_new_lesson(@lesson).deliver
-          end
+          parent_email = NotificationMailer.student_new_lesson(@lesson)
+          student_email = NotificationMailer.parent_new_lesson(@lesson)
+
+          dont_send_emails_if_no_email(@lesson, student_email, parent_email)
 
           format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully created.' }
           format.json { render :show, status: :created, location: @lesson }
@@ -95,9 +91,12 @@ class Teacher::LessonsController < ApplicationController
     respond_to do |format|
       if @lesson.update(@params)
 
-        if @old_lesson["start_time"] != @lesson.start_time && (@lesson.student.email.nil? || @lesson.student.parent.email.nil?)
-          NotificationMailer.student_update_lesson(@lesson, @old_lesson).deliver
-          NotificationMailer.parent_update_lesson(@lesson, @old_lesson).deliver
+        if @old_lesson["start_time"] != @lesson.start_time
+          
+            student_email = NotificationMailer.student_update_lesson(@lesson, @old_lesson)
+            parent_email  = NotificationMailer.parent_update_lesson(@lesson, @old_lesson)
+
+            dont_send_emails_if_no_email(@lesson, student_email, parent_email)
         end
 
         format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully updated.' }
@@ -112,6 +111,7 @@ class Teacher::LessonsController < ApplicationController
   # DELETE /lessons/1
   # DELETE /lessons/1.json
   def destroy
+
     if !@lesson.student.email.nil?
       NotificationMailer.student_cancelled_lesson(@lesson).deliver
     end
@@ -125,6 +125,7 @@ class Teacher::LessonsController < ApplicationController
       format.html { redirect_to teacher_lessons_url, notice: 'Lesson was successfully destroyed.' }
       format.json { head :no_content }
     end
+
   end
 
   protected
@@ -207,4 +208,12 @@ class Teacher::LessonsController < ApplicationController
       end
     end
 
+    def dont_send_emails_if_no_email(lesson, student_email, parent_email)
+      if !lesson.student.email.nil?
+        student_email.deliver
+      end
+      if !lesson.student.parent.email.nil?
+        parent_email.deliver
+      end
+    end
 end
