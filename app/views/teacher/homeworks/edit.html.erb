@@ -31,27 +31,85 @@
         </div>
         <div class="row">
           <div class="col s10 offset-s1">
-            <h5 class="button-spacing"><strong>Tasks for the homework</strong></h5>
+            <div class="button-spacing row valign-wrapper">
+              <h5 class="col left"><strong>Tasks for the homework</strong></h5>
+              <div class="col left">
+                <a onClick="teacher_new_homework_view.AddTask()",
+                   class="btn-floating waves-effect waves-light green">
+                    <i class="material-icons">add</i>
+                </a>
+              </div>
+            </div>
             <div class="button-spacing">
-              <ul class="collection">
+              <ul id="homework-task-list" class="collection">
                 <%= f.fields_for :tasks do |task_form| %>
-                  <li class="blue-grey darken-3">
-                    <div class="input-field col s8">
-                      <%= task_form.label " ", class: "active" %>
-                      <%= task_form.text_field :item, class: "validate" %>
+                  <li class="button-spacing valign-wrapper blue-grey darken-3">
+                    <%= task_form.hidden_field :_destroy %>
+                    <%= task_form.hidden_field :delete_attachment %>
+                    <div class="col s11">
+                      <div class="input-field col s12">
+                        <%= task_form.label :description, class: "active" %>
+                        <%= task_form.text_field :item, class: "validate" %>
+                      </div>
+                      <% if task_form.object.attachment.exists? %>
+                        <div class="col s12 valign-wrapper" style="padding-bottom: 1em">
+                          <a onClick="removeTaskAttachment(this)"
+                             class="btn-floating waves-effect waves-light red">
+                            <i class="material-icons">delete</i>
+                          </a>
+                          <span class="valign col s11" style="word-wrap: break-word">
+                            <%= task_form.object.attachment_file_name %>
+                          </span>
+                        </div>
+                        <div id="edit-homework-new-file" style="display: none">
+                          <div class="input-field col s6">
+                            <%= task_form.label :URL, class: "active" %>
+                            <%= task_form.text_field :url, class: "validate" %>
+                          </div>
+                          <div class="file-field input-field col s6">
+                            <div class="btn">
+                              <span>File</span>
+                              <%= task_form.file_field :attachment, class: "validate",
+                                onChange: "toggleTaskURLFieldDisabledStatus($(this))" %>
+                          </div>
+                          <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text"
+                                   placeholder="Upload one or more files">
+                          </div>
+                          </div>
+                        </div>
+                      <% else %>
+                        <div class="input-field col s6">
+                          <%= task_form.label :URL, class: "active" %>
+                          <%= task_form.text_field :url, class: "validate" %>
+                        </div>
+                        <div class="file-field input-field col s6">
+                          <div class="btn">
+                            <span>File</span>
+                            <%= task_form.file_field :attachment, class: "validate",
+                              onChange: "toggleTaskURLFieldDisabledStatus($(this))" %>
+                          </div>
+                          <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text"
+                                   placeholder="Upload one or more files">
+                          </div>
+                        </div>
+                      <% end %>
                     </div>
-                    <div class="input-field col s4">
-                      <%= task_form.label " ", class: "active" %>
-                      <%= task_form.text_field :url, class: "validate" %>
+                    <div class="col valign">
+                      <a onClick="teacher_new_homework_view.RemoveTask(this)",
+                         class="btn-floating waves-effect waves-light red" >
+                          <i class="material-icons">cancel</i>
+                      </a>
                     </div>
-                  </li>
                 <% end %>
               </ul>
             </div>
           </div>
         </div>
         <div class="center">
-          <%= button_tag "Update!", class: "btn waves-effect waves-light form-button green" %>
+          <%= button_tag "Update!", onClick: "enableURLInputFields()", 
+            class: "btn waves-effect waves-light form-button green" %>
         </div>
       <% end %>
     </div>
@@ -60,7 +118,6 @@
 
 <script>
 function goBack() {
-  //a href="/teacher/students/<%= @student.id %>/homework/<%= @homework.id %>">go back</a>-->
   window.history.go(-1);
 }
 </script>

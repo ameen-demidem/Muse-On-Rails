@@ -19,7 +19,7 @@ class Teacher::HomeworksController < ApplicationController
   end
 
   def edit
-    @new_task = @homework.tasks.build
+    7.times { @homework.tasks.build }
   end
 
   def create
@@ -35,6 +35,13 @@ class Teacher::HomeworksController < ApplicationController
   end
 
   def update
+    homework_params[:tasks_attributes].each_value do |task|
+      if task[:delete_attachment] != ""
+        t = Task.find_by(id: task[:id])
+        t.attachment.clear
+        t.save
+      end
+    end
     @homework.update_attributes(homework_params)
     redirect_to teacher_student_homework_path(@student, @homework)
   end
@@ -45,7 +52,9 @@ class Teacher::HomeworksController < ApplicationController
   protected
 
   def homework_params
-    params.require(:homework).permit(:title, :note, tasks_attributes: [:id, :item, :url, :attachment])
+    params.require(:homework).permit(
+      :title, :note,
+      tasks_attributes: [:id, :item, :url, :attachment, :_destroy, :delete_attachment])
   end
 
   def check_authorization

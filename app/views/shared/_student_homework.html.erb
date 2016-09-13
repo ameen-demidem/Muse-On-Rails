@@ -44,9 +44,9 @@
                 <blockquote>
                   <p>
                     <strong><%= task.item %></strong> <br>
-                    <% if task.url %>
+                    <% if task.url and task.url != "" %>
                       <%= youtubify(task.url) %>
-                    <% elsif task.attachment %>
+                    <% elsif task.attachment.exists? %>
                       <%= youtubify(task.attachment.url) %>
                     <% end %>
                   </p>
