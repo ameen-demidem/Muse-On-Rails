@@ -48,6 +48,9 @@ class Teacher::LessonsController < ApplicationController
           new_lesson.save
         end
 
+        NotificationMailer.student_new_lesson(@lesson).deliver
+        NotificationMailer.parent_new_lesson(@lesson).deliver
+
         respond_to do |format|
           format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully created.' }
           format.json { render :show, status: :created, location: @lesson }
@@ -59,9 +62,13 @@ class Teacher::LessonsController < ApplicationController
         end
       end
     else
-      @lesson = Lesson.new(lesson_params)
+      @lesson = Lesson.new(@params)
       respond_to do |format|
         if @lesson.save
+
+          NotificationMailer.student_new_lesson(@lesson).deliver
+          NotificationMailer.parent_new_lesson(@lesson).deliver
+
           format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully created.' }
           format.json { render :show, status: :created, location: @lesson }
         else
@@ -75,9 +82,16 @@ class Teacher::LessonsController < ApplicationController
   # PATCH/PUT /lessons/1
   # PATCH/PUT /lessons/1.json
   def update
+    clean_up_dates(lesson_params)
+    @old_lesson = @lesson.attributes
     respond_to do |format|
-      if @lesson.update(lesson_params)
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully updated.' }
+      if @lesson.update(@params)
+        if @old_lesson["start_time"] != @lesson.start_time
+          NotificationMailer.student_update_lesson(@lesson, @old_lesson).deliver
+          NotificationMailer.parent_update_lesson(@lesson, @old_lesson).deliver
+        end
+
+        format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully updated.' }
         format.json { render :show, status: :ok, location: @lesson }
       else
         format.html { render :edit }
@@ -89,9 +103,11 @@ class Teacher::LessonsController < ApplicationController
   # DELETE /lessons/1
   # DELETE /lessons/1.json
   def destroy
+    NotificationMailer.student_cancelled_lesson(@lesson).deliver
+    NotificationMailer.parent_cancelled_lesson(@lesson).deliver
     @lesson.destroy
     respond_to do |format|
-      format.html { redirect_to lessons_url, notice: 'Lesson was successfully destroyed.' }
+      format.html { redirect_to teacher_lessons_url, notice: 'Lesson was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -109,7 +125,6 @@ class Teacher::LessonsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_lesson
-      # @lesson = Lesson.find(params[:id])
       @lesson = Lesson.find_by(id: params[:id])
     end
 

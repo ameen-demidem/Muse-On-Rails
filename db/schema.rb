@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160911193827) do
+ActiveRecord::Schema.define(version: 20160912015849) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "feedback"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(version: 20160911193827) do
     t.integer  "age"
     t.string   "level"
     t.string   "instrument"
+    t.string   "email"
     t.index ["parent_id"], name: "index_users_on_parent_id"
     t.index ["teacher_id"], name: "index_users_on_teacher_id"
   end

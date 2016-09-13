@@ -17,7 +17,6 @@
           <%= f.collection_select(:student_id, current_user.students.all, :id, :name) %>
       </div>
 
-
       <div class="input-field">
         <%= f.label :title, class:"active" %>
         <%= f.text_field :title %>
@@ -49,14 +48,14 @@
         </div>
 
         <div class="row col s12 m4 right">
-          <div class="input-field">
+          <div class="input-field" id="checkBox">
             <%= f.check_box :recurring, class:"filled-in" %>
             <%= f.label :recurring %>
           </div>
         </div>
       </div>
       <div class="row">
-        <div id="reccuringAttributes">
+        <div class="none" id="reccuringAttributes">
           <div class="input-field col s6">
             <%= f.label :how_often, class:'active' %>
             <%= f.select :how_often, ['weekly', 'bi-weekly', 'monthly']%>
@@ -78,12 +77,14 @@
 <script type="text/javascript">
   $(document).ready(function(){
 
-    $('.datepicker').pickadate({
-      selectMonths: true, // Creates a dropdown to control month
-      selectYears: 15 // Creates a dropdown of 15 years to control year
-    });
+    var $reccuringOption = $("#reccuringAttributes")
+    var $checkBox = $("#lesson_recurring")
 
     $('select').material_select();
+
+    $checkBox.on('click', function(){
+      $checkBox.is(':checked') ? $reccuringOption.show('slow') : $reccuringOption.hide('slow')
+    });
 
   });
 </script>

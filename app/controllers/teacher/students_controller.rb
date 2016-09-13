@@ -5,6 +5,7 @@ class Teacher::StudentsController < ApplicationController
   before_action :load_student, only: [:edit, :show, :update, :destroy]
 
   def index
+
   end
 
   def new
@@ -30,7 +31,9 @@ class Teacher::StudentsController < ApplicationController
     @child.teacher = current_user
 
     if @child.save
+      NotificationMailer.welcome_student(@child).deliver
       if @parent.save
+        NotificationMailer.welcome_parent(@parent, @child).deliver
         redirect_to teacher_student_homeworks_path(@child)
       else
         @selected_parent = ""
@@ -60,6 +63,11 @@ class Teacher::StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.update(child_params)
+        if @student[:archived] == true
+          @student.parent[:archived] = true
+          NotificationMailer.student_suspended(@student).deliver
+          NotificationMailer.parent_suspended(@student.parent, @student.id).deliver unless  @student.parent.nil?
+        end
         format.html { redirect_to teacher_students_path, notice: 'Student information has been updated.' }
         format.json { render :show, status: :ok, location: @student }
       else
@@ -79,8 +87,8 @@ class Teacher::StudentsController < ApplicationController
 
   def student_params
     params.require(:user).permit(
-      :name, :username, :password, :parent, :archived, :age, :level, :instrument,
-      parent_attributes: [:name, :username, :password, :archived]
+      :name, :username, :password, :parent, :archived, :age, :level, :instrument, :email,
+      parent_attributes: [:name, :username, :password, :archived, :email]
     )
   end
 
