@@ -74,15 +74,6 @@
             </li>
           <% end %>
           </ul>
-
-        <% if current_user.role == "T" %>
-          <div class="row">
-            <a class="btn-floating waves-effect waves-light brand-bg-green"
-               type="button" onclick="addTask(<%= @student.id %>,<%= homework.id %>)">
-               <i class="material-icons md-18">add</i>
-            </a>
-          </div>
-        <% end %>
       </div>
     </div>
   </div>
