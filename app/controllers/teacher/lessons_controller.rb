@@ -48,9 +48,13 @@ class Teacher::LessonsController < ApplicationController
           new_lesson.save
         end
 
-        NotificationMailer.student_new_lesson(@lesson).deliver
-        NotificationMailer.parent_new_lesson(@lesson).deliver
+        if !@lesson.student.email.nil?
+          NotificationMailer.student_new_lesson(@lesson).deliver
+        end
 
+        if !@lesson.student.parent.email.nil?
+          NotificationMailer.parent_new_lesson(@lesson).deliver
+        end
         respond_to do |format|
           format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully created.' }
           format.json { render :show, status: :created, location: @lesson }
@@ -66,8 +70,12 @@ class Teacher::LessonsController < ApplicationController
       respond_to do |format|
         if @lesson.save
 
-          NotificationMailer.student_new_lesson(@lesson).deliver
-          NotificationMailer.parent_new_lesson(@lesson).deliver
+          if !@lesson.student.email.nil?
+            NotificationMailer.student_new_lesson(@lesson).deliver
+          end
+          if !@lesson.student.parent.email.nil?
+            NotificationMailer.parent_new_lesson(@lesson).deliver
+          end
 
           format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully created.' }
           format.json { render :show, status: :created, location: @lesson }
@@ -86,7 +94,8 @@ class Teacher::LessonsController < ApplicationController
     @old_lesson = @lesson.attributes
     respond_to do |format|
       if @lesson.update(@params)
-        if @old_lesson["start_time"] != @lesson.start_time
+
+        if @old_lesson["start_time"] != @lesson.start_time && (@lesson.student.email.nil? || @lesson.student.parent.email.nil?)
           NotificationMailer.student_update_lesson(@lesson, @old_lesson).deliver
           NotificationMailer.parent_update_lesson(@lesson, @old_lesson).deliver
         end
@@ -103,8 +112,14 @@ class Teacher::LessonsController < ApplicationController
   # DELETE /lessons/1
   # DELETE /lessons/1.json
   def destroy
-    NotificationMailer.student_cancelled_lesson(@lesson).deliver
-    NotificationMailer.parent_cancelled_lesson(@lesson).deliver
+    if !@lesson.student.email.nil?
+      NotificationMailer.student_cancelled_lesson(@lesson).deliver
+    end
+
+    if !@lesson.student.parent.email.nil?
+      NotificationMailer.parent_cancelled_lesson(@lesson).deliver
+    end
+
     @lesson.destroy
     respond_to do |format|
       format.html { redirect_to teacher_lessons_url, notice: 'Lesson was successfully destroyed.' }
