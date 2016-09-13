@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160912015849) do
+ActiveRecord::Schema.define(version: 20160913211203) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "feedback"
@@ -18,6 +18,10 @@ ActiveRecord::Schema.define(version: 20160912015849) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.integer  "task_id"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
     t.index ["task_id"], name: "index_comments_on_task_id"
   end
 
