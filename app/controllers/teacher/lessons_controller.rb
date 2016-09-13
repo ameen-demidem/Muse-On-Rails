@@ -21,7 +21,6 @@ class Teacher::LessonsController < ApplicationController
 
   # GET /lessons/1/edit
   def edit
-    @lesson = Lesson.find(params[:id])
   end
 
   # POST /lessons
@@ -84,8 +83,13 @@ class Teacher::LessonsController < ApplicationController
   # PATCH/PUT /lessons/1.json
   def update
     clean_up_dates(lesson_params)
+    @old_lesson = @lesson.attributes
     respond_to do |format|
       if @lesson.update(@params)
+
+        NotificationMailer.student_update_lesson(@lesson, @old_lesson).deliver
+        NotificationMailer.parent_update_lesson(@lesson, @old_lesson).deliver
+
         format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully updated.' }
         format.json { render :show, status: :ok, location: @lesson }
       else
@@ -120,7 +124,6 @@ class Teacher::LessonsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_lesson
-      # @lesson = Lesson.find(params[:id])
       @lesson = Lesson.find_by(id: params[:id])
     end
 

@@ -58,4 +58,20 @@ class NotificationMailer < ApplicationMailer
     mail(to: @student.email, subject: 'Your teacher' + @teacher.name + ' has cancelled a lesson')
   end
 
+  def student_update_lesson(lesson, old_lesson)
+    @lesson = lesson
+    @old_lesson = old_lesson
+    @student = User.find(@lesson[:student_id])
+    @teacher = @student.teacher
+    mail(to: @student.email, subject: 'Your teacher' + @teacher.name + ' changed your lesson on ' + @old_lesson["start_time"].strftime("%A %B %Y"))
+  end
+
+  def parent_update_lesson(lesson, old_lesson)
+    @lesson = lesson
+    @old_lesson = old_lesson
+    @student = User.find(@lesson[:student_id])
+    @parent =  @student.parent
+    @teacher = @student.teacher
+    mail(to: @student.email, subject: 'Your teacher' + @teacher.name + ' has changed your childs lesson on ' + @old_lesson["start_time"].strftime("%A %B %Y"))
+  end
 end
