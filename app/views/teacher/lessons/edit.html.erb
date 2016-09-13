@@ -9,7 +9,103 @@
 <div class="row">
   <div class="col m12 s12 white-text">
     <div class="card-panel hoverable">
-      <%= render 'form', lesson: @lesson %>
+      <div class="row button-spacing">
+        <div class="col m10 offset-m1 s12">
+          <%= form_for @lesson, url: teacher_lesson_path(@lesson), html: {class: "col m12 white-text"} do |f| %>
+            <% if @lesson.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(@lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+                <ul>
+                <% @lesson.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="input-field">
+                <%= f.label :student_name, class:"active" %>
+                <%= f.collection_select(:student_id, current_user.students.all, :id, :name) %>
+            </div>
+
+            <div class="input-field">
+              <%= f.label :title, class:"active" %>
+              <%= f.text_field :title %>
+            </div>
+
+            <div class="input-field">
+              <%= f.label :description, class:"active" %>
+              <%= f.text_area :description, class:"materialize-textarea" %>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <%= f.label :lesson_date, class:'active' %>
+                <%= f.date_select :lesson_date, {twelve_hour: true, minute_step: 15, ampm: true, time_separator: ""}, class:'col m4 s12' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="row col s12 m4">
+                <div class="input-field">
+                  <%= f.label :start_time, class:'active' %>
+                  <%= f.time_select :start_time, {twelve_hour: true, minute_step: 15, ampm: true, time_separator: ""}, class:'col s6' %>
+                </div>
+              </div>
+              <div class="row col s12 m4">
+                <div class="input-field">
+                  <%= f.label :end_time, class:"active" %>
+                  <%= f.time_select :end_time, {twelve_hour: true, minute_step: 15, ampm: true, time_separator: ""}, class:'col s6' %>
+                </div>
+              </div>
+
+              <div class="row col s12 m4 right">
+                <div class="input-field" id="checkBox">
+                  <%= f.check_box :recurring, class:"filled-in" %>
+                  <%= f.label :recurring %>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div id="reccuringAttributes">
+                <div class="input-field col s6">
+                  <%= f.label :how_often, class:'active' %>
+                  <%= f.select :how_often, ['weekly', 'bi-weekly', 'monthly']%>
+                </div>
+                <div class="input-field col s6">
+                  <%= f.label :how_many_lessons, class: 'active' %>
+                  <%= number_field(:lesson, :how_many, in: 1..99, step: 1) %>
+                </div>
+              </div>
+            </div>
+
+            <div class="actions center">
+              <%= button_tag "ADD!", class: "btn waves-effect waves-light form-button green" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('select').material_select();
+    var $reccuringOption = $("#reccuringAttributes")
+    var $checkBox = $("#lesson_recurring")
+
+    if (window.location.pathname.match(/edit/)) {
+      $('#checkBox').hide()
+    }
+
+    checkBoxToBoolean()
+
+    $checkBox.on('click', function(){
+      checkBoxToBoolean()
+    });
+
+    function checkBoxToBoolean() {
+      $checkBox.is(':checked') ? $reccuringOption.show() : $reccuringOption.hide()
+    }
+
+  });
+</script>

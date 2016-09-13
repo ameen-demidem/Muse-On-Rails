@@ -27,4 +27,21 @@ class NotificationMailer < ApplicationMailer
     @user = user
     mail(to: @user.email, subject: 'Access to muse has been removed')
   end
+
+  def student_new_lesson(lesson)
+    @lesson = lesson
+    @student = User.find(@lesson[:student_id])
+    @parent =  @student.parent
+    @teacher = @student.teacher
+    mail(to: @student.email, subject: 'Your teacher' + @teacher.name + ' has assigned lesson dates!')
+  end
+
+  def parent_new_lesson(lesson)
+    @lesson = lesson
+    @student = User.find(@lesson[:student_id])
+    @parent =  @student.parent
+    @teacher = @student.teacher
+    mail(to: @parent.email, subject: 'Your child ' + @student.name + ' has been assigned lesson dates! by ' + @teacher.name)
+  end
+
 end

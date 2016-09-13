@@ -12,7 +12,6 @@ class Teacher::LessonsController < ApplicationController
   # GET /lessons/1
   # GET /lessons/1.json
   def show
-    binding.pry
   end
 
   # GET /lessons/new
@@ -22,6 +21,7 @@ class Teacher::LessonsController < ApplicationController
 
   # GET /lessons/1/edit
   def edit
+    @lesson = Lesson.find(params[:id])
   end
 
   # POST /lessons
@@ -49,6 +49,9 @@ class Teacher::LessonsController < ApplicationController
           new_lesson.save
         end
 
+        NotificationMailer.student_new_lesson(@lesson).deliver
+        NotificationMailer.parent_new_lesson(@lesson).deliver
+
         respond_to do |format|
           format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully created.' }
           format.json { render :show, status: :created, location: @lesson }
@@ -60,9 +63,13 @@ class Teacher::LessonsController < ApplicationController
         end
       end
     else
-      @lesson = Lesson.new(lesson_params)
+      @lesson = Lesson.new(@params)
       respond_to do |format|
         if @lesson.save
+
+          NotificationMailer.student_new_lesson(@lesson).deliver
+          NotificationMailer.parent_new_lesson(@lesson).deliver
+
           format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully created.' }
           format.json { render :show, status: :created, location: @lesson }
         else
@@ -76,9 +83,10 @@ class Teacher::LessonsController < ApplicationController
   # PATCH/PUT /lessons/1
   # PATCH/PUT /lessons/1.json
   def update
+    clean_up_dates(lesson_params)
     respond_to do |format|
-      if @lesson.update(lesson_params)
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully updated.' }
+      if @lesson.update(@params)
+        format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully updated.' }
         format.json { render :show, status: :ok, location: @lesson }
       else
         format.html { render :edit }
