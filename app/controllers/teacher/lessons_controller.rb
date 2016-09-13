@@ -86,9 +86,10 @@ class Teacher::LessonsController < ApplicationController
     @old_lesson = @lesson.attributes
     respond_to do |format|
       if @lesson.update(@params)
-
-        NotificationMailer.student_update_lesson(@lesson, @old_lesson).deliver
-        NotificationMailer.parent_update_lesson(@lesson, @old_lesson).deliver
+        if @old_lesson["start_time"] != @lesson.start_time
+          NotificationMailer.student_update_lesson(@lesson, @old_lesson).deliver
+          NotificationMailer.parent_update_lesson(@lesson, @old_lesson).deliver
+        end
 
         format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully updated.' }
         format.json { render :show, status: :ok, location: @lesson }
