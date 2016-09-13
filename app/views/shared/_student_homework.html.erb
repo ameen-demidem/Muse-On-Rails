@@ -44,7 +44,11 @@
                 <blockquote>
                   <p>
                     <strong><%= task.item %></strong> <br>
-                    <%= youtubify(task.url) %>
+                    <% if task.url and task.url != "" %>
+                      <%= youtubify(task.url) %>
+                    <% elsif task.attachment.exists? %>
+                      <%= youtubify(task.attachment.url) %>
+                    <% end %>
                   </p>
                   <div class="row">
                     <a class="modal-trigger right brand-text-green"
