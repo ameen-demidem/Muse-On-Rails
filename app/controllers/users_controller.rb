@@ -12,12 +12,34 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @teacher = User.find(params[:id])
+  end
+
+  def update
+    @teacher = User.find(params[:id])
+
+    if @teacher.update_attributes(user_params)
+      redirect_to users_subscribe_path
+    else
+      render :edit
+    end
+  end
+
   def destroy
     #TODO implement the deletion of a user
   end
 
   def payment
     # renders payment.html.erb
+  end
+
+  def subscribe
+    subscription = Stripe::Subscription.retrieve(current_user.stripe_token)
+    subscription.plan = current_user.plan
+    subscription.save
+
+    redirect_to teacher_students_path, notice: "Update successful!"
   end
 
   def pay
@@ -27,7 +49,9 @@ class UsersController < ApplicationController
       :source => params[:stripeToken]
     )
 
-    current_user.update_attribute(:stripe_token, customer.id)
+    sub_id = customer.subscriptions.data
+
+    current_user.update_attribute(:stripe_token, sub_id[0].id)
 
     redirect_to teacher_students_path
   end
