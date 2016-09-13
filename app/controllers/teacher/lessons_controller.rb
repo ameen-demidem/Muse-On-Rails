@@ -1,30 +1,21 @@
 class Teacher::LessonsController < ApplicationController
   before_action :set_lesson, only: [:index, :show, :edit, :update, :destroy]
   before_action :check_authentication
-  # before_action :check_authorization
 
-  # GET /lessons
-  # GET /lessons.json
   def index
     @lessons = Lesson.all
   end
 
-  # GET /lessons/1
-  # GET /lessons/1.json
   def show
   end
 
-  # GET /lessons/new
   def new
     @lesson = Lesson.new
   end
 
-  # GET /lessons/1/edit
   def edit
   end
 
-  # POST /lessons
-  # POST /lessons.json
   def create
     clean_up_dates(lesson_params)
     if @params[:recurring].to_i > 0
@@ -82,8 +73,6 @@ class Teacher::LessonsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /lessons/1
-  # PATCH/PUT /lessons/1.json
   def update
     clean_up_dates(lesson_params)
     @old_lesson = @lesson.attributes
@@ -106,8 +95,6 @@ class Teacher::LessonsController < ApplicationController
     end
   end
 
-  # DELETE /lessons/1
-  # DELETE /lessons/1.json
   def destroy
     student_email = NotificationMailer.student_cancelled_lesson(@lesson)
     parent_email  = NotificationMailer.parent_cancelled_lesson(@lesson)
@@ -133,12 +120,11 @@ class Teacher::LessonsController < ApplicationController
     end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_lesson
       @lesson = Lesson.find_by(id: params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def lesson_params
       params.require(:lesson).permit(:title, :description, :lesson_date, :start_time, :end_time, :recurring, :student_id, :teacher_id, :how_many, :how_often)
     end
