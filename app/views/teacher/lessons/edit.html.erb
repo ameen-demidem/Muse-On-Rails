@@ -1,6 +1,74 @@
-<h1>Editing Lesson</h1>
+<h3 class="center h-3-spacing white-text">Update Lesson</h3>
+<div class="col s6 offset-s2">
+  <%= link_to teacher_lessons_path,
+              class: "btn-floating waves-effect waves-light brand-bg-lt-grey" do %>
+     <i class="material-icons">skip_previous</i>
+  <% end %>
+  <span class="button-text white-text">back to calendar</span>
+</div>
+<div class="row">
+  <div class="col m12 s12 white-text button-spacing">
+    <div class="card-panel hoverable grad">
+      <div class="row button-spacing">
+        <div class="col m10 offset-m1 s12">
+          <%= form_for @lesson, url: teacher_lesson_path(@lesson), html: {class: "col m12 white-text"} do |f| %>
+            <% if @lesson.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(@lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+                <ul>
+                <% @lesson.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+                </ul>
+              </div>
+            <% end %>
 
-<%= render 'form', lesson: @lesson %>
+            <div class="input-field">
+                <%= f.label :student_name, class:"active" %>
+                <%= f.collection_select(:student_id, current_user.students.all, :id, :name) %>
+            </div>
 
-<%= link_to 'Show', @lesson %> |
-<%= link_to 'Back', lessons_path %>
+            <div class="input-field">
+              <%= f.label :title, class:"active" %>
+              <%= f.text_field :title %>
+            </div>
+
+            <div class="input-field">
+              <%= f.label :description, class:"active" %>
+              <%= f.text_area :description, class:"materialize-textarea" %>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <%= f.label :lesson_date, class:'active' %>
+                <%= f.date_select :lesson_date, {twelve_hour: true, minute_step: 15, ampm: true, time_separator: ""}, class:'col m4 s12' %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="row col s12 m4">
+                <div class="input-field">
+                  <%= f.label :start_time, class:'active' %>
+                  <%= f.time_select :start_time, {twelve_hour: true, minute_step: 15, ampm: true, time_separator: ""}, class:'col s6' %>
+                </div>
+              </div>
+              <div class="row col s12 m4">
+                <div class="input-field">
+                  <%= f.label :end_time, class:"active" %>
+                  <%= f.time_select :end_time, {twelve_hour: true, minute_step: 15, ampm: true, time_separator: ""}, class:'col s6' %>
+                </div>
+              </div>
+            </div>
+            <div class="actions center">
+              <%= button_tag "ADD!", class: "btn waves-effect waves-light form-button green" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('select').material_select();
+  });
+</script>

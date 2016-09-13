@@ -1,24 +1,59 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @lesson.title %>
-</p>
+<h3 class="center h-3-spacing white-text">
+  <span class="thin">Title:</span> <%= @lesson.title %>
+</h3>
+<%= link_to teacher_lessons_path,
+            class: "btn-floating waves-effect waves-light green" do %>
+   <i class="material-icons">date_range</i>
+<% end %>
+<span class="button-text white-text">back to calendar</span>
+<div class="row button-spacing">
+  <div class="col s12 brand-text-grey">
+    <div class="card-panel hoverable grad">
+      <%= link_to edit_teacher_lesson_path(@lesson) do %>
+        <i class="material-icons right brand-text-grey">edit</i>
+      <% end %>
+      <p>
+        Title:
+        <span class="thin"><%= @lesson.title %></span>
+      </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @lesson.description %>
-</p>
+      <p>
+        Description:
+        <span class="thin"><%= @lesson.description %></span>
+      </p>
 
-<p>
-  <strong>Start time:</strong>
-  <%= @lesson.start_time %>
-</p>
+      <p>
+        Start time:
+        <span class="thin"><%= @lesson.start_time.strftime("%A, %d %b %Y") %></span>
+      </p>
 
-<p>
-  <strong>End time:</strong>
-  <%= @lesson.end_time %>
-</p>
+      <p>
+        End time:
+        <span class="thin"><%= @lesson.end_time.strftime("%A, %d %b %Y") %></span>
+      </p>
+      <div class="row">
+        <a class="btn-floating waves-effect waves-light red modal-trigger right" href="#modal1"><i class="material-icons">delete</i></a>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= link_to 'Edit', edit_teacher_lesson_path(@lesson) %> |
-<%= link_to 'Back', teacher_lessons_path %>
+<div id="modal1" class="modal bottom-sheet">
+  <div class="modal-content center">
+    <h5>Are you Sure you want to cancel this lesson?</h5>
+    <%= link_to 'Yes! Cancel it', teacher_lesson_path(@lesson),
+        method: :delete,
+        class: "modal-action modal-close waves-effect waves-green btn-flat brand-text-grey" %>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat"></a>
+  </div>
+</div>
+<script>
+$(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+  });
+</script>

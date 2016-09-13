@@ -1,0 +1,5 @@
+Hello <%= @parent.name %>,
+
+<%= @teacher.name %> has cancelled the following Lesson: <%= @lesson.start_time.strftime("%A %B %Y") %> @ <%= @lesson.start_time.strftime("%I" ":" "%M") %>  --> <%= @lesson.end_time.strftime("%I" ":" "%M") %>
+
+You can see more in the app!

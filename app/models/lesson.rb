@@ -13,20 +13,30 @@ class Lesson < ApplicationRecord
 
 
   def lessons_cant_overlap
-    # result   = Event.where("lesson_date = ?", lesson_date)
+    lesson = Lesson.where("id = ?", id).exists? ? Lesson.find(id) : false
     result = Lesson.all
     result_1 = result.where("start_time >= ? AND start_time <= ?", start_time, end_time).exists?
     result_2 = result.where("start_time <= ? AND end_time >= ?", start_time, start_time).exists?
 
-    if result_1 || result_2 #false
-      errors.add(:lessons, "can't overlap!")
+    if lesson
+      if lesson.start_time == start_time
+        return
+      else lesson.start_time != start_time
+        if result_1 || result_2 #false
+          errors.add(:lesson, "can't overlap!")
+        end
+      end
+    else
+      if result_1 || result_2 #false
+        errors.add(:lesson, "can't overlap!")
+      end
     end
-
+    
   end
 
   def start_time_before_end_time
-    if start_time >= end_time
-      errors.add(:lessons, "can't end before they start!")
+    if start_time > end_time
+      errors.add(:lesson, "can't end before they start!")
     end
   end
 end
