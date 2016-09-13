@@ -55,7 +55,7 @@
         </div>
       </div>
       <div class="row">
-        <div id="reccuringAttributes">
+        <div class="none" id="reccuringAttributes">
           <div class="input-field col s6">
             <%= f.label :how_often, class:'active' %>
             <%= f.select :how_often, ['weekly', 'bi-weekly', 'monthly']%>
@@ -76,23 +76,15 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
-    $('select').material_select();
+
     var $reccuringOption = $("#reccuringAttributes")
     var $checkBox = $("#lesson_recurring")
 
-    if (window.location.pathname.match(/edit/)) {
-      $('#checkBox').hide()
-    }
-
-    checkBoxToBoolean()
+    $('select').material_select();
 
     $checkBox.on('click', function(){
-      checkBoxToBoolean()
+      $checkBox.is(':checked') ? $reccuringOption.show('slow') : $reccuringOption.hide('slow')
     });
-
-    function checkBoxToBoolean() {
-      $checkBox.is(':checked') ? $reccuringOption.show() : $reccuringOption.hide()
-    }
 
   });
 </script>

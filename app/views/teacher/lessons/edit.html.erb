@@ -8,7 +8,7 @@
 </div>
 <div class="row">
   <div class="col m12 s12 white-text">
-    <div class="card-panel hoverable">
+    <div class="card-panel hoverable grad">
       <div class="row button-spacing">
         <div class="col m10 offset-m1 s12">
           <%= form_for @lesson, url: teacher_lesson_path(@lesson), html: {class: "col m12 white-text"} do |f| %>
@@ -57,27 +57,7 @@
                   <%= f.time_select :end_time, {twelve_hour: true, minute_step: 15, ampm: true, time_separator: ""}, class:'col s6' %>
                 </div>
               </div>
-
-              <div class="row col s12 m4 right">
-                <div class="input-field" id="checkBox">
-                  <%= f.check_box :recurring, class:"filled-in" %>
-                  <%= f.label :recurring %>
-                </div>
-              </div>
             </div>
-            <div class="row">
-              <div id="reccuringAttributes">
-                <div class="input-field col s6">
-                  <%= f.label :how_often, class:'active' %>
-                  <%= f.select :how_often, ['weekly', 'bi-weekly', 'monthly']%>
-                </div>
-                <div class="input-field col s6">
-                  <%= f.label :how_many_lessons, class: 'active' %>
-                  <%= number_field(:lesson, :how_many, in: 1..99, step: 1) %>
-                </div>
-              </div>
-            </div>
-
             <div class="actions center">
               <%= button_tag "ADD!", class: "btn waves-effect waves-light form-button green" %>
             </div>
@@ -90,22 +70,5 @@
 <script type="text/javascript">
   $(document).ready(function(){
     $('select').material_select();
-    var $reccuringOption = $("#reccuringAttributes")
-    var $checkBox = $("#lesson_recurring")
-
-    if (window.location.pathname.match(/edit/)) {
-      $('#checkBox').hide()
-    }
-
-    checkBoxToBoolean()
-
-    $checkBox.on('click', function(){
-      checkBoxToBoolean()
-    });
-
-    function checkBoxToBoolean() {
-      $checkBox.is(':checked') ? $reccuringOption.show() : $reccuringOption.hide()
-    }
-
   });
 </script>
