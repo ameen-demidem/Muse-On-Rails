@@ -59,21 +59,21 @@
               <div class="collapsible-body">
                 <% task.comments.each do |comment| %>
                   <div class="comment-padding hoverable">
-                    <p>
-                      <%= comment.feedback %>
-                    </p>
+                    <p><%= comment.feedback %></p>
+                    <% if comment.url and comment.url != "" %>
+                      <p><%= youtubify(comment.url) %></p>
+                    <% elsif comment.attachment.exists? %>
+                      <p><%= youtubify(comment.attachment.url) %></p>
+                    <% end %>
                     <p class="comment-name">
                       ---<%= comment.user.name %>
                     </p>
-                    <% if comment.url and comment.url != "" %>
-                      <%= youtubify(comment.url) %>
-                    <% end %>
                   </div>
                 <% end %>
               </div>
             </li>
           <% end %>
-          </ul>
+        </ul>
       </div>
     </div>
   </div>
@@ -85,22 +85,34 @@
         <h5>Add a comment</h5>
         <%= f.hidden_field :homework_id, value: @homework.id %>
         <%= f.hidden_field :task_id %>
-        <div class="row button-spacing">
-          <div class="input-field col m6 s12">
-            <%= f.label "Feedback", class: "active" %>
-            <%= f.text_field :feedback, placeholder: "Leave a comment" %>
-          </div>
-          <div class="input-field col m6 s12">
-            <%= f.label "Link", class: "active" %>
-            <%= f.text_field :url, placeholder: "attach a link" %>
-          </div>
-          <div class="center">
-            <%= button_tag  class: "btn waves-effect waves-light button-spacing green" do %>
-              Submit
-              <i class="material-icons right">send</i>
-            <% end %>
-          </div>
-        </div>
+        <ul class="collection">
+          <li class="row button-spacing">
+            <div class="input-field col s12">
+              <%= f.label "Feedback", class: "active" %>
+              <%= f.text_field :feedback, placeholder: "Leave a comment" %>
+            </div>
+            <div class="input-field col s6">
+              <%= f.label "Link", class: "active" %>
+              <%= f.text_field :url, placeholder: "attach a link" %>
+            </div>
+            <div class="file-field input-field col s6">
+              <div class="btn">
+                <span>File</span>
+                <%= f.file_field :attachment, class: "validate",
+                  onChange: "toggleTaskURLFieldDisabledStatus($(this))" %>
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Upload one or more files">
+              </div>
+            </div>
+            <div class="center">
+              <%= button_tag  class: "btn waves-effect waves-light button-spacing green" do %>
+                Submit
+                <i class="material-icons right">send</i>
+              <% end %>
+            </div>
+          </li>
+        </ul>
       <% end %>
     </div>
   </div>
