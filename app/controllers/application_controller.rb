@@ -48,14 +48,47 @@ class ApplicationController < ActionController::Base
     url =~ /(youtube|youtu.be)/
   end
 
-  def youtubify(url)
-    youtube_iframe = "<iframe width='400' height='300' " +
-                             "src='#{url.sub(/watch\?v=/, "embed/")}' " +
-                             "frameborder='0' allowfullscreen>" +
-                     "</iframe>"
-    regular_link = "<a href='#{url}'>Resources ...</a>"
+  def image?(url)
+    url.downcase =~ /\.jpg$|\.jpeg$|\.png$/
+  end
 
-    link = youtube?(url) ? youtube_iframe : regular_link
+  def video?(url)
+    url.downcase =~ /\.mpg$|\.mpeg$|\.mp4$|\.webm$|\.ogg$/
+  end
+
+  def youtubify(url, content_type = nil)
+    youtube_iframe =  "<div class='col s8 offset-s2'>" +
+                        "<div class='video-container'>" +
+                          "<iframe " +
+                            "src='#{url.sub(/watch\?v=/, "embed/")}' " +
+                            "frameborder='0' allowfullscreen>" +
+                          "</iframe>" +
+                        "</div>" +
+                      "</div>"
+    image_link =  "<div class='col s8 offset-s2 center'>" +
+                    "<img class='responsive-img' src=#{url}>" +
+                  "</div>"
+    video_link =  "<div class='col s8 offset-s2 center'>" +
+                    "<video class='responsive-video' controls>" +
+                      "<source src=#{url}>" +
+                      "Your browser does not support HTML5 video." +
+                    "</video>" +
+                  "</div>"
+      regular_link = "<a href='#{url}'>Resources ...</a>"
+
+    case content_type
+    when /video.*/
+      link = video_link
+    when /image.*/
+      link = image_link
+    else
+      link = if youtube?(url) then youtube_iframe
+             elsif image?(url) then image_link
+             elsif video?(url) then video_link
+             else regular_link;
+             end
+    end
+           
     link.html_safe
   end
 

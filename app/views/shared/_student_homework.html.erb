@@ -42,14 +42,16 @@
                   <i class="material-icons right done-icon">done_all</i>
                 <% end %>
                 <blockquote>
-                  <p>
+                  <div>
                     <strong><%= task.item %></strong> <br>
+                  </div>
+                  <div class="row">
                     <% if task.url and task.url != "" %>
                       <%= youtubify(task.url) %>
                     <% elsif task.attachment.exists? %>
-                      <%= youtubify(task.attachment.url) %>
+                      <%= youtubify(task.attachment.url, task.attachment.content_type) %>
                     <% end %>
-                  </p>
+                  </div>
                   <div class="row">
                     <a class="modal-trigger right brand-text-green"
                     onClick="setTaskID(<%= task.id %>)" href="#modal1">+ comment</a>
@@ -60,11 +62,13 @@
                 <% task.comments.each do |comment| %>
                   <div class="comment-padding hoverable">
                     <p><%= comment.feedback %></p>
-                    <% if comment.url and comment.url != "" %>
-                      <p><%= youtubify(comment.url) %></p>
-                    <% elsif comment.attachment.exists? %>
-                      <p><%= youtubify(comment.attachment.url) %></p>
-                    <% end %>
+                    <div class="row">
+                      <% if comment.url and comment.url != "" %>
+                        <%= youtubify(comment.url) %>
+                      <% elsif task.attachment.exists? %>
+                        <%= youtubify(comment.attachment.url, comment.attachment.content_type) %>
+                      <% end %>
+                    </div>
                     <p class="comment-name">
                       ---<%= comment.user.name %>
                     </p>
