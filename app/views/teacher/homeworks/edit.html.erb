@@ -12,8 +12,8 @@
     <div class="card-panel hoverable">
       <%= form_for @homework, url: teacher_student_homework_path(@student, @homework) do |f| %>
         <div class="row">
-          <div class="col s10 offset-s1">
-            <h5 class="button-spacing"><strong>Homework Title</strong></h5>
+          <div class="col s12">
+            <h5 class=""><strong>Homework Title</strong></h5>
             <div class="input-field col s12">
               <%= f.label " ", class: "active" %>
               <%= f.text_field :title, value: @homework.title, class: "validate" %>
@@ -21,8 +21,8 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s10 offset-s1">
-            <h5 class="button-spacing"><strong>Notes from lesson</strong></h5>
+          <div class="col s12">
+            <h5 class=""><strong>Notes from lesson</strong></h5>
             <div class="input-field col s12">
               <%= f.label " ", class: "active" %>
               <%= f.text_field :note, value: @homework.note, class: "validate" %>
@@ -30,8 +30,8 @@
           </div>
         </div>
         <div class="row">
-          <div class="col s10 offset-s1">
-            <div class="button-spacing row valign-wrapper">
+          <div class="col s12">
+            <div class="row">
               <h5 class="col left"><strong>Tasks for the homework</strong></h5>
               <div class="col left">
                 <a onClick="teacher_new_homework_view.AddTask()",
@@ -40,29 +40,37 @@
                 </a>
               </div>
             </div>
-            <div class="button-spacing">
+            <div class="">
               <ul id="homework-task-list" class="collection">
                 <%= f.fields_for :tasks do |task_form| %>
-                  <li class="button-spacing valign-wrapper blue-grey darken-3">
+                  <li class=" collection-item">
+                    <div class="row">
+
+
                     <%= task_form.hidden_field :_destroy %>
                     <%= task_form.hidden_field :delete_attachment %>
-                    <div class="col s11">
+                    <div class="col s12">
+                      <div class="row">
+                        <a onClick="teacher_new_homework_view.RemoveTask(this)">
+                            <i class="material-icons right red-text">cancel</i>
+                        </a>
+                      </div>
                       <div class="input-field col s12">
                         <%= task_form.label :description, class: "active" %>
                         <%= task_form.text_field :item, class: "validate" %>
                       </div>
                       <% if task_form.object.attachment.exists? %>
-                        <div class="col s12 valign-wrapper" style="padding-bottom: 1em">
+                        <div class="col s12 valign-wrapper">
                           <a onClick="removeTaskAttachment(this)"
-                             class="btn-floating waves-effect waves-light red">
-                            <i class="material-icons">delete</i>
+                             class="">
+                            <i class="material-icons red-text">delete</i>
                           </a>
-                          <span class="valign col s11" style="word-wrap: break-word">
+                          <span class="col s12" style="word-wrap: break-word">
                             <%= task_form.object.attachment_file_name %>
                           </span>
                         </div>
                         <div id="edit-homework-new-file" style="display: none">
-                          <div class="input-field col s6">
+                          <div class="input-field col m6 s12">
                             <%= task_form.label :URL, class: "active" %>
                             <%= task_form.text_field :url, class: "validate" %>
                           </div>
@@ -96,13 +104,9 @@
                         </div>
                       <% end %>
                     </div>
-                    <div class="col valign">
-                      <a onClick="teacher_new_homework_view.RemoveTask(this)",
-                         class="btn-floating waves-effect waves-light red" >
-                          <i class="material-icons">cancel</i>
-                      </a>
-                    </div>
+                  </div>
                 <% end %>
+                </li>
               </ul>
             </div>
           </div>
