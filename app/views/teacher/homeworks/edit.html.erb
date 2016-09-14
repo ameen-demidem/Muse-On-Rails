@@ -45,31 +45,46 @@
                 <%= f.fields_for :tasks do |task_form| %>
                   <li class=" collection-item">
                     <div class="row">
-
-
-                    <%= task_form.hidden_field :_destroy %>
-                    <%= task_form.hidden_field :delete_attachment %>
-                    <div class="col s12">
-                      <div class="row">
-                        <a onClick="teacher_new_homework_view.RemoveTask(this)">
-                            <i class="material-icons right red-text">cancel</i>
-                        </a>
-                      </div>
-                      <div class="input-field col s12">
-                        <%= task_form.label :description, class: "active" %>
-                        <%= task_form.text_field :item, class: "validate" %>
-                      </div>
-                      <% if task_form.object.attachment.exists? %>
-                        <div class="col s12 valign-wrapper">
-                          <a onClick="removeTaskAttachment(this)"
-                             class="">
-                            <i class="material-icons red-text">delete</i>
+                      <%= task_form.hidden_field :_destroy %>
+                      <%= task_form.hidden_field :delete_attachment %>
+                      <div class="col s12">
+                        <div class="row">
+                          <a onClick="teacher_new_homework_view.RemoveTask(this)">
+                              <i class="material-icons right red-text">cancel</i>
                           </a>
-                          <span class="col s12" style="word-wrap: break-word">
-                            <%= task_form.object.attachment_file_name %>
-                          </span>
                         </div>
-                        <div id="edit-homework-new-file" style="display: none">
+                        <div class="input-field col s12">
+                          <%= task_form.label :description, class: "active" %>
+                          <%= task_form.text_field :item, class: "validate" %>
+                        </div>
+                        <% if task_form.object.attachment.exists? %>
+                          <div class="col s12 valign-wrapper">
+                            <a onClick="removeTaskAttachment(this)"
+                               class="">
+                              <i class="material-icons red-text">delete</i>
+                            </a>
+                            <span class="col s12" style="word-wrap: break-word">
+                              <%= task_form.object.attachment_file_name %>
+                            </span>
+                          </div>
+                          <div id="edit-homework-new-file" class="hide">
+                            <div class="input-field col m6 s12">
+                              <%= task_form.label :URL, class: "active" %>
+                              <%= task_form.text_field :url, class: "validate" %>
+                            </div>
+                            <div class="file-field input-field col m6 s12">
+                              <div class="btn brand-bg-lt-grey btn-square">
+                                <span>File</span>
+                                <%= task_form.file_field :attachment, class: "validate",
+                                  onChange: "toggleTaskURLFieldDisabledStatus($(this))" %>
+                              </div>
+                              <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text"
+                                       placeholder="Upload one or more files">
+                              </div>
+                            </div>
+                          </div>
+                        <% else %>
                           <div class="input-field col m6 s12">
                             <%= task_form.label :URL, class: "active" %>
                             <%= task_form.text_field :url, class: "validate" %>
@@ -85,27 +100,10 @@
                                      placeholder="Upload one or more files">
                             </div>
                           </div>
-                        </div>
-                      <% else %>
-                        <div class="input-field col m6 s12">
-                          <%= task_form.label :URL, class: "active" %>
-                          <%= task_form.text_field :url, class: "validate" %>
-                        </div>
-                        <div class="file-field input-field col m6 s12">
-                          <div class="btn brand-bg-lt-grey btn-square">
-                            <span>File</span>
-                            <%= task_form.file_field :attachment, class: "validate",
-                              onChange: "toggleTaskURLFieldDisabledStatus($(this))" %>
-                          </div>
-                          <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text"
-                                   placeholder="Upload one or more files">
-                          </div>
-                        </div>
-                      <% end %>
+                        <% end %>
+                      </div>
                     </div>
-                  </div>
-                <% end %>
+                  <% end %>
                 </li>
               </ul>
             </div>

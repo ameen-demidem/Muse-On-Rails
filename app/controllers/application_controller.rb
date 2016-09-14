@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
   end
 
   def youtubify(url, content_type = nil)
-    youtube_iframe =  "<div class='col s8 offset-s2'>" +
+    youtube_iframe =  "<div class='col s12'>" +
                         "<div class='video-container'>" +
                           "<iframe " +
                             "src='#{url.sub(/watch\?v=/, "embed/")}' " +
@@ -65,10 +65,10 @@ class ApplicationController < ActionController::Base
                           "</iframe>" +
                         "</div>" +
                       "</div>"
-    image_link =  "<div class='col s8 offset-s2 center'>" +
+    image_link =  "<div class='col s8'>" +
                     "<img class='responsive-img' src=#{url}>" +
                   "</div>"
-    video_link =  "<div class='col s8 offset-s2 center'>" +
+    video_link =  "<div class='col s12'>" +
                     "<video class='responsive-video' controls>" +
                       "<source src=#{url}>" +
                       "Your browser does not support HTML5 video." +
@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
              else regular_link;
              end
     end
-           
+
     link.html_safe
   end
 
