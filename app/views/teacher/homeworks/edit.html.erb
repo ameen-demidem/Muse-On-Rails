@@ -43,7 +43,7 @@
             <div class="button-spacing">
               <ul id="homework-task-list" class="collection">
                 <%= f.fields_for :tasks do |task_form| %>
-                  <li class="button-spacing valign-wrapper blue-grey darken-3">
+                  <li id="<%= task_form.object.id %>" class="button-spacing valign-wrapper blue-grey darken-3">
                     <%= task_form.hidden_field :_destroy %>
                     <%= task_form.hidden_field :delete_attachment %>
                     <div class="col s11">
@@ -102,6 +102,7 @@
                           <i class="material-icons">cancel</i>
                       </a>
                     </div>
+                  </li>
                 <% end %>
               </ul>
             </div>
