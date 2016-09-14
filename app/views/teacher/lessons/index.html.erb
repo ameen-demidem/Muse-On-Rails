@@ -9,7 +9,7 @@
 <% end %>
 <span class="button-text white-text">add lessons!</span>
 <div class="row">
-  <div class="col s12 white-text">
+  <div class="col s12 white-text button-spacing">
     <div class="card-panel hoverable grad">
       <div class="" id="calendar"></div>
     </div>
@@ -21,7 +21,7 @@
     $('#calendar').fullCalendar({
       defaultView: $(window).width() > 400 ? 'agendaWeek' : 'agendaDay',
       height: 'auto',
-      minTime: "12:00:00",
+      minTime: "08:00:00",
       allDaySlot: false,
       events: {
         url: '/teacher/lessons.json',
@@ -45,10 +45,10 @@
       "background-color": "#4385D8"
     }
 
-    $('.fc-button-group > .ui-corner-left').text('< prev').css(nextPrev)
+    $('.fc-button-group > .ui-corner-left').html('< prev').css(nextPrev)
     $('.fc-button-group > .ui-corner-right').html('next >').css(nextPrev)
     $('.fc-today-button').css(today)
-    
+
     $('.fc-time-grid-event').css('margin-bottom', '7px').css('margin-top', '-6px')
 
 

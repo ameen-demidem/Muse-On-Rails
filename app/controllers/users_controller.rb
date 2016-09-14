@@ -6,6 +6,9 @@ class UsersController < ApplicationController
   def create
     @teacher = User.new(user_params.merge!(role: "T"))
     if @teacher.save
+
+      NotificationMailer.welcome(@teacher).deliver
+
       redirect_to [:new, :session]
     else
       render :new
@@ -76,7 +79,7 @@ class UsersController < ApplicationController
   protected
 
   def user_params
-    params.require(:user).permit(:name, :username, :password, :rate, :plan)
+    params.require(:user).permit(:name, :username, :password, :email, :rate, :plan)
   end
 
 end

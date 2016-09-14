@@ -29,9 +29,15 @@
     <%= form_for @student, url: teacher_student_path(@student), class: "card-padding" do |f| %>
       <div class="card-panel hoverable grad">
         <h5 class="center">Update this student</h5>
-        <div class="input-field">
-          <%= f.label "Name:", class: "active" %>
-          <%= f.text_field :name %>
+        <div class="row">
+          <div class="input-field col s12 m6">
+            <%= f.label "Name:", class: "active" %>
+            <%= f.text_field :name %>
+          </div>
+          <div class="input-field col s12 m6">
+            <%= f.label "Email:", class: "active" %>
+            <%= f.text_field :email %>
+          </div>
         </div>
         <div class="row">
           <div class="input-field col s12 m4">
@@ -77,15 +83,19 @@
         <div id="teacher-new-student-parent-form" class="card-panel hoverable grad">
           <h5 class="center">Add their parent<br> <span class="thin">If you dont already teach their siblings</span></h5>
           <div class="row button-spacing">
-            <div class="input-field col s12 m4">
+            <div class="input-field col s12 m3">
               <%= parent_form.label "Parent Name:", class: "active" %>
               <%= parent_form.text_field :name %>
             </div>
-            <div class="input-field col s12 m4">
+            <div class="input-field col s12 m3">
               <%= parent_form.label "Username:", class: "active" %>
               <%= parent_form.text_field :username %>
             </div>
-            <div class="input-field col s12 m4">
+            <div class="input-field col s12 m3">
+              <%= f.label "Email:", class: "active" %>
+              <%= f.text_field :email %>
+            </div>
+            <div class="input-field col s12 m3">
               <%= parent_form.label "Password:", class: "active" %>
               <%= parent_form.password_field :password %>
             </div>
@@ -103,7 +113,7 @@
 </div>
 <script>
   $(document).ready( function(){
-    var $checkBox = $("#user_archived")
+    var $checkBox = $("#lesson_recurring")
 
     checkBoxToBoolean()
 

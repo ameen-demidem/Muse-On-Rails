@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160913171432) do
+ActiveRecord::Schema.define(version: 20160913211203) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "feedback"
@@ -18,6 +18,10 @@ ActiveRecord::Schema.define(version: 20160913171432) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.integer  "task_id"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
     t.index ["task_id"], name: "index_comments_on_task_id"
   end
 
@@ -40,10 +44,14 @@ ActiveRecord::Schema.define(version: 20160913171432) do
   end
 
   create_table "tasks", force: :cascade do |t|
-    t.string  "item"
-    t.string  "url"
-    t.integer "homework_id"
-    t.boolean "complete"
+    t.string   "item"
+    t.string   "url"
+    t.integer  "homework_id"
+    t.boolean  "complete"
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
   end
 
   create_table "users", force: :cascade do |t|
@@ -66,6 +74,7 @@ ActiveRecord::Schema.define(version: 20160913171432) do
     t.integer  "age"
     t.string   "level"
     t.string   "instrument"
+    t.string   "email"
     t.string   "plan"
     t.integer  "rate"
     t.index ["parent_id"], name: "index_users_on_parent_id"

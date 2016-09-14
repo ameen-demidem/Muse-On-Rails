@@ -1,30 +1,21 @@
 class Teacher::LessonsController < ApplicationController
   before_action :set_lesson, only: [:index, :show, :edit, :update, :destroy]
   before_action :check_authentication
-  # before_action :check_authorization
 
-  # GET /lessons
-  # GET /lessons.json
   def index
     @lessons = Lesson.all
   end
 
-  # GET /lessons/1
-  # GET /lessons/1.json
   def show
   end
 
-  # GET /lessons/new
   def new
     @lesson = Lesson.new
   end
 
-  # GET /lessons/1/edit
   def edit
   end
 
-  # POST /lessons
-  # POST /lessons.json
   def create
     clean_up_dates(lesson_params)
     if @params[:recurring].to_i > 0
@@ -48,6 +39,11 @@ class Teacher::LessonsController < ApplicationController
           new_lesson.save
         end
 
+        parent_email =   NotificationMailer.student_new_lesson(@lesson)
+        student_email =  NotificationMailer.parent_new_lesson(@lesson)
+
+        dont_send_emails_if_no_email(@lesson, student_email, parent_email)
+
         respond_to do |format|
           format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully created.' }
           format.json { render :show, status: :created, location: @lesson }
@@ -59,9 +55,14 @@ class Teacher::LessonsController < ApplicationController
         end
       end
     else
-      @lesson = Lesson.new(lesson_params)
+      @lesson = Lesson.new(@params)
       respond_to do |format|
         if @lesson.save
+          parent_email = NotificationMailer.student_new_lesson(@lesson)
+          student_email = NotificationMailer.parent_new_lesson(@lesson)
+
+          dont_send_emails_if_no_email(@lesson, student_email, parent_email)
+
           format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully created.' }
           format.json { render :show, status: :created, location: @lesson }
         else
@@ -72,12 +73,20 @@ class Teacher::LessonsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /lessons/1
-  # PATCH/PUT /lessons/1.json
   def update
+    clean_up_dates(lesson_params)
+    @old_lesson = @lesson.attributes
     respond_to do |format|
-      if @lesson.update(lesson_params)
-        format.html { redirect_to @lesson, notice: 'Lesson was successfully updated.' }
+      if @lesson.update(@params)
+
+        if @old_lesson["start_time"] != @lesson.start_time
+          student_email = NotificationMailer.student_update_lesson(@lesson, @old_lesson)
+          parent_email  = NotificationMailer.parent_update_lesson(@lesson, @old_lesson)
+
+          dont_send_emails_if_no_email(@lesson, student_email, parent_email)
+        end
+
+        format.html { redirect_to teacher_lessons_path, notice: 'Lesson was successfully updated.' }
         format.json { render :show, status: :ok, location: @lesson }
       else
         format.html { render :edit }
@@ -86,14 +95,18 @@ class Teacher::LessonsController < ApplicationController
     end
   end
 
-  # DELETE /lessons/1
-  # DELETE /lessons/1.json
   def destroy
+    student_email = NotificationMailer.student_cancelled_lesson(@lesson)
+    parent_email  = NotificationMailer.parent_cancelled_lesson(@lesson)
+
+    dont_send_emails_if_no_email(@lesson, student_email, parent_email)
+
     @lesson.destroy
     respond_to do |format|
-      format.html { redirect_to lessons_url, notice: 'Lesson was successfully destroyed.' }
+      format.html { redirect_to teacher_lessons_url, notice: 'Lesson was successfully destroyed.' }
       format.json { head :no_content }
     end
+
   end
 
   protected
@@ -107,13 +120,11 @@ class Teacher::LessonsController < ApplicationController
     end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_lesson
-      # @lesson = Lesson.find(params[:id])
       @lesson = Lesson.find_by(id: params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def lesson_params
       params.require(:lesson).permit(:title, :description, :lesson_date, :start_time, :end_time, :recurring, :student_id, :teacher_id, :how_many, :how_often)
     end
@@ -177,4 +188,12 @@ class Teacher::LessonsController < ApplicationController
       end
     end
 
+    def dont_send_emails_if_no_email(lesson, student_email, parent_email)
+      if !lesson.student.email.nil?
+        student_email.deliver
+      end
+      if !lesson.student.parent.email.nil?
+        parent_email.deliver
+      end
+    end
 end

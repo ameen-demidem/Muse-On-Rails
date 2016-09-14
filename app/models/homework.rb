@@ -5,7 +5,9 @@ class Homework < ActiveRecord::Base
   has_many :tasks
   has_many :comments, through: :tasks
 
-  accepts_nested_attributes_for :tasks, reject_if: proc { |attributes| attributes['item'] == "" }
+  accepts_nested_attributes_for :tasks,
+    allow_destroy: true,
+    reject_if: proc { |attributes| attributes['item'] == "" }
 
   validates :title, :note,
     presence: true

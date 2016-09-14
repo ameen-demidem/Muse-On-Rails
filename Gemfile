@@ -52,3 +52,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
+
+gem 'paperclip'
+gem 'aws-sdk', '~> 2.3'
+gem 'figaro'
