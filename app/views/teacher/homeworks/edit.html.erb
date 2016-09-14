@@ -43,7 +43,7 @@
             <div class="button-spacing">
               <ul id="homework-task-list" class="collection">
                 <%= f.fields_for :tasks do |task_form| %>
-                  <li class="button-spacing valign-wrapper blue-grey darken-3">
+                  <li id="<%= task_form.object.id %>" class="button-spacing valign-wrapper blue-grey darken-3">
                     <%= task_form.hidden_field :_destroy %>
                     <%= task_form.hidden_field :delete_attachment %>
                     <div class="col s11">
@@ -66,25 +66,25 @@
                             <%= task_form.label :URL, class: "active" %>
                             <%= task_form.text_field :url, class: "validate" %>
                           </div>
-                          <div class="file-field input-field col s6">
-                            <div class="btn">
+                          <div class="file-field input-field col m6 s12">
+                            <div class="btn brand-bg-lt-grey btn-square">
                               <span>File</span>
                               <%= task_form.file_field :attachment, class: "validate",
                                 onChange: "toggleTaskURLFieldDisabledStatus($(this))" %>
-                          </div>
-                          <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text"
-                                   placeholder="Upload one or more files">
-                          </div>
+                            </div>
+                            <div class="file-path-wrapper">
+                              <input class="file-path validate" type="text"
+                                     placeholder="Upload one or more files">
+                            </div>
                           </div>
                         </div>
                       <% else %>
-                        <div class="input-field col s6">
+                        <div class="input-field col m6 s12">
                           <%= task_form.label :URL, class: "active" %>
                           <%= task_form.text_field :url, class: "validate" %>
                         </div>
-                        <div class="file-field input-field col s6">
-                          <div class="btn">
+                        <div class="file-field input-field col m6 s12">
+                          <div class="btn brand-bg-lt-grey btn-square">
                             <span>File</span>
                             <%= task_form.file_field :attachment, class: "validate",
                               onChange: "toggleTaskURLFieldDisabledStatus($(this))" %>
@@ -102,13 +102,14 @@
                           <i class="material-icons">cancel</i>
                       </a>
                     </div>
+                  </li>
                 <% end %>
               </ul>
             </div>
           </div>
         </div>
         <div class="center">
-          <%= button_tag "Update!", onClick: "enableURLInputFields()", 
+          <%= button_tag "Update!", onClick: "enableURLInputFields()",
             class: "btn waves-effect waves-light form-button green" %>
         </div>
       <% end %>

@@ -5381,7 +5381,7 @@ button.btn-floating {
   padding-left: 1rem;
   padding-bottom: 2rem;
   padding-right: 1rem;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .collapsible-header {
@@ -5390,7 +5390,7 @@ button.btn-floating {
   min-height: 3rem;
   line-height: 3rem;
   padding: 0 1rem;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #181818;
 }
 
 .collapsible-header i {
@@ -5405,10 +5405,9 @@ button.btn-floating {
 
 .collapsible-body {
   display: none;
-  border-radius: 3px;
-  border-bottom: 1px solid #000;
+  border-bottom: 1px solid #181818;
   box-sizing: border-box;
-  background-color: #323333;
+  background-color: #181818;
 }
 
 .collapsible-body p {

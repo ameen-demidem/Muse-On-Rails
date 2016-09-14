@@ -103,34 +103,20 @@
           </div>
           <div class="col l4 offset-l2 s12">
             <h5 class="white-text">Links</h5>
-            <ul>
-              <% if not_logged_in %>
-                <li>
-                  <%= link_to "Login", new_session_path, class: "grey-text text-lighten-3" %>
-                </li>
-              <% else %>
-                <li>
-                  <%= link_to "Logout",
-                    session_path,
-                    method: :delete, rel: "nofollow",
-                    class: "grey-text text-lighten-3" %>
-                </li>
-                <% if current_user.role == 'T' %>
-                  <li>
-                  <% if current_user.oauth? %>
-                    <a href="<%= stripe_deauthorize_path %>">Disconnect Stripe</a>
-                  <% else %>
-                    <a href="<%= stripe_oauth_path %>">Connect Stripe</a>
-                  <% end %>
-                  </li>
-                <% elsif current_user.role == 'P' %>
-                  <%= render '/shared/cardform' %>
+            <% if not_logged_in %>
+              <%= link_to "Login", new_session_path, class: "grey-text text-lighten-3" %>
+            <% else %>
+              <% if current_user.role == 'T' %>
+                <% if current_user.oauth? %>
+                  <a href="<%= stripe_deauthorize_path %>">Disconnect Stripe</a>
                 <% else %>
                   <a href="<%= stripe_oauth_path %>">Connect Stripe</a>
                 <% end %>
-                </li>
+              <% elsif current_user.role == 'P' %>
+                <%= render '/shared/cardform' %>
+              <% else %>
               <% end %>
-            </ul>
+            <% end %>
           </div>
         </div>
       </div>
