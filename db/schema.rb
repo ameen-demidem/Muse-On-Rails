@@ -75,6 +75,8 @@ ActiveRecord::Schema.define(version: 20160913211203) do
     t.string   "level"
     t.string   "instrument"
     t.string   "email"
+    t.string   "plan"
+    t.integer  "rate"
     t.index ["parent_id"], name: "index_users_on_parent_id"
     t.index ["teacher_id"], name: "index_users_on_teacher_id"
   end

@@ -4,7 +4,7 @@
 <!-- Modal Structure -->
 <div id="modalpay" class="modal">
   <div class="modal-content">
-    <h4>Pay the teacher for your kids' lesson ($25)</h4>
+    <h4>Pay <%= current_user.children.first.teacher.name %> $<%= current_user.children.first.teacher.rate %> for the lesson</h4>
 
     <%= form_tag users_charge_path, :id => 'payment-form' do %>
       <span class="payment-errors"></span>

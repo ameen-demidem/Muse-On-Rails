@@ -15,6 +15,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @teacher = User.find(params[:id])
+  end
+
+  def update
+    @teacher = User.find(params[:id])
+
+    if @teacher.update_attributes(user_params)
+      redirect_to users_subscribe_path
+    else
+      render :edit
+    end
+  end
+
   def destroy
     #TODO implement the deletion of a user
   end
@@ -23,14 +37,24 @@ class UsersController < ApplicationController
     # renders payment.html.erb
   end
 
+  def subscribe
+    subscription = Stripe::Subscription.retrieve(current_user.stripe_token)
+    subscription.plan = current_user.plan
+    subscription.save
+
+    redirect_to teacher_students_path, notice: "Update successful!"
+  end
+
   def pay
     customer = Stripe::Customer.create(
       :email => params[:stripeEmail],
-      :plan => 'basic',
+      :plan => current_user.plan,
       :source => params[:stripeToken]
     )
 
-    current_user.update_attribute(:stripe_token, customer.id)
+    sub_id = customer.subscriptions.data
+
+    current_user.update_attribute(:stripe_token, sub_id[0].id)
 
     redirect_to teacher_students_path
   end
@@ -38,7 +62,7 @@ class UsersController < ApplicationController
   def charge
     begin
       charge = Stripe::Charge.create({
-        :amount => 2500,
+        :amount => (current_user.children.first.teacher.rate * 100),
         :currency => "cad",
         :source => params[:stripeToken]
         }, {:stripe_account => current_user.children.first.teacher.stripe_user_id}
@@ -55,7 +79,7 @@ class UsersController < ApplicationController
   protected
 
   def user_params
-    params.require(:user).permit(:name, :username, :password, :email)
+    params.require(:user).permit(:name, :username, :password, :email, :rate, :plan)
   end
 
 end

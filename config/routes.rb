@@ -5,13 +5,14 @@ Rails.application.routes.draw do
   root "welcome#index"
 
   resource :session, only: [:new, :create, :destroy]
-  resources :users, only: [:new, :create, :destroy]
+  resources :users, only: [:new, :create, :destroy, :edit, :update]
   resources :comments, only: [:create]
   resource :task, only: [:create, :update]
 
   get '/users/payment', to: 'users#payment'
   post '/users/pay', to: 'users#pay'
   post 'users/charge', to: 'users#charge'
+  get 'users/subscribe', to: 'users#subscribe'
 
   get '/connect/oauth' => 'stripe#oauth', as: 'stripe_oauth'
   get '/connect/confirm' => 'stripe#confirm', as: 'stripe_confirm'
