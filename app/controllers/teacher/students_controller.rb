@@ -66,7 +66,7 @@ class Teacher::StudentsController < ApplicationController
         if @student[:archived] == true
           @student.parent[:archived] = true
           NotificationMailer.student_suspended(@student).deliver
-          NotificationMailer.parent_suspended(@student.parent, @student.id).deliver unless  @student.parent.nil?
+          NotificationMailer.parent_suspended(@student.parent, @student).deliver unless  @student.parent.nil?
         end
         format.html { redirect_to teacher_students_path, notice: 'Student information has been updated.' }
         format.json { render :show, status: :ok, location: @student }
