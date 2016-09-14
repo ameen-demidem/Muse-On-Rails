@@ -1,4 +1,4 @@
-<h4 class="center h-3-spacing white-text"><%= homework.title %></h4>
+<h4 class="center h-3-spacing white-text"><span class="thin"><%= homework.created_at.strftime("%B %dth, %Y") %>:</span><br> <%= homework.title %></h4>
 <% if teacher? %>
   <div class="row">
     <div class="col s10">
@@ -23,7 +23,7 @@
       <% end %>
       <h5 class="button-spacing"><strong>Notes from lesson</strong></h5>
       <p><%= homework.note %></p>
-      <h5 class="button-spacing"><strong>Tasks for the homework</strong></h5>
+      <h5 class="button-spacing"><strong>Tasks for this week:</strong></h5>
       <div class="button-spacing thin">
         <ul class="collapsible brand-bg-grey" data-collapsible="accordion">
           <% homework.tasks.each do |task| %>
@@ -42,32 +42,45 @@
                   <i class="material-icons right done-icon">done_all</i>
                 <% end %>
                 <blockquote>
-                  <p>
+                  <div>
                     <strong><%= task.item %></strong> <br>
+                  </div>
+                  <div class="row">
                     <% if task.url and task.url != "" %>
                       <%= youtubify(task.url) %>
                     <% elsif task.attachment.exists? %>
-                      <%= youtubify(task.attachment.url) %>
+                      <%= youtubify(task.attachment.url, task.attachment.content_type) %>
                     <% end %>
-                  </p>
+                  </div>
                   <div class="row">
-                    <a class="modal-trigger right brand-text-green"
-                    onClick="setTaskID(<%= task.id %>)" href="#modal1">+ comment</a>
+                    <a class="modal-trigger right btn-flat"
+                    onClick="setTaskID(<%= task.id %>)" href="#modal1" id="modalButton">
+                    <% if task.comments.length < 1 %>
+                      add first comment
+                    <% else  %>
+                      leave a comment
+                    <% end %>
+
+                    </a>
                   </div>
                 </blockquote>
               </div>
               <div class="collapsible-body">
                 <% task.comments.each do |comment| %>
                   <div class="comment-padding hoverable">
+                    <blockquote class="comment-block">
                     <p><%= comment.feedback %></p>
-                    <% if comment.url and comment.url != "" %>
-                      <p><%= youtubify(comment.url) %></p>
-                    <% elsif comment.attachment.exists? %>
-                      <p><%= youtubify(comment.attachment.url) %></p>
-                    <% end %>
+                    <div class="row">
+                      <% if comment.url and comment.url != "" %>
+                        <%= youtubify(comment.url) %>
+                      <% elsif task.attachment.exists? %>
+                        <%= youtubify(comment.attachment.url, comment.attachment.content_type) %>
+                      <% end %>
+                    </div>
                     <p class="comment-name">
                       ---<%= comment.user.name %>
                     </p>
+                    </blockquote>
                   </div>
                 <% end %>
               </div>
@@ -91,12 +104,12 @@
               <%= f.label "Feedback", class: "active" %>
               <%= f.text_field :feedback, placeholder: "Leave a comment" %>
             </div>
-            <div class="input-field col s6">
+            <div class="input-field col m6 s12">
               <%= f.label "Link", class: "active" %>
               <%= f.text_field :url, placeholder: "attach a link" %>
             </div>
-            <div class="file-field input-field col s6">
-              <div class="btn">
+            <div class="file-field input-field col m6 s12">
+              <div class="btn brand-bg-lt-grey btn-square">
                 <span>File</span>
                 <%= f.file_field :attachment, class: "validate",
                   onChange: "toggleTaskURLFieldDisabledStatus($(this))" %>
@@ -134,10 +147,12 @@ $(".toggle-task-status").on('click', function() {
 $(document).ready( function(){
 
    $('.collapsible').collapsible({
-     // A setting that changes the collapsible behavior to expandable
-     // instead of the default accordion style
      accordion: false
    });
+
+   $('#modalButton').on('click', function(ev){
+     ev.stopPropagation()
+   })
 
 });
 
