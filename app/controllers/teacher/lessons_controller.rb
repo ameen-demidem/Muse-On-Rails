@@ -1,12 +1,14 @@
 class Teacher::LessonsController < ApplicationController
   before_action :set_lesson, only: [:index, :show, :edit, :update, :destroy]
   before_action :check_authentication
+  before_action :check_authorization
 
   def index
     @lessons = Lesson.where("teacher_id = ?", current_user.id)
   end
 
   def show
+    @student = User.find(@lesson.student_id)
   end
 
   def new
@@ -120,6 +122,13 @@ class Teacher::LessonsController < ApplicationController
     end
 
   private
+
+    def check_authorization
+      unless current_user.role == 'T'
+        flash.alert = "Unauthorized access!"
+        redirect_to root_path
+      end
+    end
 
     def set_lesson
       @lesson = Lesson.find_by(id: params[:id])

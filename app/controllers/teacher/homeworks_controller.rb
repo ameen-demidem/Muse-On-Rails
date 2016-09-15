@@ -19,7 +19,7 @@ class Teacher::HomeworksController < ApplicationController
   end
 
   def edit
-    70.times { @homework.tasks.build }
+    15.times { @homework.tasks.build }
   end
 
   def create
@@ -29,7 +29,7 @@ class Teacher::HomeworksController < ApplicationController
       redirect_to teacher_student_homework_path(@student, @homework)
     else
       flash.now.alert = "Couldn't create the new homework!"
-      (70 - @homework.tasks.length).times { @homework.tasks.build }
+      (15 - @homework.tasks.length).times { @homework.tasks.build }
       render :new
     end
   end

@@ -1,40 +1,94 @@
-<h3 style="color:white">Sign up for your <%= current_user.plan %> account</h3>
+<h3 class="center h-3-spacing white-text button-spacing">
+  Sign up for your <%= current_user.plan %> account
+</h3>
+<div class="row button-spacing">
+  <div class="col m12 s12 white-text">
+    <div class="card-panel hoverable grad">
+      <div class="row button-spacing">
+        <div class="col m10 offset-m1 s12">
+          <%= form_tag users_pay_path, :id => 'payment-form' do %>
+            <!-- <span class="payment-errors"></span>
 
-<%= form_tag users_pay_path, :id => 'payment-form' do %>
-  <span class="payment-errors"></span>
+            <div class="form-row">
+              <label>
+                <span>Card Number</span>
+                <input type="text" size="20" data-stripe="number">
+              </label>
+            </div>
 
-  <div class="form-row">
-    <label>
-      <span>Card Number</span>
-      <input type="text" size="20" data-stripe="number">
-    </label>
+            <div class="form-row">
+              <label>
+                <span>Expiration (MM/YY)</span>
+                <input type="text" size="2" data-stripe="exp_month">
+              </label>
+              <span> / </span>
+              <input type="text" size="2" data-stripe="exp_year">
+            </div>
+
+            <div class="form-row">
+              <label>
+                <span>CVC</span>
+                <input type="text" size="4" data-stripe="cvc">
+              </label>
+            </div>
+
+            <div class="form-row">
+              <label>
+                <span>Billing Zip</span>
+                <input type="text" size="6" data-stripe="address_zip">
+              </label>
+            </div>
+
+            <input type="submit" class="submit" value="Submit Payment"> -->
+            <div class="row">
+              <div class="row">
+                <span class="payment-errors"></span>
+                <div class="input-field col m6 s12">
+                  <input type="text" size="20" data-stripe="number">
+                  <label>
+                    Card Number
+                  </label>
+                </div>
+                <div class="input-field col m3 s6">
+                  <input class="" type="text" data-stripe="exp_month">
+                  <label>
+                    Expiration (Month)
+                  </label>
+                </div>
+                <div class="input-field col m3 s6">
+                  <div class="col m2"></div>
+                  <input class="" type="text" data-stripe="exp_year">
+                  <label>
+                    Expiration (Year)
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input-field col m4 s6">
+                  <input type="text" data-stripe="cvc">
+                  <label>
+                    CVC
+                  </label>
+                </div>
+                <div class="input-field col m8 s6">
+                  <input type="text" data-stripe="address_zip">
+                  <label>
+                    Billing Zip
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="center">
+                <input type="submit" class="submit modal-close btn brand-bg-green" value="Complete Sign-up">
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
   </div>
-
-  <div class="form-row">
-    <label>
-      <span>Expiration (MM/YY)</span>
-      <input type="text" size="2" data-stripe="exp_month">
-    </label>
-    <span> / </span>
-    <input type="text" size="2" data-stripe="exp_year">
-  </div>
-
-  <div class="form-row">
-    <label>
-      <span>CVC</span>
-      <input type="text" size="4" data-stripe="cvc">
-    </label>
-  </div>
-
-  <div class="form-row">
-    <label>
-      <span>Billing Zip</span>
-      <input type="text" size="6" data-stripe="address_zip">
-    </label>
-  </div>
-
-  <input type="submit" class="submit" value="Submit Payment">
-<% end %>
+</div>
 
 <script type="text/javascript">
   $(document).ready(function(){

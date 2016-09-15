@@ -15,9 +15,9 @@
     <div class="card-panel hoverable white-text thin">
       <% if current_user.role == "T" %>
         <div class="right">
-          <a class="btn-floating btn-Small waves-effect waves-light brand-bg-grey"
+          <a
              onclick="editHomeworkNote(<%= homework.user.id %>,<%= homework.id %>)">
-             <i class="Tiny material-icons">edit</i>
+             <i class="Tiny material-icons brand-text-grey">edit</i>
           </a>
         </div>
       <% end %>
@@ -53,16 +53,18 @@
                     <% end %>
                   </div>
                   <% unless parent? %>
-                    <div class="row">
-                      <a class="modal-trigger right btn-flat"
-                      onClick="setTaskID(<%= task.id %>)" href="#modal1" id="modalButton">
-                        <% if task.comments.length < 1 %>
-                          add first comment
-                        <% else  %>
-                          leave a comment
-                        <% end %>
-                      </a>
-                    </div>
+                  <div class="row">
+                    <span id="show">show comments</span>
+                    <a class="modal-trigger right modalButton"
+                    onClick="setTaskID(<%= task.id %>)" href="#modal1" id="modalButton">
+                    <% if task.comments.length > 0 %>
+                    <i class="material-icons brand-text-green">add</i>
+                    <i class="material-icons brand-text-green">comment</i>
+                    <% else %>
+                    add the first comment
+                    <% end %>
+                    </a>
+                  </div>
                   <% end %>
                 </blockquote>
               </div>
@@ -153,7 +155,7 @@ $(document).ready( function(){
      accordion: false
    });
 
-   $('#modalButton').on('click', function(ev){
+   $('.modalButton').on('click', function(ev){
      ev.stopPropagation()
    })
 
