@@ -20,7 +20,7 @@ $(document).on('turbolinks:load', function(){
       // if task has been retrieved from the db, then mark it for deletion
       // otherwise, just clean up and recycle!
 
-      task_id = $parent_li.find("input:hidden[name*='[id]']").val();
+      task_id = $parent_li.attr("id");
       if (task_id) {
         // mark for deletion
         $parent_li.find("input:hidden[name*='[_destroy]']").val(true);

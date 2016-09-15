@@ -43,7 +43,7 @@
             <div class="">
               <ul id="homework-task-list" class="collection">
                 <%= f.fields_for :tasks do |task_form| %>
-                  <li class=" collection-item">
+                  <li class="collection-item" id="<%= task_form.object.id %>">
                     <div class="row">
                       <%= task_form.hidden_field :_destroy %>
                       <%= task_form.hidden_field :delete_attachment %>
@@ -103,8 +103,8 @@
                         <% end %>
                       </div>
                     </div>
-                  <% end %>
-                </li>
+                  </li>
+                <% end %>
               </ul>
             </div>
           </div>
