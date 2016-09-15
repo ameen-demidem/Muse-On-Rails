@@ -22,18 +22,18 @@
 
   <div class="row white-text">
     <div class="col s10 offset-s1 card-bottom">
-      <div class="card-panel hoverable">
+      <div class="card-panel hoverable grad">
         <%= form_tag controller: :sessions, action: "create", class: "card-padding" do %>
-          <div>
-            <%= label_tag :username, "Username:" %>
+          <div  class="input-field">
             <%= text_field_tag :username %>
+            <%= label_tag :username, "Username:" %>
           </div>
-          <div>
-            <%= label_tag :password, "Password:" %>
+          <div class="input-field">
             <%= password_field_tag :password %>
+            <%= label_tag :password, "Password:" %>
           </div>
           <div class="center button-spacing">
-            <%= submit_tag "Login", class: "btn waves-effect waves-light blue darken-2" do %>
+            <%= submit_tag "Get Started!", class: "btn waves-effect waves-light brand-bg-green" do %>
               <i class="material-icons right">send</i>
             <% end %>
           </div>

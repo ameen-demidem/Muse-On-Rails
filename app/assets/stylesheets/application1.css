@@ -197,3 +197,19 @@ blockquote.comment-block {
 .small {
   font-size: 0.7em;
 }
+
+.bg-image {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://hd.unsplash.com/photo-1468164016595-6108e4c60c8b");
+  background-position: center;
+  background-size: cover;
+}
+
+.color-overlay {
+   padding: 100px;
+   width: 100%;
+}
+
+.big-text {
+  font-size: 6em;
+  font-weight: 900;
+}
