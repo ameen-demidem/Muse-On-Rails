@@ -53,14 +53,14 @@
                     <% end %>
                   </div>
                   <div class="row">
-                    <a class="modal-trigger right btn-flat"
+                    <span id="show">show comments</span>
+                    <a class="modal-trigger right btn-flat modalButton"
                     onClick="setTaskID(<%= task.id %>)" href="#modal1" id="modalButton">
                     <% if task.comments.length < 1 %>
                       add first comment
                     <% else  %>
                       leave a comment
                     <% end %>
-
                     </a>
                   </div>
                 </blockquote>
@@ -110,7 +110,7 @@
             </div>
             <div class="file-field input-field col m6 s12">
               <div class="btn brand-bg-lt-grey btn-square">
-                <span>File</span>
+                <span class="showComments">File</span>
                 <%= f.file_field :attachment, class: "validate",
                   onChange: "toggleTaskURLFieldDisabledStatus($(this))" %>
               </div>
@@ -150,7 +150,7 @@ $(document).ready( function(){
      accordion: false
    });
 
-   $('#modalButton').on('click', function(ev){
+   $('.modalButton').on('click', function(ev){
      ev.stopPropagation()
    })
 
