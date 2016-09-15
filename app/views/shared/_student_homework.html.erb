@@ -27,7 +27,7 @@
       <div class="button-spacing thin">
         <ul class="collapsible brand-bg-grey" data-collapsible="accordion">
           <% homework.tasks.each do |task| %>
-            <li>
+            <li  onClick="toggleShowCommentsText(this)">
               <div  class="collapsible-header brand-bg-grey white-text">
                 <% if current_user.role == 'S' %>
                   <div class="right">
@@ -138,6 +138,15 @@
 <% end %>
 
 <script>
+function toggleShowCommentsText(li) {
+  $span = $(li).find("span#show");
+  console.log($span);
+  if ($(li).hasClass("active"))
+    $span.text("Show comments");
+  else
+    $span.text("Hide comments");
+}
+
 $(".toggle-task-status").on('click', function() {
   $.ajax({
     url: "<%= url_for controller: '/tasks', action: 'update' %>",
