@@ -79,7 +79,7 @@ class ApplicationController < ActionController::Base
                       "Your browser does not support HTML5 video." +
                     "</video>" +
                   "</div>"
-      regular_link = "<a href='#{url}'>Resources ...</a>"
+      regular_link = "<a href='#{url}'>Check this link!</a>"
 
     case content_type
     when /video.*/

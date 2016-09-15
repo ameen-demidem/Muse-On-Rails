@@ -53,8 +53,11 @@
                     <% end %>
                   </div>
                   <% unless parent? %>
+
                   <div class="row">
+                    <% if task.comments.length > 0 %>
                     <span id="show">show comments</span>
+                    <% end %>
                     <a class="modal-trigger right modalButton brand-text-green"
                     onClick="setTaskID(<%= task.id %>)" href="#modal1" id="modalButton">
                     <% if task.comments.length > 0 %>

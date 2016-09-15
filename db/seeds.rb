@@ -4,7 +4,7 @@ User.create(
   name: "Leeroy Jenkins",
   username: "leeroy",
   password: "jenkins",
-  email: "leeroy@jenkins.com"
+  email: "leeroy@jenkins.com",
   role: "T",
   plan: "premium",
   rate: 35
