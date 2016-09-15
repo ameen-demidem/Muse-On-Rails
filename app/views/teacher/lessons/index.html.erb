@@ -19,8 +19,8 @@
 
   $(document).on('turbolinks:load', function(){
     $('#calendar').fullCalendar({
-      defaultView: $(window).width() > 400 ? 'agendaWeek' : 'agendaDay',
-      height: 'auto',
+      defaultView: $(window).width() > 600 ? 'agendaWeek' : 'agendaDay',
+      height: $(window).width() > 600 ? 900 : 'auto',
       minTime: "08:00:00",
       allDaySlot: false,
       events: {
