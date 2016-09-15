@@ -1,45 +1,58 @@
 <h3 class="center h-3-spacing white-text">
   <%= @student.name %><span class="thin">'s homework assignments:</span>
 </h3>
-<div class="row">
-  <div class="col s6">
-    <%= link_to new_teacher_student_homework_path(@student),
-                class: "btn-floating waves-effect waves-light green" do %>
-       <i class="material-icons">assignment</i>
-    <% end %>
-    <span class="button-text white-text">give them more work!</span>
+<% if @student.homeworks.length == 0 %>
+  <h4 class="center grey-text">Hmm... It looks like <%= @student.name %> doesn't have any homework yet.</h4>
+  <div class="center">
+    <img style="-webkit-user-select: none" src="http://icons.veryicon.com/ico/System/Icons8%20Metro%20Style/Emoticons%20Sad.ico">
   </div>
-</div>
-<ul>
-  <% @student.homeworks.each do |homework| %>
-    <div class="row">
-      <div class="col s12 white-text">
-        <div class="card-panel hoverable grad">
-          <% unless homework.tasks.where("complete = ? OR complete IS NULL", false).any? == true %>
-            <i class="small material-icons right icon-gold">stars</i>
-          <% end %>
-          <span class="">
-            <blockquote class="">
-              <h5 class="thin"><%= homework.title %><br><span class="small"> -- <%= homework.created_at.strftime("%B %dth, %Y")%><span></h5>
-              <p class="thin">
-              <%= homework.note %>
-              </p>
-              <p class="thin">
-              <span class="amber-text thick">
-                <%= homework.tasks.where("complete = ? OR complete IS NULL", false).count %>
-              </span>
-              tasks outstanding
-              </p>
-            </blockquote>
-            <div class="card-action">
-              <%= link_to teacher_student_homework_path(@student, homework), class: "thin" do %>
-                View Homework
-                <i class="material-icons right">send</i>
-              <% end %>
-            </div>
-          </span>
+  <h4 class="center grey-text">Must be nice... now give them some work!</h4>
+  <div class="row center button-spacing card-bottom">
+    <%= link_to new_teacher_student_homework_path(@student),
+      class: "btn waves-effect waves-light green" do %> Add Homework
+    <% end %>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col s6">
+      <%= link_to new_teacher_student_homework_path(@student),
+                  class: "btn-floating waves-effect waves-light green" do %>
+         <i class="material-icons">assignment</i>
+      <% end %>
+      <span class="button-text white-text">give them more work!</span>
+    </div>
+  </div>
+  <ul>
+    <% @student.homeworks.each do |homework| %>
+      <div class="row">
+        <div class="col s12 white-text">
+          <div class="card-panel hoverable grad">
+            <% unless homework.tasks.where("complete = ? OR complete IS NULL", false).any? == true %>
+              <i class="small material-icons right icon-gold">stars</i>
+            <% end %>
+            <span class="">
+              <blockquote class="">
+                <h5 class="thin"><%= homework.title %><br><span class="small"> -- <%= homework.created_at.strftime("%B %dth, %Y")%><span></h5>
+                <p class="thin">
+                <%= homework.note %>
+                </p>
+                <p class="thin">
+                <span class="amber-text thick">
+                  <%= homework.tasks.where("complete = ? OR complete IS NULL", false).count %>
+                </span>
+                tasks outstanding
+                </p>
+              </blockquote>
+              <div class="card-action">
+                <%= link_to teacher_student_homework_path(@student, homework), class: "thin" do %>
+                  View Homework
+                  <i class="material-icons right">send</i>
+                <% end %>
+              </div>
+            </span>
+          </div>
         </div>
       </div>
-    </div>
-  <% end %>
-</ul>
+    <% end %>
+  </ul>
+<% end %>
