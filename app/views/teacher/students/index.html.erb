@@ -1,51 +1,67 @@
-<h3 class="h-3-spacing center white-text">all of your wonderful students</h3>
-<div class="row">
-  <div class="col s6">
-    <%= link_to [:new, :teacher, :student],
-                class: "btn-floating waves-effect waves-light green" do %>
-      <i class="material-icons">add</i>
-    <% end %>
-    <span class="button-text white-text">Add New Student</span>
+<% if current_user.students.length == 0 %>
+  <h4 class="h-3-spacing center grey-text">Hmm... It looks like you don't have any students yet.</h4>
+  <div class="center">
+    <img style="-webkit-user-select: none" src="https://cdn0.iconfinder.com/data/icons/emoji-faces-3/32/emotion_expression_emoji_thinking-128.png">
   </div>
-  <% if archived_students? > 0 %>
-    <%= link_to "see archived students", archived_students_teacher_students_path, class:"right waves-effect waves-light btn brand-bg-grey" %>
-  <% end %>
-</div>
-<% current_user.students.each do | student | %>
-  <% unless student[:archived] == true %>
-    <div class="row">
-      <div class="col s12">
-        <div class="card-panel hoverable grad">
-          <%= link_to edit_teacher_student_path(student) do %>
-            <i class="material-icons right brand-text-grey">edit</i>
-          <% end %>
-          <span class="">
-            <blockquote class="">
-              <h5 class="white-text thin"><%= student.name %></h5>
-              <div class="row">
-                <% if !student.parent.name.nil? %>
-                <p class="brand-text-grey col s12 m2 ">Parents Name:<br> <span class="thin"><%= student.parent.name %></span></p>
-                <% end %>
-                <% if !student.age.nil? %>
-                <p class="brand-text-grey col s12 m2 ">Age:<br> <span class="thin"><%= student.age %></span></p>
-                <% end %>
-                <% if !student.instrument.nil? %>
-                <p class="brand-text-grey col s12 m2 ">Instrument:<br> <span class="thin"><%= student.instrument %></span></p>
-                <% end %>
-                <% if !student.level.nil? %>
-                <p class="brand-text-grey col s12 m2 ">Level:<br> <span class="thin"><%= student.level %></span></p>
-                <% end %>
-                <p class="brand-text-grey col s12 m3 left">Started Lessons:<br><span class="thin"><%= student.created_at.strftime("%A, %d %b %Y") %></span></p>
-                <p class="brand-text-grey col s12 m6 left">Number of Lessons:<br><span class="thin"><%= student.homeworks.length %></span></p>
-              </div>
-            </blockquote>
-            <%= link_to teacher_student_homeworks_path(student) do %>
-              view student
-              <i class="material-icons right">send</i>
+  <h4 class="center grey-text">Hey, you should ADD STUDENT!</h4>
+<% else %>
+  <h3 class="h-3-spacing center white-text">all of your wonderful students</h3>
+  <div class="row">
+    <div class="col s6">
+      <%= link_to [:new, :teacher, :student],
+                  class: "btn-floating waves-effect waves-light green" do %>
+        <i class="material-icons">add</i>
+      <% end %>
+      <span class="button-text white-text">Add New Student</span>
+    </div>
+    <% if archived_students? > 0 %>
+      <%= link_to "see archived students", archived_students_teacher_students_path, class:"right waves-effect waves-light btn brand-bg-grey" %>
+    <% end %>
+  </div>
+  <% current_user.students.each do | student | %>
+    <% unless student[:archived] == true %>
+      <div class="row">
+        <div class="col s12">
+          <div class="card-panel hoverable grad">
+            <%= link_to edit_teacher_student_path(student) do %>
+              <i class="material-icons right brand-text-grey">edit</i>
             <% end %>
-          </span>
+            <span class="">
+              <blockquote class="">
+                <h5 class="white-text thin"><%= student.name %></h5>
+                <div class="row">
+                  <% if !student.parent.name.nil? %>
+                  <p class="brand-text-grey col s12 m2 ">Parents Name:<br> <span class="thin"><%= student.parent.name %></span></p>
+                  <% end %>
+                  <% if !student.age.nil? %>
+                  <p class="brand-text-grey col s12 m2 ">Age:<br> <span class="thin"><%= student.age %></span></p>
+                  <% end %>
+                  <% if !student.instrument.nil? %>
+                  <p class="brand-text-grey col s12 m2 ">Instrument:<br> <span class="thin"><%= student.instrument %></span></p>
+                  <% end %>
+                  <% if !student.level.nil? %>
+                  <p class="brand-text-grey col s12 m2 ">Level:<br> <span class="thin"><%= student.level %></span></p>
+                  <% end %>
+                  <p class="brand-text-grey col s12 m3 left">Started Lessons:<br><span class="thin"><%= student.created_at.strftime("%A, %d %b %Y") %></span></p>
+                  <p class="brand-text-grey col s12 m6 left">Number of Lessons:<br><span class="thin"><%= student.homeworks.length %></span></p>
+                </div>
+              </blockquote>
+              <%= link_to teacher_student_homeworks_path(student) do %>
+                view student
+                <i class="material-icons right">send</i>
+              <% end %>
+            </span>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
+<% end %>
+<% if current_user.role == 'T' && !current_user.oauth? %>
+  <script>$(document).ready(function(){$('#modal1').openModal()});</script>
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h5 class="center">Don't forget to Connect Stripe so you can get paid!</h5>
+    </div>
+  </div>
 <% end %>
