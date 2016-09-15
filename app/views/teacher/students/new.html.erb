@@ -70,7 +70,7 @@
           </div>
           <div class="input-field col s12 m4">
             <%= f.label "Parent (if they are in the system):", class: "active" %>
-            <%= f.collection_select :parent, User.where(role: 'P'), :id, :name,
+            <%= f.collection_select :parent, @parent_list, :id, :name,
                 include_blank: true, selected: @selected_parent %>
           </div>
         </div>
