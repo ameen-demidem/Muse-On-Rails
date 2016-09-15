@@ -15,9 +15,9 @@
     <div class="card-panel hoverable white-text thin">
       <% if current_user.role == "T" %>
         <div class="right">
-          <a class="btn-floating btn-Small waves-effect waves-light brand-bg-grey"
+          <a
              onclick="editHomeworkNote(<%= homework.user.id %>,<%= homework.id %>)">
-             <i class="Tiny material-icons">edit</i>
+             <i class="Tiny material-icons brand-text-grey">edit</i>
           </a>
         </div>
       <% end %>
@@ -54,13 +54,16 @@
                   </div>
                   <div class="row">
                     <span id="show">show comments</span>
-                    <a class="modal-trigger right btn-flat modalButton"
+                    <a class="modal-trigger right modalButton"
                     onClick="setTaskID(<%= task.id %>)" href="#modal1" id="modalButton">
-                    <% if task.comments.length < 1 %>
+                    <!-- <% if task.comments.length < 1 %>
                       add first comment
                     <% else  %>
                       leave a comment
-                    <% end %>
+                    <% end %> -->
+                    <i class="material-icons">add</i>
+                    <i class="material-icons">comment</i>
+
                     </a>
                   </div>
                 </blockquote>
