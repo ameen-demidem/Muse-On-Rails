@@ -3,7 +3,7 @@ class Teacher::LessonsController < ApplicationController
   before_action :check_authentication
 
   def index
-    @lessons = Lesson.all
+    @lessons = Lesson.where("teacher_id = ?", current_user.id)
   end
 
   def show
