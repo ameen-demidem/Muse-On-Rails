@@ -52,17 +52,18 @@
                       <%= youtubify(task.attachment.url, task.attachment.content_type) %>
                     <% end %>
                   </div>
-                  <div class="row">
-                    <a class="modal-trigger right btn-flat"
-                    onClick="setTaskID(<%= task.id %>)" href="#modal1" id="modalButton">
-                    <% if task.comments.length < 1 %>
-                      add first comment
-                    <% else  %>
-                      leave a comment
-                    <% end %>
-
-                    </a>
-                  </div>
+                  <% unless parent? %>
+                    <div class="row">
+                      <a class="modal-trigger right btn-flat"
+                      onClick="setTaskID(<%= task.id %>)" href="#modal1" id="modalButton">
+                        <% if task.comments.length < 1 %>
+                          add first comment
+                        <% else  %>
+                          leave a comment
+                        <% end %>
+                      </a>
+                    </div>
+                  <% end %>
                 </blockquote>
               </div>
               <div class="collapsible-body">
@@ -91,45 +92,47 @@
     </div>
   </div>
 </div>
-<div id="modal1" class="modal bottom-sheet">
-  <div class="modal-content brand-bg-grey">
-    <div class="row button-spacing white-text">
-      <%= form_for @comment, html: { class: "col s12" } do |f| %>
-        <h5>Add a comment</h5>
-        <%= f.hidden_field :homework_id, value: @homework.id %>
-        <%= f.hidden_field :task_id %>
-        <ul class="collection">
-          <li class="row button-spacing">
-            <div class="input-field col s12">
-              <%= f.label "Feedback", class: "active" %>
-              <%= f.text_field :feedback, placeholder: "Leave a comment" %>
-            </div>
-            <div class="input-field col m6 s12">
-              <%= f.label "Link", class: "active" %>
-              <%= f.text_field :url, placeholder: "attach a link" %>
-            </div>
-            <div class="file-field input-field col m6 s12">
-              <div class="btn brand-bg-lt-grey btn-square">
-                <span>File</span>
-                <%= f.file_field :attachment, class: "validate",
-                  onChange: "toggleTaskURLFieldDisabledStatus($(this))" %>
+<% unless parent? %>
+  <div id="modal1" class="modal bottom-sheet">
+    <div class="modal-content brand-bg-grey">
+      <div class="row button-spacing white-text">
+        <%= form_for @comment, html: { class: "col s12" } do |f| %>
+          <h5>Add a comment</h5>
+          <%= f.hidden_field :homework_id, value: @homework.id %>
+          <%= f.hidden_field :task_id %>
+          <ul class="collection">
+            <li class="row button-spacing">
+              <div class="input-field col s12">
+                <%= f.label "Feedback", class: "active" %>
+                <%= f.text_field :feedback, placeholder: "Leave a comment" %>
               </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text" placeholder="Upload one or more files">
+              <div class="input-field col m6 s12">
+                <%= f.label "Link", class: "active" %>
+                <%= f.text_field :url, placeholder: "attach a link" %>
               </div>
-            </div>
-            <div class="center">
-              <%= button_tag  class: "btn waves-effect waves-light button-spacing green" do %>
-                Submit
-                <i class="material-icons right">send</i>
-              <% end %>
-            </div>
-          </li>
-        </ul>
-      <% end %>
+              <div class="file-field input-field col m6 s12">
+                <div class="btn brand-bg-lt-grey btn-square">
+                  <span>File</span>
+                  <%= f.file_field :attachment, class: "validate",
+                    onChange: "toggleTaskURLFieldDisabledStatus($(this))" %>
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text" placeholder="Upload one or more files">
+                </div>
+              </div>
+              <div class="center">
+                <%= button_tag  class: "btn waves-effect waves-light button-spacing green" do %>
+                  Submit
+                  <i class="material-icons right">send</i>
+                <% end %>
+              </div>
+            </li>
+          </ul>
+        <% end %>
+      </div>
     </div>
   </div>
-</div>
+<% end %>
 
 <script>
 $(".toggle-task-status").on('click', function() {
