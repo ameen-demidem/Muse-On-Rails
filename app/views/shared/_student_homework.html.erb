@@ -39,7 +39,7 @@
                              <label class="check-box" for="<%= task.id %>"></label>
                   </div>
                 <% elsif task.complete %>
-                  <i class="material-icons right done-icon">done_all</i>
+                  <i class="material-icons right done-icon icon-gold">done</i>
                 <% end %>
                 <blockquote>
                   <div>
@@ -55,13 +55,14 @@
                   <% unless parent? %>
                   <div class="row">
                     <span id="show">show comments</span>
-                    <a class="modal-trigger right modalButton"
+                    <a class="modal-trigger right modalButton brand-text-green"
                     onClick="setTaskID(<%= task.id %>)" href="#modal1" id="modalButton">
                     <% if task.comments.length > 0 %>
                     <i class="material-icons brand-text-green">add</i>
                     <i class="material-icons brand-text-green">comment</i>
                     <% else %>
-                    add the first comment
+                    add first
+                    <i class="material-icons brand-text-green">comment</i>
                     <% end %>
                     </a>
                   </div>
