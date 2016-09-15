@@ -19,7 +19,19 @@
       <nav class="brand-bg-grey">
         <div class="container">
           <div class="nav-wrapper">
-            <a href="/" class="brand-logo">MUSE</a>
+            <div class="box">
+              <a href="/" class="brand-logo">
+                <svg width="211" height="45" viewBox="208 210 211 80" xmlns="http://www.w3.org/2000/svg">
+                  <g fill="#FFF" fill-rule="evenodd">
+                    <text font-family="HarmoniaSansProCyr-Black, Harmonia Sans Pro Cyr" font-size="64" font-weight="700" transform="translate(208 223)">
+                      <tspan x=".428" y="63">MUSE</tspan>
+                    </text>
+                    <path d="M418.352 223.282c-.324-.25-.738-.343-1.128-.242l-17.62 4.453c-.162.04-.262.163-.396.257-.08.06-.175.086-.244.162-.214.237-.355.53-.355.868v40.609h-7.49c-5.58 0-10.12 4.585-10.12 10.226 0 5.64 4.54 10.23 10.12 10.23 5.58 0 10.11-4.59 10.11-10.23v-36.444l16.63-4.197c.58-.15.99-.678.99-1.284v-13.356c.002-.414-.178-.798-.498-1.052z"/>
+                    <path d="M391.12 287.193c-4.13 0-7.497-3.403-7.497-7.58s3.366-7.575 7.498-7.575h7.488v7.575c.003 4.177-3.358 7.58-7.488 7.58zM416.23 236.65l-14.996 3.783V229.81l14.995-3.783"/>
+                  </g>
+                </svg>
+              </a>
+            </div>
             <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
               <% if not_logged_in %>
@@ -48,8 +60,7 @@
                 <li>
                   <%= link_to "LOGOUT",
                               session_path,
-                              method: :delete, rel: "nofollow",
-                              class: "blue darken-2 btn" %>
+                              method: :delete, rel: "nofollow" %>
                 </li>
                 <% if current_user.role == "T" %>
                   <li class="nav-username"><%= link_to current_user.name, edit_user_path(current_user.id) %></li>
