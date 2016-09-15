@@ -80,6 +80,8 @@
             $form.append($('<input type="hidden" name="stripeToken">').val(token));
 
             $form.get(0).submit();
+
+            Materialize.toast('Payment was successful!', 4000)
           }
         };
       });
