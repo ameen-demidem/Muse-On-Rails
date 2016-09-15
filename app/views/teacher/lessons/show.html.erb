@@ -11,28 +11,47 @@
 <div class="row button-spacing">
   <div class="col s12 brand-text-grey">
     <div class="card-panel hoverable grad">
+      <div class="row">
       <%= link_to edit_teacher_lesson_path(@lesson) do %>
         <i class="material-icons right brand-text-grey">edit</i>
       <% end %>
-      <p>
-        Title:
-        <span class="thin"><%= @lesson.title %></span>
-      </p>
+      </div>
+      <div class="row col s12 offset-1">
+        <h5 class="brand-text-dark">Lesson details</h5>
+        <div class="row">
+          <p class="col m3 s12">
+            Student:<br>
+            <span class="white-text thin"><%= @student.name %></span>
+          </p>
 
-      <p>
-        Description:
-        <span class="thin"><%= @lesson.description %></span>
-      </p>
+          <p class="col m3 s12">
+            their parent:<br>
+            <span class="white-text thin"><%= @student.parent.name %></span>
+          </p>
 
-      <p>
-        Start time:
-        <span class="thin"><%= @lesson.start_time.strftime("%A, %d %b %Y") %></span>
-      </p>
+          <p class="col m3 s12">
+             Lesson Description:<br>
+            <span class="white-text thin"><%= @lesson.description %></span>
+          </p>
+        </div>
+        <h5 class="brand-text-dark">Lesson times</h5>
+        <div class="row">
+          <p class="col m3 s12">
+            Lesson Date:<br>
+            <span class="white-text thin"><%= @lesson.start_time.strftime("%A, %d %b %Y") %></span>
+          </p>
 
-      <p>
-        End time:
-        <span class="thin"><%= @lesson.end_time.strftime("%A, %d %b %Y") %></span>
-      </p>
+          <p class="col m3 s12">
+            Start time:<br>
+            <span class="white-text thin"><%= @lesson.start_time.strftime("%l:%M %P") %></span>
+          </p>
+
+          <p class="col m3 s12">
+            End time:<br>
+            <span class="white-text thin"><%= @lesson.end_time.strftime("%l:%M %P") %></span>
+          </p>
+        </div>
+      </div>
       <div class="row">
         <a class="btn-floating waves-effect waves-light red modal-trigger right" href="#modal1"><i class="material-icons">delete</i></a>
       </div>

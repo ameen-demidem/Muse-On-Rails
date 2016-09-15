@@ -8,6 +8,7 @@ class Teacher::LessonsController < ApplicationController
   end
 
   def show
+    @student = User.find(@lesson.student_id)
   end
 
   def new
