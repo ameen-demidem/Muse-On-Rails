@@ -11,6 +11,7 @@ class Teacher::StudentsController < ApplicationController
   def new
     @child = User.new
     @parent = @child.build_parent
+    @parent_list = current_user.students.map { |s| s.parent }.uniq
     @selected_parent = ""
   end
 
@@ -37,11 +38,13 @@ class Teacher::StudentsController < ApplicationController
         redirect_to teacher_student_homeworks_path(@child)
       else
         @selected_parent = ""
+        @parent_list = current_user.students.map { |s| s.parent }.uniq
         flash.now.alert = "Couldn't create the parent!"
         render action: :new
       end
     else
       @selected_parent = parent_id != "" ? parent_id : ""
+      @parent_list = current_user.students.map { |s| s.parent }.uniq
       flash.now.alert = "Couldn't create the new student!"
       render action: :new
     end
