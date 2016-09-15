@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   helper_method :not_logged_in
   helper_method :teacher?
   helper_method :student?
+  helper_method :parent?
   helper_method :youtubify
   helper_method :archived_students?
   helper_method :archived_check
@@ -38,6 +39,10 @@ class ApplicationController < ActionController::Base
 
   def student?
     current_user.role == 'S'
+  end
+
+  def parent?
+    current_user.role == 'P'
   end
 
   def archived_students?
