@@ -6,7 +6,7 @@
   <div class="modal-content brand-bg-dark">
     <h4 class="center white-text">Pay <%= current_user.children.first.teacher.name %> $<%= current_user.children.first.teacher.rate %> for the lesson</h4>
     <div class="row button-spacing">
-    <%= form_tag users_charge_path, class:"col s10 offset-s1", :id => 'payment-form' do %>
+    <%= form_tag users_charge_path, class:"col s10 offset-s1 white-text", :id => 'payment-form' do %>
       <div class="row">
         <div class="row">
           <span class="payment-errors"></span>
@@ -80,6 +80,8 @@
             $form.append($('<input type="hidden" name="stripeToken">').val(token));
 
             $form.get(0).submit();
+
+            Materialize.toast('Payment was successful!', 4000)
           }
         };
       });

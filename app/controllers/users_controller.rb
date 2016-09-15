@@ -6,9 +6,9 @@ class UsersController < ApplicationController
   def create
     @teacher = User.new(user_params.merge!(role: "T"))
     if @teacher.save
-      
+
       if !@teacher[:email].nil?
-        NotificationMailer.welcome(@teacher).deliver
+        NotificationMailer.welcome(@teacher).deliver_later
       end
 
       redirect_to [:new, :session]

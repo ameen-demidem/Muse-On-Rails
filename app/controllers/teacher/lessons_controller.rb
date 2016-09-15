@@ -199,10 +199,10 @@ class Teacher::LessonsController < ApplicationController
 
     def dont_send_emails_if_no_email(lesson, student_email, parent_email)
       if !lesson.student.email.nil?
-        student_email.deliver
+        student_email.deliver_later
       end
       if !lesson.student.parent.email.nil?
-        parent_email.deliver
+        parent_email.deliver_later
       end
     end
 end
