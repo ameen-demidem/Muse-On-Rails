@@ -193,3 +193,7 @@ blockquote.comment-block {
 .collapsible-header i {
   margin-right: 0 !important;
 }
+
+.small {
+  font-size: 0.7em;
+}
