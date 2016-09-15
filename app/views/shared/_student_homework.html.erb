@@ -57,8 +57,12 @@
                     <span id="show">show comments</span>
                     <a class="modal-trigger right modalButton"
                     onClick="setTaskID(<%= task.id %>)" href="#modal1" id="modalButton">
-                    <i class="material-icons">add</i>
-                    <i class="material-icons">comment</i>
+                    <% if task.comments.length > 0 %>
+                    <i class="material-icons brand-text-green">add</i>
+                    <i class="material-icons brand-text-green">comment</i>
+                    <% else %>
+                    add the first comment
+                    <% end %>
                     </a>
                   </div>
                   <% end %>
