@@ -21,28 +21,32 @@
   <div class="col s12 white-text card-bottom">
     <div class="card-panel hoverable grad">
       <%= form_for @teacher, url: user_path(current_user.id), class: "card-padding" do |f| %>
-        <div>
-          <%= f.label "Full Name:" %>
+        <div class="input-field col s12 m6">
           <%= f.text_field :name %>
+          <%= f.label "Full Name:" %>
         </div>
-        <div>
-          <%= f.label "Username:" %>
+        <div class="input-field col s12 m6">
           <%= f.text_field :username %>
+          <%= f.label "Username:" %>
         </div>
-        <div>
-          <%= f.label "Password:" %>
+        <div class="input-field col s12 m6">
+          <%= f.text_field :email %>
+          <%= f.label "Email:" %>
+        </div>
+        <div class="input-field col s12 m6">
           <%= f.password_field :password %>
+          <%= f.label "Password:" %>
         </div>
-        <div>
-          <%= f.label "Rate ($) per Lesson:" %>
+        <div class="input-field col s12 m6">
           <%= f.number_field :rate %>
+          <%= f.label "Rate ($) per Lesson:" %>
         </div>
-        <div>
-          <%= f.label "Plan:" %>
-          <%= f.select :plan, options_for_select([["Basic (1-5 Students): $5/mo", "basic"], ["Standard (6-10 Students): $10/mo", "standard"], ["Premium (11+ Students): $15/mo", "premium"]], current_user.plan) %>
+        <div class="input-field col s12 m6">
+          <%= f.label "Plan:", class: "active" %>
+          <%= f.select :plan, options_for_select([["Basic (1-5 Students): $5/mo", "basic"], ["Standard (6-10 Students): $10/mo", "standard"], ["Premium (11+ Students): $15/mo", "premium"]], "basic") %>
         </div>
         <div class="center button-spacing">
-          <%= button_tag "Submit", class: "btn waves-effect waves-light green" do %>
+          <%= button_tag "Update!", class: "btn waves-effect waves-light green button-spacing" do %>
             Submit
             <i class="material-icons right">send</i>
           <% end %>
