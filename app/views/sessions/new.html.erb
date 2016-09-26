@@ -4,46 +4,41 @@
 </h3>
 
 <% if session["error"] %>
-  <!-- <div class="text-white">
-    <strong>We couldn't authenticate you!</strong>
-    <p><%= session["error"] %></p>
-    </div> -->
-    <div class="row">
-      <div class=" col s10 offset-s1">
-        <div class="card-panel hoverable thick">
-          <div class="white-text">
-            <h5>We couldn't authenticate you!</h5>
-            <p class="errors-list"><%= session["error"] %></p>
-          </div>
+  <div class="row">
+    <div class=" col s10 offset-s1">
+      <div class="card-panel hoverable thick">
+        <div class="white-text">
+          <h5>We couldn't authenticate you!</h5>
+          <p class="errors-list"><%= session["error"] %></p>
         </div>
       </div>
     </div>
-  <% end %>
+  </div>
+<% end %>
 
-  <div class="row white-text">
-    <div class="col s10 offset-s1 card-bottom">
-      <div class="card-panel hoverable grad">
-        <%= form_tag controller: :sessions, action: "create", class: "card-padding" do %>
-          <div  class="input-field">
-            <%= text_field_tag :username %>
-            <%= label_tag :username, "Username:" %>
-          </div>
-          <div class="input-field">
-            <%= password_field_tag :password %>
-            <%= label_tag :password, "Password:" %>
-          </div>
-          <div class="center button-spacing">
-            <%= submit_tag "Get Started!", class: "btn waves-effect waves-light brand-bg-green" do %>
-              <i class="material-icons right">send</i>
-            <% end %>
-          </div>
+<div class="row white-text">
+  <div class="col s10 offset-s1 card-bottom">
+    <div class="card-panel hoverable grad">
+      <%= form_tag controller: :sessions, action: "create", class: "card-padding" do %>
+        <div  class="input-field">
+          <%= text_field_tag :username %>
+          <%= label_tag :username, "Username:" %>
+        </div>
+        <div class="input-field">
+          <%= password_field_tag :password %>
+          <%= label_tag :password, "Password:" %>
+        </div>
+        <div class="center button-spacing">
+          <%= submit_tag "Get Started!", class: "btn waves-effect waves-light brand-bg-green" do %>
+            <i class="material-icons right">send</i>
+          <% end %>
+        </div>
       <% end %>
-
       <div class="white-text thin center">
         <p>
-        If you are not currently a member, feel free to <a href="/signup">Sign-up!</a>
+        If you are not currently a member, feel free to <%= link_to "Sign Up Here", new_user_path %>
         </p>
-      </div>
       </div>
     </div>
   </div>
+</div>
